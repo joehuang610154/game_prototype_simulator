@@ -4,21 +4,23 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 
 class SlService {
+  static const filename = "/save.txt";
+
   static final SlService _instance = SlService._internal();
   factory SlService() => _instance;
   SlService._internal();
 
-  dynamic _data;
+  Map<String, dynamic>? _data;
 
-  Future<dynamic> load() async {
+  Future<Map<String, dynamic>> load() async {
     if (_data == null) {
       File file = await _file();
       _data = jsonDecode(await file.readAsString());
     }
-    return _data;
+    return _data!;
   }
 
-  Future<void> save(dynamic data) async {
+  Future<void> save(Map<String, dynamic> data) async {
     _data = data;
 
     File file = await _file();
@@ -27,6 +29,11 @@ class SlService {
 
   Future<File> _file() async {
     final dir = await getApplicationDocumentsDirectory();
-    return File("${dir.path}/save.txt");
+    var file = File("${dir.path}$filename");
+    if (!file.existsSync()) {
+      await file.create();
+      await file.writeAsString("{}");
+    }
+    return file;
   }
 }
