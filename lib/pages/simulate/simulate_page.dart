@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:game_prototype_simulator/constants/widgets.dart';
+import 'package:game_prototype_simulator/pages/simulate/simulate_controller.dart';
 
 class SimulatePage extends StatelessWidget {
-  const SimulatePage({super.key});
+  final SimulateController controller;
+
+  const SimulatePage(
+    this.controller, {
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

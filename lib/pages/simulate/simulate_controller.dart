@@ -1,0 +1,3 @@
+class SimulateController {
+  const SimulateController();
+}
