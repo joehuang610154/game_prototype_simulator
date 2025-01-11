@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:game_prototype_simulator/pages/simulate/scene/simulate_scene_view.dart';
 import 'package:game_prototype_simulator/pages/simulate/simulate_controller.dart';
 import 'package:game_prototype_simulator/pages/simulate/simulate_page.dart';
 import 'package:game_prototype_simulator/services/save_and_load/sl_service.dart';
@@ -24,6 +25,13 @@ void main() {
         await givenSimulatePage(tester);
 
         await savedSimulateDataShould(isTrue);
+        expect(
+          tester
+              .widget<SimulateSceneView>(find.byType(SimulateSceneView))
+              .controller
+              .sceneName,
+          "new scene",
+        );
 
         await deleteSaveFile();
       });
@@ -50,6 +58,7 @@ Future<void> givenSimulatePage(WidgetTester tester) async {
   for (var i = 0; i < 10; i++) {
     await Future.delayed(const Duration(milliseconds: 100));
   }
+  await tester.pumpAndSettle();
 }
 
 Future<dynamic> readFile() async {
