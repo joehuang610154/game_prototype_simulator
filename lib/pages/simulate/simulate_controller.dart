@@ -5,7 +5,7 @@ class SimulateController {
 
   Future<void> createNewScene() async {}
 
-  Future<void> init() async {
+  Future<String> init() async {
     var data = await _slService.load();
     if (data["simulate"] == null) {
       data["simulate"] = {
@@ -13,5 +13,6 @@ class SimulateController {
       };
       await _slService.save(data);
     }
+    return (data["simulate"] as Map<String, dynamic>).keys.first;
   }
 }

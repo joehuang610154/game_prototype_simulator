@@ -19,43 +19,38 @@ void main() {
       );
     });
 
-    tearDown(() async {
-      await deleteSaveFile();
-    });
-
     testWidgets("auto create new scene when no scene saved", (tester) async {
       await tester.runAsync(() async {
         await tester.pumpWidget(
           MaterialApp(
             home: SimulatePage(
-              SimulateController()..init(),
+              SimulateController(),
             ),
           ),
         );
+        for (var i = 0; i < 10; i++) {
+          await Future.delayed(const Duration(milliseconds: 100));
+        }
+
+        var data = await readFile();
+
+        expect(
+          (data["simulate"] as Map<String, dynamic>).containsKey("new scene"),
+          isTrue,
+        );
+
+        await deleteSaveFile();
       });
-      for (var i = 0; i < 10; i++) {
-        await tester.pump(const Duration(milliseconds: 100));
-      }
-
-      var data = await readFile(tester);
-
-      expect(
-        (data["simulate"] as Map<String, dynamic>).containsKey("new scene"),
-        isTrue,
-      );
     });
   });
 }
 
-Future<dynamic> readFile(WidgetTester tester) async {
-  await tester.runAsync(() async {
-    var file = await _file();
-    expect(file.existsSync(), isTrue);
+Future<dynamic> readFile() async {
+  var file = await _file();
+  expect(file.existsSync(), isTrue);
 
-    var dataString = await file.readAsString();
-    print(dataString);
-    return jsonDecode(dataString);
-  });
+  var dataString = await file.readAsString();
+  return jsonDecode(dataString);
 }
 
 Future<void> deleteSaveFile() async {
