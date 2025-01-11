@@ -3,10 +3,6 @@ import 'package:game_prototype_simulator/services/save_and_load/sl_service.dart'
 class SimulateController {
   final SlService _slService = SlService();
 
-  SimulateController() {
-    init();
-  }
-
   Future<void> createNewScene() async {}
 
   Future<void> init() async {

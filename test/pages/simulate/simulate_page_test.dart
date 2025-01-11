@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:game_prototype_simulator/pages/simulate/simulate_controller.dart';
@@ -23,22 +24,37 @@ void main() {
     });
 
     testWidgets("auto create new scene when no scene saved", (tester) async {
-      await tester.pumpWidget(SimulatePage(SimulateController()));
+      await tester.runAsync(() async {
+        await tester.pumpWidget(
+          MaterialApp(
+            home: SimulatePage(
+              SimulateController()..init(),
+            ),
+          ),
+        );
+      });
       for (var i = 0; i < 10; i++) {
         await tester.pump(const Duration(milliseconds: 100));
       }
 
-      var file = await _file();
-      expect(file.existsSync(), isTrue);
-
-      var dataString = await file.readAsString();
-      var data = jsonDecode(dataString);
+      var data = await readFile(tester);
 
       expect(
         (data["simulate"] as Map<String, dynamic>).containsKey("new scene"),
         isTrue,
       );
-    }, skip: true);
+    });
+  });
+}
+
+Future<dynamic> readFile(WidgetTester tester) async {
+  await tester.runAsync(() async {
+    var file = await _file();
+    expect(file.existsSync(), isTrue);
+
+    var dataString = await file.readAsString();
+    print(dataString);
+    return jsonDecode(dataString);
   });
 }
 
