@@ -41,7 +41,7 @@ class SimulatePage extends StatelessWidget {
               ),
             ),
             body: SimulateSceneView(
-              SimulateSceneController(sceneName: ""),
+              SimulateSceneController(sceneName: snapshot.data!),
             ),
           );
         });

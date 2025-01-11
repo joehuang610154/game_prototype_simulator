@@ -23,16 +23,20 @@ void main() {
       await tester.runAsync(() async {
         await givenSimulatePage(tester);
 
-        var data = await readFile();
-        expect(
-          (data["simulate"] as Map<String, dynamic>).containsKey("new scene"),
-          isTrue,
-        );
+        await savedSimulateDataShould(isTrue);
 
         await deleteSaveFile();
       });
     });
   });
+}
+
+Future<void> savedSimulateDataShould(Matcher matcher) async {
+  var data = await readFile();
+  expect(
+    (data["simulate"] as Map<String, dynamic>).containsKey("new scene"),
+    matcher,
+  );
 }
 
 Future<void> givenSimulatePage(WidgetTester tester) async {
