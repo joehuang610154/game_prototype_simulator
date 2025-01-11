@@ -21,19 +21,9 @@ void main() {
 
     testWidgets("auto create new scene when no scene saved", (tester) async {
       await tester.runAsync(() async {
-        await tester.pumpWidget(
-          MaterialApp(
-            home: SimulatePage(
-              SimulateController(),
-            ),
-          ),
-        );
-        for (var i = 0; i < 10; i++) {
-          await Future.delayed(const Duration(milliseconds: 100));
-        }
+        await givenSimulatePage(tester);
 
         var data = await readFile();
-
         expect(
           (data["simulate"] as Map<String, dynamic>).containsKey("new scene"),
           isTrue,
@@ -43,6 +33,19 @@ void main() {
       });
     });
   });
+}
+
+Future<void> givenSimulatePage(WidgetTester tester) async {
+  await tester.pumpWidget(
+    MaterialApp(
+      home: SimulatePage(
+        SimulateController(),
+      ),
+    ),
+  );
+  for (var i = 0; i < 10; i++) {
+    await Future.delayed(const Duration(milliseconds: 100));
+  }
 }
 
 Future<dynamic> readFile() async {
