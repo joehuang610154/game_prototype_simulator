@@ -24,14 +24,9 @@ void main() {
       await tester.runAsync(() async {
         await givenSimulatePage(tester);
 
-        await savedSimulateDataShould(isTrue);
-        expect(
-          tester
-              .widget<SimulateSceneView>(find.byType(SimulateSceneView))
-              .controller
-              .sceneName,
-          "new scene",
-        );
+        var sceneName = "new scene";
+        await shouldSaveScene(sceneName);
+        shouldShowScene(tester, sceneName);
 
         await deleteSaveFile();
       });
@@ -39,11 +34,21 @@ void main() {
   });
 }
 
-Future<void> savedSimulateDataShould(Matcher matcher) async {
+void shouldShowScene(WidgetTester tester, String sceneName) {
+  expect(
+    tester
+        .widget<SimulateSceneView>(find.byType(SimulateSceneView))
+        .controller
+        .sceneName,
+    sceneName,
+  );
+}
+
+Future<void> shouldSaveScene(String sceneName) async {
   var data = await readFile();
   expect(
-    (data["simulate"] as Map<String, dynamic>).containsKey("new scene"),
-    matcher,
+    (data["simulate"] as Map<String, dynamic>).containsKey(sceneName),
+    isTrue,
   );
 }
 
