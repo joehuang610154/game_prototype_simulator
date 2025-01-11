@@ -16,34 +16,35 @@ class SimulatePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: controller.init(),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return SizedBox();
-          }
+      future: controller.init(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return SizedBox();
+        }
 
-          return Scaffold(
-            appBar: AppBar(
-              title: Row(
-                children: [
-                  Text("Simulate"),
-                  Gaps.w8,
-                  IconButton(
-                    key: WidgetKey.createNewSceneButton,
-                    onPressed: controller.createNewScene,
-                    icon: Icon(Icons.add),
-                    style: IconButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                      foregroundColor: Colors.white,
-                    ),
+        return Scaffold(
+          appBar: AppBar(
+            title: Row(
+              children: [
+                Text("Simulate"),
+                Gaps.w8,
+                IconButton(
+                  key: WidgetKey.createNewSceneButton,
+                  onPressed: controller.createNewScene,
+                  icon: Icon(Icons.add),
+                  style: IconButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    foregroundColor: Colors.white,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            body: SimulateSceneView(
-              SimulateSceneController(sceneName: snapshot.data!),
-            ),
-          );
-        });
+          ),
+          body: SimulateSceneView(
+            SimulateSceneController(sceneName: snapshot.data!),
+          ),
+        );
+      },
+    );
   }
 }
