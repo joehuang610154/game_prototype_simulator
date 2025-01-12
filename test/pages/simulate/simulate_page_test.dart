@@ -79,7 +79,7 @@ Future<void> givenSimulatePage(WidgetTester tester) async {
     ),
   );
   for (var i = 0; i < 10; i++) {
-    await Future.delayed(const Duration(milliseconds: 100));
+    await tester.pump(const Duration(milliseconds: 100));
   }
   await tester.pumpAndSettle();
 }
