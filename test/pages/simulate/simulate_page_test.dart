@@ -31,6 +31,25 @@ void main() {
         await deleteSaveFile();
       });
     });
+
+    testWidgets("load first scene", (tester) async {
+      await tester.runAsync(() async {
+        var sceneName = "Battle Field";
+        var file = await _file();
+        await file.create();
+        await file.writeAsString(jsonEncode({
+          "simulate": {
+            sceneName: 1,
+          },
+        }));
+
+        await givenSimulatePage(tester);
+
+        shouldShowScene(tester, sceneName);
+
+        await deleteSaveFile();
+      });
+    });
   });
 }
 
