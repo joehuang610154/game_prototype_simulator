@@ -15,7 +15,7 @@ class SimulatePageTestRunner extends TestRunner {
       testWidgets("auto create new scene when no scene saved", (tester) async {
         await tester.runAsync(() async {
           var sceneId = "123456";
-          uuidUtil.setGenerateSequence([sceneId]);
+          uuidUtil.setGenerateUuids([sceneId]);
 
           await givenSimulatePage(tester);
 
