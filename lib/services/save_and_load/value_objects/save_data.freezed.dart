@@ -20,7 +20,7 @@ SaveData _$SaveDataFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$SaveData {
-  List<Scene> get simulate => throw _privateConstructorUsedError;
+  List<Scene> get scenes => throw _privateConstructorUsedError;
 
   /// Serializes this SaveData to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -37,7 +37,7 @@ abstract class $SaveDataCopyWith<$Res> {
   factory $SaveDataCopyWith(SaveData value, $Res Function(SaveData) then) =
       _$SaveDataCopyWithImpl<$Res, SaveData>;
   @useResult
-  $Res call({List<Scene> simulate});
+  $Res call({List<Scene> scenes});
 }
 
 /// @nodoc
@@ -55,12 +55,12 @@ class _$SaveDataCopyWithImpl<$Res, $Val extends SaveData>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? simulate = null,
+    Object? scenes = null,
   }) {
     return _then(_value.copyWith(
-      simulate: null == simulate
-          ? _value.simulate
-          : simulate // ignore: cast_nullable_to_non_nullable
+      scenes: null == scenes
+          ? _value.scenes
+          : scenes // ignore: cast_nullable_to_non_nullable
               as List<Scene>,
     ) as $Val);
   }
@@ -74,7 +74,7 @@ abstract class _$$SaveDataImplCopyWith<$Res>
       __$$SaveDataImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Scene> simulate});
+  $Res call({List<Scene> scenes});
 }
 
 /// @nodoc
@@ -90,12 +90,12 @@ class __$$SaveDataImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? simulate = null,
+    Object? scenes = null,
   }) {
     return _then(_$SaveDataImpl(
-      simulate: null == simulate
-          ? _value._simulate
-          : simulate // ignore: cast_nullable_to_non_nullable
+      scenes: null == scenes
+          ? _value._scenes
+          : scenes // ignore: cast_nullable_to_non_nullable
               as List<Scene>,
     ));
   }
@@ -104,24 +104,24 @@ class __$$SaveDataImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$SaveDataImpl extends _SaveData {
-  const _$SaveDataImpl({required final List<Scene> simulate})
-      : _simulate = simulate,
+  const _$SaveDataImpl({required final List<Scene> scenes})
+      : _scenes = scenes,
         super._();
 
   factory _$SaveDataImpl.fromJson(Map<String, dynamic> json) =>
       _$$SaveDataImplFromJson(json);
 
-  final List<Scene> _simulate;
+  final List<Scene> _scenes;
   @override
-  List<Scene> get simulate {
-    if (_simulate is EqualUnmodifiableListView) return _simulate;
+  List<Scene> get scenes {
+    if (_scenes is EqualUnmodifiableListView) return _scenes;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_simulate);
+    return EqualUnmodifiableListView(_scenes);
   }
 
   @override
   String toString() {
-    return 'SaveData(simulate: $simulate)';
+    return 'SaveData(scenes: $scenes)';
   }
 
   @override
@@ -129,13 +129,13 @@ class _$SaveDataImpl extends _SaveData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SaveDataImpl &&
-            const DeepCollectionEquality().equals(other._simulate, _simulate));
+            const DeepCollectionEquality().equals(other._scenes, _scenes));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_simulate));
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_scenes));
 
   /// Create a copy of SaveData
   /// with the given fields replaced by the non-null parameter values.
@@ -154,15 +154,14 @@ class _$SaveDataImpl extends _SaveData {
 }
 
 abstract class _SaveData extends SaveData {
-  const factory _SaveData({required final List<Scene> simulate}) =
-      _$SaveDataImpl;
+  const factory _SaveData({required final List<Scene> scenes}) = _$SaveDataImpl;
   const _SaveData._() : super._();
 
   factory _SaveData.fromJson(Map<String, dynamic> json) =
       _$SaveDataImpl.fromJson;
 
   @override
-  List<Scene> get simulate;
+  List<Scene> get scenes;
 
   /// Create a copy of SaveData
   /// with the given fields replaced by the non-null parameter values.

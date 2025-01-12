@@ -10,12 +10,12 @@ class SaveData with _$SaveData {
   const SaveData._();
 
   const factory SaveData({
-    required List<Scene> simulate,
+    required List<Scene> scenes,
   }) = _SaveData;
 
   factory SaveData.empty() {
     return SaveData(
-      simulate: [],
+      scenes: [],
     );
   }
 
@@ -24,7 +24,7 @@ class SaveData with _$SaveData {
 
   SaveData addNewScene(String sceneName) {
     return copyWith(
-      simulate: simulate.toList()
+      scenes: scenes.toList()
         ..add(
           Scene(
             id: UuidUtil().get(),

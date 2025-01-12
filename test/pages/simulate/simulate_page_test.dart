@@ -30,7 +30,7 @@ class SimulatePageTestRunner extends TestRunner {
           var sceneId = "111111";
           fileSystem.write(
             SlService.filename,
-            SaveData(simulate: [
+            SaveData(scenes: [
               Scene(id: sceneId, name: "Battle Field"),
             ]),
           );
@@ -55,7 +55,7 @@ class SimulatePageTestRunner extends TestRunner {
 
   Future<void> shouldSaveScene(Scene scene) async {
     var data = await fileSystem.read<SaveData>(SlService.filename);
-    expect(data.simulate, contains(scene));
+    expect(data.scenes, contains(scene));
   }
 
   Future<void> givenSimulatePage(WidgetTester tester) async {

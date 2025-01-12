@@ -40,10 +40,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i381.SimulateController>(
         () => _i381.SimulateController(slService: gh<_i675.SlService>()));
     gh.factoryParam<_i947.SimulateSceneController, String, dynamic>((
-      sceneName,
+      sceneId,
       _,
     ) =>
-        _i947.SimulateSceneController(sceneId: sceneName));
+        _i947.SimulateSceneController(sceneId: sceneId));
     return this;
   }
 }

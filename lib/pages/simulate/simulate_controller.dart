@@ -14,10 +14,10 @@ class SimulateController {
 
   Future<Scene> init() async {
     var data = await _slService.load();
-    if (data.simulate.isEmpty) {
+    if (data.scenes.isEmpty) {
       data = data.addNewScene("new scene");
       await _slService.save(data);
     }
-    return data.simulate.first;
+    return data.scenes.first;
   }
 }
