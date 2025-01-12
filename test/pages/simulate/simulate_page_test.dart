@@ -8,48 +8,52 @@ import 'package:game_prototype_simulator/pages/simulate/scene/simulate_scene_vie
 import 'package:game_prototype_simulator/pages/simulate/simulate_controller.dart';
 import 'package:game_prototype_simulator/pages/simulate/simulate_page.dart';
 import 'package:game_prototype_simulator/services/save_and_load/sl_service.dart';
+import 'package:game_prototype_simulator/services/save_and_load/value_objects/save_data.dart';
+import 'package:game_prototype_simulator/services/save_and_load/value_objects/simulate_save_data.dart';
+import 'package:game_prototype_simulator/utils/file_system.dart';
 import 'package:path_provider/path_provider.dart';
+
+import '../../doubles/memory_file_system.dart';
 
 void main() {
   group("create new scene", () {
-    setUpAll(() {
-      givenPwd();
-    });
-
     testWidgets("auto create new scene when no scene saved", (tester) async {
       await tester.runAsync(() async {
+        var fileSystem = givenFileSystem();
+
         await givenSimulatePage(tester);
 
         var sceneName = "new scene";
-        await shouldSaveScene(sceneName);
+        await shouldSaveScene(fileSystem, sceneName);
         shouldShowScene(tester, sceneName);
-
-        await deleteSaveFile();
       });
     });
 
     testWidgets("load first scene", (tester) async {
       await tester.runAsync(() async {
+        var fileSystem = givenFileSystem();
+
         var sceneName = "Battle Field";
-        var file = await _file();
-        await file.create();
-        await file.writeAsString(jsonEncode({
-          "simulate": [
-            {
-              "id": "1",
-              "name": sceneName,
-            }
-          ],
-        }));
+
+        fileSystem.write(
+          SlService.filename,
+          SaveData(simulate: [
+            SimulateSaveData(id: "1", name: sceneName),
+          ]),
+        );
 
         await givenSimulatePage(tester);
 
         shouldShowScene(tester, sceneName);
-
-        await deleteSaveFile();
       });
     });
   });
+}
+
+MemoryFileSystem givenFileSystem() {
+  var memoryFileSystem = MemoryFileSystem();
+  FileSystem.testingDouble = memoryFileSystem;
+  return memoryFileSystem;
 }
 
 void givenPwd() {
@@ -70,13 +74,14 @@ void shouldShowScene(WidgetTester tester, String sceneName) {
   );
 }
 
-Future<void> shouldSaveScene(String sceneName) async {
-  var data = await readFile();
+Future<void> shouldSaveScene(
+  MemoryFileSystem fileSystem,
+  String sceneName,
+) async {
+  var data = await fileSystem.read<SaveData>(SlService.filename);
   expect(
-    (data["simulate"] as List<dynamic>)
-        .cast<Map<String, dynamic>>()
-        .where((s) => s["name"] == sceneName),
-    isNotEmpty,
+    data.simulate.map((s) => s.name),
+    contains(sceneName),
   );
 }
 

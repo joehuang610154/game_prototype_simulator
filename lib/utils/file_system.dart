@@ -5,15 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 
 class FileSystem {
-  static FileSystem _instance = FileSystem._internal();
-  factory FileSystem() => _instance;
-  FileSystem._internal();
-
   @visibleForTesting
-  static set instance(FileSystem fileSystem) {
-    FileSystem();
-    _instance = fileSystem;
-  }
+  static FileSystem? testingDouble = FileSystem._internal();
+  factory FileSystem() => testingDouble ?? FileSystem._internal();
+  FileSystem._internal();
 
   Future<T> read<T>(
     String filename, {
