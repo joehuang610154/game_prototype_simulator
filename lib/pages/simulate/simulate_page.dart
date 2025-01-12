@@ -22,6 +22,7 @@ class SimulatePage extends StatelessWidget {
           return SizedBox();
         }
 
+        final scene = snapshot.data!;
         return Scaffold(
           appBar: AppBar(
             title: Row(
@@ -41,7 +42,7 @@ class SimulatePage extends StatelessWidget {
             ),
           ),
           body: SimulateSceneView(
-            getIt(param1: snapshot.data!),
+            getIt(param1: scene.id),
           ),
         );
       },

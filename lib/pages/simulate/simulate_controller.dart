@@ -1,4 +1,5 @@
 import 'package:game_prototype_simulator/services/save_and_load/sl_service.dart';
+import 'package:game_prototype_simulator/services/save_and_load/value_objects/simulate_save_data.dart';
 import 'package:injectable/injectable.dart';
 
 @Injectable()
@@ -11,12 +12,12 @@ class SimulateController {
 
   Future<void> createNewScene() async {}
 
-  Future<String> init() async {
+  Future<SimulateSaveData> init() async {
     var data = await _slService.load();
     if (data.simulate.isEmpty) {
       data = data.addNewScene("new scene");
       await _slService.save(data);
     }
-    return data.simulate.first.name;
+    return data.simulate.first;
   }
 }
