@@ -1,7 +1,12 @@
 import 'package:game_prototype_simulator/injection.dart';
-
-import 'test_runner/test_dependencies.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:game_prototype_simulator/utils/file_system.dart';
+
+import '../doubles/memory_file_system.dart';
+
+export 'package:flutter_test/flutter_test.dart';
+
+part 'test_runner/test_dependencies.dart';
 
 abstract class TestRunner extends TestDependencies {
   late WidgetTester tester;
