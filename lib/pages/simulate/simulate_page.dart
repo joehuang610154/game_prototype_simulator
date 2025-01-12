@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:game_prototype_simulator/components/rename_dialog/rename_dialog.dart';
 import 'package:game_prototype_simulator/constants/widget_key.dart';
 import 'package:game_prototype_simulator/constants/widgets.dart';
 import 'package:game_prototype_simulator/injection.dart';
@@ -46,7 +47,16 @@ class SimulatePage extends StatelessWidget {
                       ),
                       Gaps.w4,
                       InkWell(
-                        onTap: () {},
+                        onTap: () async {
+                          String? newName = await showDialog(
+                            context: context,
+                            builder: (context) => RenameDialog(),
+                          );
+
+                          if (newName != null) {
+                            await controller.renameScene(newName);
+                          }
+                        },
                         child: Icon(
                           Icons.edit,
                           size: 14,

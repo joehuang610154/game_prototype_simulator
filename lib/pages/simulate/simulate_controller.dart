@@ -20,4 +20,6 @@ class SimulateController {
     }
     return data.scenes.first;
   }
+
+  Future<void> renameScene(String newName) async {}
 }
