@@ -13,11 +13,7 @@ import 'package:path_provider/path_provider.dart';
 void main() {
   group("create new scene", () {
     setUpAll(() {
-      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-          .setMockMethodCallHandler(
-        const MethodChannel('plugins.flutter.io/path_provider'),
-        (MethodCall methodCall) async => '.',
-      );
+      givenPwd();
     });
 
     testWidgets("auto create new scene when no scene saved", (tester) async {
@@ -54,6 +50,14 @@ void main() {
       });
     });
   });
+}
+
+void givenPwd() {
+  TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+      .setMockMethodCallHandler(
+    const MethodChannel('plugins.flutter.io/path_provider'),
+    (MethodCall methodCall) async => '.',
+  );
 }
 
 void shouldShowScene(WidgetTester tester, String sceneName) {
