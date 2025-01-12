@@ -99,7 +99,6 @@ Future<dynamic> readFile() async {
   expect(file.existsSync(), isTrue);
 
   var dataString = await file.readAsString();
-  print(dataString);
   return jsonDecode(dataString);
 }
 
