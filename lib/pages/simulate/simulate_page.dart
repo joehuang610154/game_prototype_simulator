@@ -29,6 +29,41 @@ class SimulatePage extends StatelessWidget {
               children: [
                 Text("Simulate"),
                 Gaps.w8,
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade300,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    children: [
+                      Text(
+                        scene.name,
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.grey.shade900,
+                        ),
+                      ),
+                      Gaps.w4,
+                      InkWell(
+                        onTap: () {},
+                        child: Icon(
+                          Icons.edit,
+                          size: 14,
+                        ),
+                      ),
+                      Gaps.w4,
+                      InkWell(
+                        onTap: () {},
+                        child: Icon(
+                          Icons.delete,
+                          size: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Gaps.w8,
                 IconButton(
                   key: WidgetKey.createNewSceneButton,
                   onPressed: controller.createNewScene,
