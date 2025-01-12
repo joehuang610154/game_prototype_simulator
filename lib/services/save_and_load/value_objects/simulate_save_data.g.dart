@@ -9,7 +9,7 @@ part of 'simulate_save_data.dart';
 _$SimulateSaveDataImpl _$$SimulateSaveDataImplFromJson(
         Map<String, dynamic> json) =>
     _$SimulateSaveDataImpl(
-      id: (json['id'] as num).toInt(),
+      id: json['id'] as String,
       name: json['name'] as String,
     );
 

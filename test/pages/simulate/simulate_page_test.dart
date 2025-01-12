@@ -38,9 +38,12 @@ void main() {
         var file = await _file();
         await file.create();
         await file.writeAsString(jsonEncode({
-          "simulate": {
-            sceneName: 1,
-          },
+          "simulate": [
+            {
+              "id": "1",
+              "name": sceneName,
+            }
+          ],
         }));
 
         await givenSimulatePage(tester);
@@ -66,8 +69,10 @@ void shouldShowScene(WidgetTester tester, String sceneName) {
 Future<void> shouldSaveScene(String sceneName) async {
   var data = await readFile();
   expect(
-    (data["simulate"] as Map<String, dynamic>).containsKey(sceneName),
-    isTrue,
+    (data["simulate"] as List<dynamic>)
+        .cast<Map<String, dynamic>>()
+        .where((s) => s["name"] == sceneName),
+    isNotEmpty,
   );
 }
 
@@ -90,6 +95,7 @@ Future<dynamic> readFile() async {
   expect(file.existsSync(), isTrue);
 
   var dataString = await file.readAsString();
+  print(dataString);
   return jsonDecode(dataString);
 }
 

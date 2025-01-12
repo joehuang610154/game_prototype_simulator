@@ -8,7 +8,7 @@ class SimulateSaveData with _$SimulateSaveData {
   const SimulateSaveData._();
 
   const factory SimulateSaveData({
-    required int id,
+    required String id,
     required String name,
   }) = _SimulateSaveData;
 

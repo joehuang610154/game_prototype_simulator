@@ -20,7 +20,7 @@ SimulateSaveData _$SimulateSaveDataFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$SimulateSaveData {
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
 
   /// Serializes this SimulateSaveData to a JSON map.
@@ -39,7 +39,7 @@ abstract class $SimulateSaveDataCopyWith<$Res> {
           SimulateSaveData value, $Res Function(SimulateSaveData) then) =
       _$SimulateSaveDataCopyWithImpl<$Res, SimulateSaveData>;
   @useResult
-  $Res call({int id, String name});
+  $Res call({String id, String name});
 }
 
 /// @nodoc
@@ -64,7 +64,7 @@ class _$SimulateSaveDataCopyWithImpl<$Res, $Val extends SimulateSaveData>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -81,7 +81,7 @@ abstract class _$$SimulateSaveDataImplCopyWith<$Res>
       __$$SimulateSaveDataImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String name});
+  $Res call({String id, String name});
 }
 
 /// @nodoc
@@ -104,7 +104,7 @@ class __$$SimulateSaveDataImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -123,7 +123,7 @@ class _$SimulateSaveDataImpl extends _SimulateSaveData {
       _$$SimulateSaveDataImplFromJson(json);
 
   @override
-  final int id;
+  final String id;
   @override
   final String name;
 
@@ -164,7 +164,7 @@ class _$SimulateSaveDataImpl extends _SimulateSaveData {
 
 abstract class _SimulateSaveData extends SimulateSaveData {
   const factory _SimulateSaveData(
-      {required final int id,
+      {required final String id,
       required final String name}) = _$SimulateSaveDataImpl;
   const _SimulateSaveData._() : super._();
 
@@ -172,7 +172,7 @@ abstract class _SimulateSaveData extends SimulateSaveData {
       _$SimulateSaveDataImpl.fromJson;
 
   @override
-  int get id;
+  String get id;
   @override
   String get name;
 

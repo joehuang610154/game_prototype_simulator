@@ -7,12 +7,10 @@ class SimulateController {
 
   Future<String> init() async {
     var data = await _slService.load();
-    if (data["simulate"] == null) {
-      data["simulate"] = {
-        "new scene": 1,
-      };
+    if (data.simulate.isEmpty) {
+      data = data.addNewScene("new scene");
       await _slService.save(data);
     }
-    return (data["simulate"] as Map<String, dynamic>).keys.first;
+    return data.simulate.first.name;
   }
 }
