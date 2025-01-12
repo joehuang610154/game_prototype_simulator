@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:game_prototype_simulator/constants/route.dart';
-import 'package:game_prototype_simulator/pages/simulate/simulate_controller.dart';
+import 'package:game_prototype_simulator/injection.dart';
 import 'package:game_prototype_simulator/pages/simulate/simulate_page.dart';
 
 void main() {
+  configureDependencies("runtime");
   runApp(const MyApp());
 }
 
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       title: 'Game Prototype Simulator',
       initialRoute: Routes.simulate,
       routes: {
-        Routes.simulate: (context) => SimulatePage(SimulateController()),
+        Routes.simulate: (context) => SimulatePage(getIt()),
       },
       theme: ThemeData(
         useMaterial3: true,

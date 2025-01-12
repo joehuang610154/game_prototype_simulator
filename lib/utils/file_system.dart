@@ -1,15 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/material.dart';
+import 'package:game_prototype_simulator/constants/envs.dart';
+import 'package:injectable/injectable.dart';
 import 'package:path_provider/path_provider.dart';
 
+@LazySingleton(env: Envs.runtime)
 class FileSystem {
-  @visibleForTesting
-  static FileSystem? testingDouble = FileSystem._internal();
-  factory FileSystem() => testingDouble ?? FileSystem._internal();
-  FileSystem._internal();
-
   Future<T> read<T>(
     String filename, {
     dynamic initialData,
