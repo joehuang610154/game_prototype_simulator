@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:game_prototype_simulator/services/save_and_load/value_objects/simulate_save_data.dart';
+import 'package:game_prototype_simulator/pages/simulate/scene/value_objects/scene.dart';
 import 'package:game_prototype_simulator/utils/uuid_util.dart';
 
 part 'save_data.freezed.dart';
@@ -10,7 +10,7 @@ class SaveData with _$SaveData {
   const SaveData._();
 
   const factory SaveData({
-    required List<SimulateSaveData> simulate,
+    required List<Scene> simulate,
   }) = _SaveData;
 
   factory SaveData.empty() {
@@ -26,7 +26,7 @@ class SaveData with _$SaveData {
     return copyWith(
       simulate: simulate.toList()
         ..add(
-          SimulateSaveData(
+          Scene(
             id: UuidUtil().get(),
             name: sceneName,
           ),

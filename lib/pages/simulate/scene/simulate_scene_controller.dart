@@ -2,11 +2,11 @@ import 'package:injectable/injectable.dart';
 
 @Injectable()
 class SimulateSceneController {
-  final String _sceneName;
+  final String _sceneId;
 
   SimulateSceneController({
-    @factoryParam required String sceneName,
-  }) : _sceneName = sceneName;
+    @factoryParam required String sceneId,
+  }) : _sceneId = sceneId;
 
-  String get sceneName => _sceneName;
+  String get sceneId => _sceneId;
 }

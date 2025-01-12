@@ -20,7 +20,7 @@ SaveData _$SaveDataFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$SaveData {
-  List<SimulateSaveData> get simulate => throw _privateConstructorUsedError;
+  List<Scene> get simulate => throw _privateConstructorUsedError;
 
   /// Serializes this SaveData to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -37,7 +37,7 @@ abstract class $SaveDataCopyWith<$Res> {
   factory $SaveDataCopyWith(SaveData value, $Res Function(SaveData) then) =
       _$SaveDataCopyWithImpl<$Res, SaveData>;
   @useResult
-  $Res call({List<SimulateSaveData> simulate});
+  $Res call({List<Scene> simulate});
 }
 
 /// @nodoc
@@ -61,7 +61,7 @@ class _$SaveDataCopyWithImpl<$Res, $Val extends SaveData>
       simulate: null == simulate
           ? _value.simulate
           : simulate // ignore: cast_nullable_to_non_nullable
-              as List<SimulateSaveData>,
+              as List<Scene>,
     ) as $Val);
   }
 }
@@ -74,7 +74,7 @@ abstract class _$$SaveDataImplCopyWith<$Res>
       __$$SaveDataImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<SimulateSaveData> simulate});
+  $Res call({List<Scene> simulate});
 }
 
 /// @nodoc
@@ -96,7 +96,7 @@ class __$$SaveDataImplCopyWithImpl<$Res>
       simulate: null == simulate
           ? _value._simulate
           : simulate // ignore: cast_nullable_to_non_nullable
-              as List<SimulateSaveData>,
+              as List<Scene>,
     ));
   }
 }
@@ -104,16 +104,16 @@ class __$$SaveDataImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$SaveDataImpl extends _SaveData {
-  const _$SaveDataImpl({required final List<SimulateSaveData> simulate})
+  const _$SaveDataImpl({required final List<Scene> simulate})
       : _simulate = simulate,
         super._();
 
   factory _$SaveDataImpl.fromJson(Map<String, dynamic> json) =>
       _$$SaveDataImplFromJson(json);
 
-  final List<SimulateSaveData> _simulate;
+  final List<Scene> _simulate;
   @override
-  List<SimulateSaveData> get simulate {
+  List<Scene> get simulate {
     if (_simulate is EqualUnmodifiableListView) return _simulate;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_simulate);
@@ -154,7 +154,7 @@ class _$SaveDataImpl extends _SaveData {
 }
 
 abstract class _SaveData extends SaveData {
-  const factory _SaveData({required final List<SimulateSaveData> simulate}) =
+  const factory _SaveData({required final List<Scene> simulate}) =
       _$SaveDataImpl;
   const _SaveData._() : super._();
 
@@ -162,7 +162,7 @@ abstract class _SaveData extends SaveData {
       _$SaveDataImpl.fromJson;
 
   @override
-  List<SimulateSaveData> get simulate;
+  List<Scene> get simulate;
 
   /// Create a copy of SaveData
   /// with the given fields replaced by the non-null parameter values.

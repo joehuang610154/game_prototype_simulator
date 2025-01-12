@@ -9,7 +9,7 @@ part of 'save_data.dart';
 _$SaveDataImpl _$$SaveDataImplFromJson(Map<String, dynamic> json) =>
     _$SaveDataImpl(
       simulate: (json['simulate'] as List<dynamic>)
-          .map((e) => SimulateSaveData.fromJson(e as Map<String, dynamic>))
+          .map((e) => Scene.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

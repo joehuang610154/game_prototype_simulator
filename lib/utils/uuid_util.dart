@@ -1,13 +1,20 @@
+import 'package:flutter/foundation.dart';
 import 'package:uuid/uuid.dart';
 
 class UuidUtil {
-  static final UuidUtil _instance = UuidUtil._internal();
+  static UuidUtil _instance = UuidUtil._internal();
   factory UuidUtil() => _instance;
   UuidUtil._internal();
 
-  final Uuid uuid = Uuid();
+  @visibleForTesting
+  static set instance(UuidUtil instance) {
+    UuidUtil();
+    _instance = instance;
+  }
+
+  final Uuid _uuid = Uuid();
 
   String get() {
-    return uuid.v4().replaceAll("-", "");
+    return _uuid.v4().replaceAll("-", "");
   }
 }

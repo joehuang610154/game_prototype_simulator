@@ -43,7 +43,7 @@ extension GetItInjectableX on _i174.GetIt {
       sceneName,
       _,
     ) =>
-        _i947.SimulateSceneController(sceneName: sceneName));
+        _i947.SimulateSceneController(sceneId: sceneName));
     return this;
   }
 }
