@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:game_prototype_simulator/services/save_and_load/value_objects/save_data.dart';
 import 'package:path_provider/path_provider.dart';
 
 class FileSystem {
@@ -11,7 +10,7 @@ class FileSystem {
   FileSystem._internal();
 
   @visibleForTesting
-  set instance(FileSystem fileSystem) {
+  static set instance(FileSystem fileSystem) {
     FileSystem();
     _instance = fileSystem;
   }
@@ -33,7 +32,7 @@ class FileSystem {
     return rawData;
   }
 
-  Future<void> write(String filename, SaveData? data) async {
+  Future<void> write(String filename, dynamic data) async {
     File file = await _file(filename);
     await _writeData(file, data);
   }
