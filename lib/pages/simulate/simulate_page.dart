@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:game_prototype_simulator/components/rename_dialog/rename_dialog.dart';
-import 'package:game_prototype_simulator/constants/widget_key.dart';
 import 'package:game_prototype_simulator/constants/widgets.dart';
 import 'package:game_prototype_simulator/injection.dart';
 import 'package:game_prototype_simulator/pages/simulate/scene/simulate_scene_view.dart';
@@ -45,42 +43,7 @@ class SimulatePage extends StatelessWidget {
                           color: Colors.grey.shade900,
                         ),
                       ),
-                      Gaps.w4,
-                      InkWell(
-                        onTap: () async {
-                          String? newName = await showDialog(
-                            context: context,
-                            builder: (context) => RenameDialog(),
-                          );
-
-                          if (newName != null) {
-                            await controller.renameScene(newName);
-                          }
-                        },
-                        child: Icon(
-                          Icons.edit,
-                          size: 14,
-                        ),
-                      ),
-                      Gaps.w4,
-                      InkWell(
-                        onTap: () {},
-                        child: Icon(
-                          Icons.delete,
-                          size: 14,
-                        ),
-                      ),
                     ],
-                  ),
-                ),
-                Gaps.w8,
-                IconButton(
-                  key: WidgetKey.createNewSceneButton,
-                  onPressed: controller.createNewScene,
-                  icon: Icon(Icons.add),
-                  style: IconButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    foregroundColor: Colors.white,
                   ),
                 ),
               ],

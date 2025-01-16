@@ -10,8 +10,6 @@ class SimulateViewModel {
     required SlService slService,
   }) : _slService = slService;
 
-  Future<void> createNewScene() async {}
-
   Future<Scene> init() async {
     var data = await _slService.load();
     if (data.scenes.isEmpty) {
@@ -20,6 +18,4 @@ class SimulateViewModel {
     }
     return data.scenes.first;
   }
-
-  Future<void> renameScene(String newName) async {}
 }
