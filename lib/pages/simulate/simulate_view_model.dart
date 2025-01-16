@@ -13,7 +13,7 @@ class SimulateViewModel {
   Future<Scene> init() async {
     var data = await _slService.load();
     if (data.scenes.isEmpty) {
-      data = data.addNewScene("new scene");
+      data = data.addNewScene("Scene");
       await _slService.save(data);
     }
     return data.scenes.first;
