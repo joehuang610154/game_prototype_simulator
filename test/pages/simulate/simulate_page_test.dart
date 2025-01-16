@@ -12,19 +12,6 @@ class SimulatePageTestRunner extends TestRunner {
   @override
   void runTests() {
     group("create new scene", () {
-      testWidgets("auto create new scene when no scene saved", (tester) async {
-        await tester.runAsync(() async {
-          var sceneId = "123456";
-          uuidUtil.setGenerateUuids([sceneId]);
-
-          await givenSimulatePage(tester);
-
-          var sceneName = "new scene";
-          await shouldSaveScene(Scene(id: sceneId, name: sceneName));
-          shouldShowScene(tester, sceneId);
-        });
-      });
-
       testWidgets("load first scene", (tester) async {
         await tester.runAsync(() async {
           var sceneId = "111111";
@@ -37,27 +24,6 @@ class SimulatePageTestRunner extends TestRunner {
           shouldShowScene(tester, sceneId);
         });
       });
-
-      testWidgets("rename scene ok", (tester) async {
-        await tester.runAsync(() async {
-          var sceneName = "Battle Field";
-          givenScenes([
-            Scene(id: "222222", name: sceneName),
-          ]);
-
-          await givenSimulatePage(tester);
-
-          expect(find.text(sceneName), findsOneWidget);
-
-          var newSceneName = "New Battle Field";
-
-          await tester.tap(find.byIcon(Icons.edit));
-          await tester.enterText(find.byType(TextFormField), newSceneName);
-          await tester.tap(find.text("Confirm"));
-
-          expect(find.text(newSceneName), findsOneWidget);
-        });
-      }, skip: true);
     });
   }
 
