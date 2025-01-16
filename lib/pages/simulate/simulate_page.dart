@@ -4,10 +4,10 @@ import 'package:game_prototype_simulator/constants/widget_key.dart';
 import 'package:game_prototype_simulator/constants/widgets.dart';
 import 'package:game_prototype_simulator/injection.dart';
 import 'package:game_prototype_simulator/pages/simulate/scene/simulate_scene_view.dart';
-import 'package:game_prototype_simulator/pages/simulate/simulate_controller.dart';
+import 'package:game_prototype_simulator/pages/simulate/simulate_view_model.dart';
 
 class SimulatePage extends StatelessWidget {
-  final SimulateController controller;
+  final SimulateViewModel controller;
 
   const SimulatePage(
     this.controller, {

@@ -10,7 +10,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:game_prototype_simulator/pages/simulate/scene/simulate_scene_controller.dart'
     as _i947;
-import 'package:game_prototype_simulator/pages/simulate/simulate_controller.dart'
+import 'package:game_prototype_simulator/pages/simulate/simulate_view_model.dart'
     as _i381;
 import 'package:game_prototype_simulator/services/save_and_load/sl_service.dart'
     as _i675;
@@ -37,8 +37,8 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i675.SlService>(
         () => _i675.SlService(fileSystem: gh<_i894.FileSystem>()));
-    gh.factory<_i381.SimulateController>(
-        () => _i381.SimulateController(slService: gh<_i675.SlService>()));
+    gh.factory<_i381.SimulateViewModel>(
+        () => _i381.SimulateViewModel(slService: gh<_i675.SlService>()));
     gh.factoryParam<_i947.SimulateSceneController, String, dynamic>((
       sceneId,
       _,

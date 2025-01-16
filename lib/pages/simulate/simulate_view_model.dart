@@ -3,10 +3,10 @@ import 'package:game_prototype_simulator/services/save_and_load/sl_service.dart'
 import 'package:injectable/injectable.dart';
 
 @Injectable()
-class SimulateController {
+class SimulateViewModel {
   final SlService _slService;
 
-  SimulateController({
+  SimulateViewModel({
     required SlService slService,
   }) : _slService = slService;
 
