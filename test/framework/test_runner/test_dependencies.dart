@@ -12,6 +12,12 @@ abstract class TestDependencies {
     getIt.registerLazySingleton<FileSystem>(() => fileSystem);
     configureDependencies("test");
 
-    UuidUtil.instance = uuidUtil;
+    testingUuidUtil = uuidUtil;
+  }
+
+  void resetTestDependencies() {
+    getIt.reset();
+
+    testingUuidUtil = null;
   }
 }

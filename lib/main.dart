@@ -5,11 +5,11 @@ import 'package:game_prototype_simulator/pages/simulate/simulate_page.dart';
 
 void main() {
   configureDependencies("runtime");
-  runApp(const MyApp());
+  runApp(const App());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class App extends StatelessWidget {
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {

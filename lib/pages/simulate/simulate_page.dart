@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:game_prototype_simulator/constants/widget_key.dart';
 import 'package:game_prototype_simulator/constants/widgets.dart';
 import 'package:game_prototype_simulator/framework/view_model_provider.dart';
 import 'package:game_prototype_simulator/pages/simulate/simulate_view_model.dart';
@@ -69,6 +70,7 @@ class _SimulateViewState extends State<SimulateView> {
               child: Column(
                 children: [
                   IconButton(
+                    key: WidgetKey.addNewGameObject,
                     onPressed: () {},
                     icon: Icon(Icons.add),
                   ),
