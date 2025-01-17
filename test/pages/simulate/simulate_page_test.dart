@@ -15,7 +15,7 @@ class SimulatePageTest extends TestRunner {
       await tap(find.byKey(WidgetKey.addNewGameObject));
 
       expect(find.byKey(WidgetKey.gameObject("game_object_1")), findsOne);
-    }, skip: true);
+    });
   }
 }
 
