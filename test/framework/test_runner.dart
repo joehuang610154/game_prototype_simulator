@@ -10,10 +10,9 @@ import '../doubles/mock_uuid_util.dart';
 export 'package:flutter_test/flutter_test.dart';
 
 part 'test_runner/test_dependencies.dart';
+part 'test_runner/test_actions.dart';
 
-abstract class TestRunner extends TestDependencies {
-  late WidgetTester tester;
-
+abstract class TestRunner extends TestDependencies with TestActions {
   TestRunner() {
     setUp(() {
       configureTestDependencies();
@@ -24,19 +23,6 @@ abstract class TestRunner extends TestDependencies {
     });
 
     runTests();
-  }
-
-  Future<void> render(WidgetTester tester) async {
-    this.tester = tester;
-
-    await tester.pumpWidget(App());
-    await settle();
-  }
-
-  Future<void> settle() async {
-    for (var i = 0; i < 10; i++) {
-      await tester.pump(const Duration(milliseconds: 100));
-    }
   }
 
   void runTests();

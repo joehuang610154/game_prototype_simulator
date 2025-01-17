@@ -1,6 +1,8 @@
 part of '../test_runner.dart';
 
 abstract class TestDependencies {
+  late WidgetTester tester;
+
   late MemoryFileSystem fileSystem;
 
   late MockUuidUtil uuidUtil;
