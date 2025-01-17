@@ -1,59 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:game_prototype_simulator/constants/widgets.dart';
-import 'package:game_prototype_simulator/injection.dart';
-import 'package:game_prototype_simulator/pages/simulate/scene/simulate_scene_view.dart';
-import 'package:game_prototype_simulator/pages/simulate/simulate_view_model.dart';
 
 class SimulatePage extends StatelessWidget {
-  final SimulateViewModel controller;
-
-  const SimulatePage(
-    this.controller, {
+  const SimulatePage({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: controller.init(),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return SizedBox();
-        }
-
-        final scene = snapshot.data!;
-        return Scaffold(
-          appBar: AppBar(
-            title: Row(
-              children: [
-                Text("Simulate"),
-                Gaps.w8,
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade300,
-                    borderRadius: BorderRadius.circular(8),
+    return Scaffold(
+      appBar: AppBar(
+        title: Row(
+          children: [
+            Text("Simulate"),
+            Gaps.w8,
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: Colors.grey.shade300,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Row(
+                children: [
+                  Text(
+                    "Battle Field",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.grey.shade900,
+                    ),
                   ),
-                  child: Row(
-                    children: [
-                      Text(
-                        scene.name,
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.grey.shade900,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          body: SimulateSceneView(
-            getIt(param1: scene.id),
-          ),
-        );
-      },
+          ],
+        ),
+      ),
     );
   }
 }

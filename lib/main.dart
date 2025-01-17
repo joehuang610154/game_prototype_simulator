@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       title: 'Game Prototype Simulator',
       initialRoute: Routes.simulate,
       routes: {
-        Routes.simulate: (context) => SimulatePage(getIt()),
+        Routes.simulate: (context) => SimulatePage(),
       },
       theme: ThemeData(
         useMaterial3: true,
