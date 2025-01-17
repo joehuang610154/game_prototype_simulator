@@ -1,10 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:game_prototype_simulator/constants/widgets.dart';
+import 'package:game_prototype_simulator/framework/view_model_provider.dart';
+import 'package:game_prototype_simulator/pages/simulate/simulate_view_model.dart';
+import 'package:provider/provider.dart';
 
 class SimulatePage extends StatelessWidget {
-  const SimulatePage({
-    super.key,
-  });
+  const SimulatePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelProvider<SimulateViewModel>(
+      builder: (context) => SimulateView(),
+    );
+  }
+}
+
+class SimulateView extends StatefulWidget {
+  const SimulateView({super.key});
+
+  @override
+  State<SimulateView> createState() => _SimulateViewState();
+}
+
+class _SimulateViewState extends State<SimulateView> {
+  SimulateViewModel get viewModel => context.read();
+
+  @override
+  void initState() {
+    viewModel.createNewScene();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +48,7 @@ class SimulatePage extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    "Battle Field",
+                    viewModel.sceneName,
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.grey.shade900,

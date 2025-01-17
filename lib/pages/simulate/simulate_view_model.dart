@@ -1,21 +1,35 @@
-import 'package:game_prototype_simulator/pages/simulate/scene/value_objects/scene.dart';
-import 'package:game_prototype_simulator/services/save_and_load/sl_service.dart';
+import 'package:game_prototype_simulator/domain/game_simulation/entities/scene.dart';
+import 'package:game_prototype_simulator/domain/game_simulation/use_cases/create_new_scene_use_case.dart';
 import 'package:injectable/injectable.dart';
+import 'package:rxdart/rxdart.dart';
+
+class SimulateModel {
+  Scene? currentScene;
+
+  SimulateModel._();
+
+  factory SimulateModel.initialized() {
+    return SimulateModel._();
+  }
+}
 
 @Injectable()
 class SimulateViewModel {
-  final SlService _slService;
+  final BehaviorSubject<SimulateModel> _state =
+      BehaviorSubject.seeded(SimulateModel.initialized());
+
+  final CreateNewSceneUseCase _createNewScene;
 
   SimulateViewModel({
-    required SlService slService,
-  }) : _slService = slService;
+    required CreateNewSceneUseCase createNewScene,
+  }) : _createNewScene = createNewScene;
 
-  Future<Scene> init() async {
-    var data = await _slService.load();
-    if (data.scenes.isEmpty) {
-      data = data.addNewScene("Scene");
-      await _slService.save(data);
-    }
-    return data.scenes.first;
+  String get sceneName => _state.value.currentScene?.name ?? "";
+
+  void createNewScene() {
+    var newScene = _createNewScene.execute(
+      name: "Battle Field",
+    );
+    _state.add(_state.value..currentScene = newScene);
   }
 }
