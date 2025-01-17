@@ -60,6 +60,24 @@ class _SimulateViewState extends State<SimulateView> {
           ],
         ),
       ),
+      body: Container(
+        color: Colors.grey[100],
+        child: Row(
+          children: [
+            Container(
+              color: Colors.grey[400],
+              child: Column(
+                children: [
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.add),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
