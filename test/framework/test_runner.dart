@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:game_prototype_simulator/injection.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:game_prototype_simulator/main.dart';
