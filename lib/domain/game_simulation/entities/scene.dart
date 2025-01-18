@@ -14,4 +14,8 @@ class Scene extends Entity {
   void addGameObject() {
     gameObjects.add(GameObject.create());
   }
+
+  void rename(String newName) {
+    name = newName;
+  }
 }

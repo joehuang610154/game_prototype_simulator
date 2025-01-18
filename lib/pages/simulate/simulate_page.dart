@@ -48,12 +48,17 @@ class _SimulateViewState extends State<SimulateView> {
               ),
               child: Row(
                 children: [
-                  Text(
-                    viewModel.sceneName,
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.grey.shade900,
-                    ),
+                  StreamBuilder(
+                    stream: viewModel.sceneName,
+                    builder: (context, snapshot) {
+                      return Text(
+                        snapshot.data ?? "",
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.grey.shade900,
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
