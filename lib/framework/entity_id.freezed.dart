@@ -103,11 +103,6 @@ class _$EntityIdImpl extends _EntityId {
   final String id;
 
   @override
-  String toString() {
-    return 'EntityId(id: $id)';
-  }
-
-  @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&

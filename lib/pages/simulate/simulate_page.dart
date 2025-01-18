@@ -114,7 +114,7 @@ class _SimulateViewState extends State<SimulateView> {
             Container(
               width: 300,
               padding: EdgeInsets.only(
-                left: 24,
+                left: 32,
                 right: 12,
                 top: 24,
                 bottom: 48,
@@ -129,8 +129,18 @@ class _SimulateViewState extends State<SimulateView> {
                   ],
                 ),
               ),
-              child: GameObjectPropertiesPanel(
-                key: WidgetKey.gameObjectPropertiesPanel,
+              child: RxBuilder(
+                viewModel.focusedGameObjectId,
+                builder: (context, gameObjectId) {
+                  return GameObjectPropertiesPanel(
+                    gameObjectId,
+                    key: WidgetKey.gameObjectPropertiesPanel,
+                  );
+                },
+                onLoading: GameObjectPropertiesPanel(
+                  null,
+                  key: WidgetKey.gameObjectPropertiesPanel,
+                ),
               ),
             ),
           ],

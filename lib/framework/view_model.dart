@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
-import 'package:game_prototype_simulator/framework/equality_checker/equality_checker.dart';
+import 'package:game_prototype_simulator/framework/entity_id.dart';
 import 'package:game_prototype_simulator/framework/rx.dart';
 
 class _ModelNotifier<T extends Object> extends ChangeNotifier
@@ -30,16 +30,11 @@ abstract class ViewModel<T extends Object> {
     _notifier.value = state;
   }
 
-  Rx<S> obs<S>(
-    S Function(T model) getter, [
-    EqualityChecker? equalityChecker,
-  ]) {
+  Rx<S> obs<S>(S Function(T model) getter) {
     var obx = Rx.seeded(getter(state));
 
     _notifier.addListener(() {
-      var equals = (equalityChecker ?? NeverEqualityChecker()).equals;
-
-      if (!equals(obx.value, getter(state))) {
+      if (!_equals(obx.value, getter(state))) {
         obx.add(getter(state));
       }
     });
@@ -49,5 +44,16 @@ abstract class ViewModel<T extends Object> {
 
   void dispose() {
     _notifier.dispose();
+  }
+
+  bool _equals<S>(S oldValue, S newValue) {
+    if (oldValue is List<EntityId> && newValue is List<EntityId>) {
+      return listEquals(
+        oldValue.map((v) => v.id).toList(),
+        newValue.map((v) => v.id).toList(),
+      );
+    }
+
+    return newValue == oldValue;
   }
 }

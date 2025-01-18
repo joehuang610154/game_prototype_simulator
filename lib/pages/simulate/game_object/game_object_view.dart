@@ -21,8 +21,8 @@ class GameObjectView extends StatelessWidget {
         child: GestureDetector(
           onTap: onTap,
           child: Container(
-            width: 30,
-            height: 30,
+            width: 60,
+            height: 60,
             decoration: BoxDecoration(
               color: Colors.blue,
               shape: BoxShape.circle,
