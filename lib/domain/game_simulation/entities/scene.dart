@@ -1,5 +1,6 @@
 import 'package:game_prototype_simulator/domain/game_simulation/entities/game_object.dart';
 import 'package:game_prototype_simulator/framework/entity.dart';
+import 'package:game_prototype_simulator/utils/list_extension.dart';
 
 class Scene extends Entity {
   String name;
@@ -12,7 +13,7 @@ class Scene extends Entity {
   }
 
   void addGameObject() {
-    gameObjects = [...gameObjects, GameObject.create()];
+    gameObjects = gameObjects.added(GameObject.create());
   }
 
   void rename(String newName) {
