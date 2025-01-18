@@ -1,5 +1,7 @@
+import 'package:game_prototype_simulator/domain/game_simulation/entities/game_object.dart';
+
 class GameObjectPropertiesModel {
-  String name = "";
+  GameObject? gameObject;
 
   GameObjectPropertiesModel._();
 

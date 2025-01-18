@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:game_prototype_simulator/constants/widgets.dart';
-import 'package:game_prototype_simulator/framework/entity_id.dart';
+import 'package:game_prototype_simulator/domain/game_simulation/entities/game_object.dart';
 import 'package:game_prototype_simulator/framework/rx.dart';
 import 'package:game_prototype_simulator/framework/rx_builder.dart';
 import 'package:game_prototype_simulator/framework/view_model_provider.dart';
@@ -8,27 +8,25 @@ import 'package:game_prototype_simulator/pages/simulate/game_object_properties_p
 import 'package:provider/provider.dart';
 
 class GameObjectPropertiesPanel extends StatelessWidget {
-  final EntityId? gameObjectId;
+  final GameObject? gameObject;
 
   const GameObjectPropertiesPanel(
-    this.gameObjectId, {
+    this.gameObject, {
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return ViewModelProvider<GameObjectPropertiesViewModel>(
-        builder: (context) => GameObjectPropertiesView(gameObjectId));
+      key: ValueKey(gameObject),
+      onInit: (viewModel) => viewModel.init(gameObject),
+      builder: (context) => GameObjectPropertiesView(),
+    );
   }
 }
 
 class GameObjectPropertiesView extends StatelessWidget {
-  final EntityId? gameObjectId;
-
-  const GameObjectPropertiesView(
-    this.gameObjectId, {
-    super.key,
-  });
+  const GameObjectPropertiesView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +38,8 @@ class GameObjectPropertiesView extends StatelessWidget {
         color: Colors.white.withAlpha(80),
         borderRadius: BorderRadius.circular(8),
       ),
-      child: gameObjectId == null
-          ? SizedBox.expand(
-              child: Center(child: Text("Please select a game object.")),
-            )
-          : Column(
+      child: viewModel.hasFocusedGameObject
+          ? Column(
               children: [
                 Row(
                   children: [
@@ -61,6 +56,9 @@ class GameObjectPropertiesView extends StatelessWidget {
                   ],
                 ),
               ],
+            )
+          : SizedBox.expand(
+              child: Center(child: Text("Please select a game object.")),
             ),
     );
   }

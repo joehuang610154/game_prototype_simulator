@@ -1,3 +1,4 @@
+import 'package:game_prototype_simulator/domain/game_simulation/entities/game_object.dart';
 import 'package:game_prototype_simulator/framework/rx.dart';
 import 'package:game_prototype_simulator/framework/view_model.dart';
 import 'package:game_prototype_simulator/pages/simulate/game_object_properties_panel/game_object_properties_model.dart';
@@ -10,9 +11,15 @@ class GameObjectPropertiesViewModel
   GameObjectPropertiesModel initState() =>
       GameObjectPropertiesModel.initialized();
 
-  Rx<String> get name => obs((model) => model.name);
+  Rx<String> get name => obs((model) => model.gameObject?.name ?? "");
+
+  bool get hasFocusedGameObject => state.gameObject != null;
 
   void rename(String value) {
-    setState((model) => model.name = value);
+    setState((model) => model.gameObject?.rename(value));
+  }
+
+  void init(GameObject? gameObject) {
+    setState((model) => model.gameObject = gameObject);
   }
 }

@@ -22,8 +22,11 @@ class SimulateViewModel extends ViewModel<SimulateModel> {
   Rx<List<GameObject>> get gameObjects =>
       obs((model) => model.currentScene?.gameObjects ?? []);
 
-  Rx<EntityId?> get focusedGameObjectId =>
-      obs((model) => model.focusedGameObjectId);
+  Rx<GameObject?> get focusedGameObject => obs(
+        (model) => model.currentScene?.gameObjects
+            .where((go) => go.id == model.focusedGameObjectId)
+            .firstOrNull,
+      );
 
   Rx<bool> isFocused(EntityId gameObjectId) =>
       obs((model) => model.focusedGameObjectId == gameObjectId);

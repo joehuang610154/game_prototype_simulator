@@ -130,10 +130,10 @@ class _SimulateViewState extends State<SimulateView> {
                 ),
               ),
               child: RxBuilder(
-                viewModel.focusedGameObjectId,
-                builder: (context, gameObjectId) {
+                viewModel.focusedGameObject,
+                builder: (context, gameObject) {
                   return GameObjectPropertiesPanel(
-                    gameObjectId,
+                    gameObject,
                     key: WidgetKey.gameObjectPropertiesPanel,
                   );
                 },

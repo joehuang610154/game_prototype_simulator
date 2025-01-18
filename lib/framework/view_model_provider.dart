@@ -7,8 +7,13 @@ class ViewModelProvider<T extends ViewModel> extends Provider<T> {
   ViewModelProvider({
     super.key,
     required WidgetBuilder builder,
+    void Function(T viewModel)? onInit,
   }) : super(
-          create: (context) => getIt<T>(),
+          create: (context) {
+            var viewModel = getIt<T>();
+            onInit?.call(viewModel);
+            return viewModel;
+          },
           builder: (context, child) => builder(context),
           dispose: (context, viewModel) => viewModel.dispose(),
         );

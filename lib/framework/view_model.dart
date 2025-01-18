@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:game_prototype_simulator/framework/entity.dart';
 import 'package:game_prototype_simulator/framework/entity_id.dart';
 import 'package:game_prototype_simulator/framework/rx.dart';
 
@@ -52,6 +53,10 @@ abstract class ViewModel<T extends Object> {
         oldValue.map((v) => v.id).toList(),
         newValue.map((v) => v.id).toList(),
       );
+    }
+
+    if (oldValue is Entity? && newValue is Entity?) {
+      return false;
     }
 
     return newValue == oldValue;

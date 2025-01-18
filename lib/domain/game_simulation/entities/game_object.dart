@@ -8,4 +8,6 @@ class GameObject extends Entity {
   factory GameObject.create() {
     return GameObject._();
   }
+
+  void rename(String newName) => name = newName;
 }
