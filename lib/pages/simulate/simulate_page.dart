@@ -91,7 +91,7 @@ class _SimulateViewState extends State<SimulateView> {
               child: RxBuilder(
                 viewModel.gameObjects,
                 builder: (context, gameObjects) {
-                  return Stack(
+                  return Row(
                     children: gameObjects.map((gameObject) {
                       return GameObjectView(
                         gameObject.id,
