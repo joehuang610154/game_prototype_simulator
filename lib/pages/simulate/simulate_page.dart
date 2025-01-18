@@ -87,6 +87,10 @@ class _SimulateViewState extends State<SimulateView> {
             StreamBuilder(
               stream: viewModel.gameObjects,
               builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return Text("Data not found");
+                }
+
                 return Text(snapshot.data!.map((go) => go.id.id).join(", "));
               },
             ),

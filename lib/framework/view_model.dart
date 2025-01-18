@@ -29,11 +29,18 @@ abstract class ViewModel<T extends Object> {
     _notifier.value = state;
   }
 
-  BehaviorSubject<S> obs<S>(S Function(T model) getter) {
+  BehaviorSubject<S> obs<S>(
+    S Function(T model) getter, {
+    bool Function(S oldValue, S newValue)? equals,
+  }) {
+    equals = equals ?? (_, __) => false;
+
     var obx = BehaviorSubject.seeded(getter(state));
 
     _notifier.addListener(() {
-      obx.add(getter(state));
+      if (!equals!(obx.value, getter(state))) {
+        obx.add(getter(state));
+      }
     });
 
     return obx;
