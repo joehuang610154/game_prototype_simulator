@@ -16,17 +16,20 @@ class GameObjectView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: GestureDetector(
-        onTap: onTap,
-        child: Container(
-          width: 30,
-          height: 30,
-          decoration: BoxDecoration(
-            color: Colors.blue,
-            shape: BoxShape.circle,
-            border: isFocused
-                ? Border.all(color: Colors.yellow, width: 3)
-                : Border.fromBorderSide(BorderSide.none),
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: GestureDetector(
+          onTap: onTap,
+          child: Container(
+            width: 30,
+            height: 30,
+            decoration: BoxDecoration(
+              color: Colors.blue,
+              shape: BoxShape.circle,
+              border: isFocused
+                  ? Border.all(color: Colors.yellow, width: 3)
+                  : Border.fromBorderSide(BorderSide.none),
+            ),
           ),
         ),
       ),
