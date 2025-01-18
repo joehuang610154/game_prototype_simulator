@@ -16,8 +16,10 @@ class SimulateViewModel extends ViewModel<SimulateModel> {
   @override
   SimulateModel initState() => SimulateModel.initialized();
 
-  BehaviorSubject<String?> get sceneName =>
-      obs((model) => model.currentScene?.name);
+  BehaviorSubject<String?> get sceneName => obs(
+        (model) => model.currentScene?.name,
+        equals: (oldValue, newValue) => oldValue == newValue,
+      );
 
   BehaviorSubject<List<GameObject>> get gameObjects =>
       obs((model) => model.currentScene?.gameObjects ?? []);
