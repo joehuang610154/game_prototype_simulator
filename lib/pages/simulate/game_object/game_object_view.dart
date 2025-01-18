@@ -18,6 +18,7 @@ class GameObjectView extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.blue,
           shape: BoxShape.circle,
+          border: Border.all(color: Colors.yellow, width: 3),
         ),
       ),
     );
