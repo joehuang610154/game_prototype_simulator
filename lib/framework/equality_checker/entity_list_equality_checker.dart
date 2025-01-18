@@ -6,13 +6,9 @@ class EntityListEqualityChecker<T extends Entity>
     implements EqualityChecker<List<T>> {
   @override
   bool equals(List<T> oldValue, List<T> newValue) {
-    var oldEntityIds = oldValue.map((v) => v.id).toList();
-    print(oldEntityIds);
-    var newEntityIds = newValue.map((v) => v.id).toList();
-    print(newEntityIds);
     return listEquals(
-      oldEntityIds,
-      newEntityIds,
+      oldValue.map((v) => v.id).toList(),
+      newValue.map((v) => v.id).toList(),
     );
   }
 }

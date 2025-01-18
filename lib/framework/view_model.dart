@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:game_prototype_simulator/framework/equality_checker/equality_checker.dart';
 import 'package:rxdart/rxdart.dart';
 
 class _ModelNotifier<T extends Object> extends ChangeNotifier
@@ -30,14 +31,15 @@ abstract class ViewModel<T extends Object> {
   }
 
   BehaviorSubject<S> obs<S>(
-    S Function(T model) getter, {
-    bool Function(S oldValue, S newValue)? equals,
-  }) {
+    S Function(T model) getter, [
+    EqualityChecker? equalityChecker,
+  ]) {
     var obx = BehaviorSubject.seeded(getter(state));
 
     _notifier.addListener(() {
-      equals = equals ?? (_, __) => false;
-      if (!equals!(obx.value, getter(state))) {
+      var equals = (equalityChecker ?? NeverEqualityChecker()).equals;
+
+      if (!equals(obx.value, getter(state))) {
         obx.add(getter(state));
       }
     });

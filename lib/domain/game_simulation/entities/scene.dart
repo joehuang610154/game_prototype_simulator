@@ -12,7 +12,7 @@ class Scene extends Entity {
   }
 
   void addGameObject() {
-    gameObjects.add(GameObject.create());
+    gameObjects = [...gameObjects, GameObject.create()];
   }
 
   void rename(String newName) {
