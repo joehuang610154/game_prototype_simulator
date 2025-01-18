@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:game_prototype_simulator/framework/equality_checker/equality_checker.dart';
-import 'package:rxdart/rxdart.dart';
+import 'package:game_prototype_simulator/framework/rx.dart';
 
 class _ModelNotifier<T extends Object> extends ChangeNotifier
     implements ValueListenable<T> {
@@ -30,11 +30,11 @@ abstract class ViewModel<T extends Object> {
     _notifier.value = state;
   }
 
-  BehaviorSubject<S> obs<S>(
+  Rx<S> obs<S>(
     S Function(T model) getter, [
     EqualityChecker? equalityChecker,
   ]) {
-    var obx = BehaviorSubject.seeded(getter(state));
+    var obx = Rx.seeded(getter(state));
 
     _notifier.addListener(() {
       var equals = (equalityChecker ?? NeverEqualityChecker()).equals;
