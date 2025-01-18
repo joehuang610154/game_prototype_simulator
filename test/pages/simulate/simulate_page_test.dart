@@ -8,7 +8,7 @@ class SimulatePageTest extends TestRunner {
   void runTests() {
     testWidgets("add a new game object", (tester) async {
       uuidUtil.setGenerateUuids([
-        "", // new scene
+        "new_scene",
         "game_object_1",
       ]);
 
