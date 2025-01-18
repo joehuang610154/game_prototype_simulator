@@ -1,4 +1,5 @@
 import 'package:game_prototype_simulator/constants/widget_key.dart';
+import 'package:game_prototype_simulator/framework/entity_id.dart';
 
 import '../../framework/test_runner.dart';
 
@@ -14,9 +15,12 @@ class SimulatePageTest extends TestRunner {
       await render(tester);
       await tap(find.byKey(WidgetKey.addNewGameObject));
 
-      expect(find.byKey(WidgetKey.gameObject("game_object_1")), findsOne);
+      expect(findGameObject("game_object_1"), findsOne);
     });
   }
+
+  Finder findGameObject(String id) =>
+      find.byKey(WidgetKey.gameObject(EntityId(id: id)));
 }
 
 void main() => SimulatePageTest();

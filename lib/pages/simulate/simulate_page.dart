@@ -3,6 +3,7 @@ import 'package:game_prototype_simulator/constants/widget_key.dart';
 import 'package:game_prototype_simulator/constants/widgets.dart';
 import 'package:game_prototype_simulator/framework/rx_builder.dart';
 import 'package:game_prototype_simulator/framework/view_model_provider.dart';
+import 'package:game_prototype_simulator/pages/simulate/game_object/game_object_view.dart';
 import 'package:game_prototype_simulator/pages/simulate/simulate_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -86,11 +87,20 @@ class _SimulateViewState extends State<SimulateView> {
                 ],
               ),
             ),
-            RxBuilder(
-              viewModel.gameObjects,
-              builder: (context, gameObjects) {
-                return Text(gameObjects.map((go) => go.id.id).join(", "));
-              },
+            Expanded(
+              child: RxBuilder(
+                viewModel.gameObjects,
+                builder: (context, gameObjects) {
+                  return Stack(
+                    children: gameObjects.map((gameObject) {
+                      return GameObjectView(
+                        gameObject.id,
+                        key: WidgetKey.gameObject(gameObject.id),
+                      );
+                    }).toList(),
+                  );
+                },
+              ),
             ),
           ],
         ),

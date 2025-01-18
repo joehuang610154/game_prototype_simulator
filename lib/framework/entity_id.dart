@@ -14,4 +14,9 @@ class EntityId with _$EntityId {
   factory EntityId.generate() {
     return EntityId(id: UuidUtil().get());
   }
+
+  @override
+  String toString() {
+    return id;
+  }
 }
