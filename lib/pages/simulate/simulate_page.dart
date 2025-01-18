@@ -71,6 +71,7 @@ class _SimulateViewState extends State<SimulateView> {
         child: Row(
           children: [
             Container(
+              padding: EdgeInsets.all(12),
               color: Colors.grey[400],
               child: Column(
                 children: [
