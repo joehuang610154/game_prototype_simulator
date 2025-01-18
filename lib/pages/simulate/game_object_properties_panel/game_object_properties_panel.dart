@@ -81,7 +81,8 @@ class PropertyField extends StatefulWidget {
 class _PropertyFieldState extends State<PropertyField> {
   GameObjectPropertiesViewModel get viewModel => context.read();
 
-  TextEditingController textController = TextEditingController();
+  late TextEditingController textController =
+      TextEditingController(text: widget.property.value);
 
   bool isEditMode = false;
 
