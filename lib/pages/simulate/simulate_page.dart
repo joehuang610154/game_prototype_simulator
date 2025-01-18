@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:game_prototype_simulator/constants/widget_key.dart';
 import 'package:game_prototype_simulator/constants/widgets.dart';
+import 'package:game_prototype_simulator/framework/rx_builder.dart';
 import 'package:game_prototype_simulator/framework/view_model_provider.dart';
 import 'package:game_prototype_simulator/pages/simulate/simulate_view_model.dart';
 import 'package:provider/provider.dart';
@@ -85,14 +86,10 @@ class _SimulateViewState extends State<SimulateView> {
                 ],
               ),
             ),
-            StreamBuilder(
-              stream: viewModel.gameObjects,
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return Text("Data not found");
-                }
-
-                return Text(snapshot.data!.map((go) => go.id.id).join(", "));
+            RxBuilder(
+              viewModel.gameObjects,
+              builder: (context, gameObjects) {
+                return Text(gameObjects.map((go) => go.id.id).join(", "));
               },
             ),
           ],
