@@ -4,6 +4,7 @@ import 'package:game_prototype_simulator/constants/widgets.dart';
 import 'package:game_prototype_simulator/framework/rx_builder.dart';
 import 'package:game_prototype_simulator/framework/view_model_provider.dart';
 import 'package:game_prototype_simulator/pages/simulate/game_object/game_object_view.dart';
+import 'package:game_prototype_simulator/pages/simulate/game_object_properties_panel/game_object_properties_panel.dart';
 import 'package:game_prototype_simulator/pages/simulate/simulate_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -108,6 +109,28 @@ class _SimulateViewState extends State<SimulateView> {
                     }).toList(),
                   );
                 },
+              ),
+            ),
+            Container(
+              width: 300,
+              padding: EdgeInsets.only(
+                left: 24,
+                right: 12,
+                top: 24,
+                bottom: 48,
+              ),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  stops: [0, 0.1, 1],
+                  colors: [
+                    Colors.black.withAlpha(180),
+                    Colors.green,
+                    Colors.lightGreen,
+                  ],
+                ),
+              ),
+              child: GameObjectPropertiesPanel(
+                key: WidgetKey.gameObjectPropertiesPanel,
               ),
             ),
           ],
