@@ -7,16 +7,35 @@ class SimulatePageTest extends TestRunner {
   @override
   void runTests() {
     testWidgets("add a new game object", (tester) async {
-      uuidUtil.setGenerateUuids([
-        "new_scene",
-        "game_object_1",
-      ]);
+      var gameObjectId = "game_object";
+      uuidUtil.setGenerateUuids(["new_scene", gameObjectId]);
 
       await render(tester);
       await tap(find.byKey(WidgetKey.addNewGameObject));
 
-      expect(findGameObject("game_object_1"), findsOne);
+      expect(findGameObject(gameObjectId), findsOne);
     });
+
+    group("game object operation", () {
+      var gameObjectId = "game_object";
+
+      testWidgets("rename", (tester) async {
+        await givenSimulatePageWithOneGameObject(tester, gameObjectId);
+      });
+    });
+  }
+
+  Future<void> givenSimulatePageWithOneGameObject(
+    WidgetTester tester,
+    String gameObjectId,
+  ) async {
+    uuidUtil.setGenerateUuids([
+      "new_scene",
+      gameObjectId,
+    ]);
+
+    await render(tester);
+    await tap(find.byKey(WidgetKey.addNewGameObject));
   }
 
   Finder findGameObject(String id) =>
