@@ -13,6 +13,7 @@ class SimulatePageTest extends TestRunner {
       await givenSimulatePageWithOneGameObject(tester, gameObjectId);
 
       expect(findGameObject(gameObjectId), findsOne);
+      shouldNotFocusOnGameObject(findGameObject(gameObjectId));
     });
 
     testWidgets("focus on game object", (tester) async {
@@ -30,6 +31,26 @@ class SimulatePageTest extends TestRunner {
         await givenSimulatePageWithOneGameObject(tester, gameObjectId);
       });
     });
+  }
+
+  void shouldNotFocusOnGameObject(Finder gameObject) {
+    var finder = find.descendant(
+      of: gameObject,
+      matching: find.byType(Container),
+    );
+    var border = (tester.widget<Container>(finder).decoration as BoxDecoration)
+        .border as Border;
+    expect((
+      border.bottom,
+      border.top,
+      border.left,
+      border.right,
+    ), (
+      BorderSide.none,
+      BorderSide.none,
+      BorderSide.none,
+      BorderSide.none,
+    ));
   }
 
   void shouldFocusOnGameObject(Finder gameObject) {

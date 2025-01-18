@@ -1,5 +1,7 @@
 import 'package:game_prototype_simulator/domain/game_simulation/entities/game_object.dart';
 import 'package:game_prototype_simulator/domain/game_simulation/use_cases/create_new_scene_use_case.dart';
+import 'package:game_prototype_simulator/framework/entity_id.dart';
+import 'package:game_prototype_simulator/framework/equality_checker/bool_equality_checker.dart';
 import 'package:game_prototype_simulator/framework/equality_checker/entity_list_equality_checker.dart';
 import 'package:game_prototype_simulator/framework/equality_checker/string_equality_checker.dart';
 import 'package:game_prototype_simulator/framework/rx.dart';
@@ -26,6 +28,10 @@ class SimulateViewModel extends ViewModel<SimulateModel> {
         EntityListEqualityChecker(),
       );
 
+  Rx<bool> isFocused(EntityId gameObjectId) => obs(
+      (model) => model.focusedGameObjectId == gameObjectId,
+      BoolEqualityChecker());
+
   void createNewScene() {
     var newScene = _createNewScene.execute(
       name: "Battle Field",
@@ -39,5 +45,9 @@ class SimulateViewModel extends ViewModel<SimulateModel> {
 
   void renameScene() {
     setState((model) => model.currentScene?.rename("Xxxxx"));
+  }
+
+  void focusOnGameObject(EntityId gameObjectId) {
+    setState((model) => model.focusedGameObjectId = gameObjectId);
   }
 }
