@@ -27,7 +27,7 @@ class SimulatePageTest extends TestRunner {
     group("game object operation", () {
       var gameObjectId = "game_object";
 
-      testWidgets("rename", (tester) async {
+      testWidgets("set name", (tester) async {
         await givenSimulatePageWithOneGameObject(tester, gameObjectId);
       });
     });
