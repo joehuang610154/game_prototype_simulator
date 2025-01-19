@@ -47,7 +47,7 @@ class GameObjectPropertiesView extends StatelessWidget {
                     Text("Name"),
                     Gaps.w8,
                     Expanded(
-                      child: PropertyField(
+                      child: RxPropertyField(
                         key: WidgetKey.gameObjectPropertyField("name"),
                         property: viewModel.name,
                       ),
@@ -183,10 +183,10 @@ class PropertyKeyValueTextField extends StatelessWidget {
   }
 }
 
-class PropertyField extends StatelessWidget {
+class RxPropertyField extends StatelessWidget {
   final Rx<String> property;
 
-  const PropertyField({
+  const RxPropertyField({
     super.key,
     required this.property,
   });
@@ -234,6 +234,16 @@ class _PropertyTextFieldState extends State<PropertyTextField> {
   FocusNode focusNode = FocusNode();
 
   bool isEditMode = false;
+
+  @override
+  void initState() {
+    super.initState();
+    focusNode.addListener(() {
+      if (!focusNode.hasFocus) {
+        setState(() => isEditMode = false);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
