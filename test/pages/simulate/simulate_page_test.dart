@@ -7,21 +7,45 @@ import '../../framework/test_runner.dart';
 class SimulatePageTest extends TestRunner {
   @override
   void runTests() {
-    var gameObjectId = "game_object";
+    var gameObjectId1 = "game_object_1";
+    var gameObjectId2 = "game_object_2";
 
     testWidgets("add a new game object", (tester) async {
-      await givenSimulatePageWithOneGameObject(tester, gameObjectId);
+      uuidUtil.setGenerateUuids([
+        "new_scene",
+        gameObjectId1,
+        gameObjectId2,
+      ]);
 
-      expect(findGameObject(gameObjectId), findsOne);
-      shouldNotFocusOnGameObject(findGameObject(gameObjectId));
+      await render(tester);
+
+      await addNewGameObject();
+      expect(findGameObject(gameObjectId1), findsOne);
+      shouldNotFocusOnGameObject(findGameObject(gameObjectId1));
+
+      await addNewGameObject();
+      expect(findGameObject(gameObjectId2), findsOne);
+      shouldNotFocusOnGameObject(findGameObject(gameObjectId2));
     });
 
     testWidgets("focus on game object", (tester) async {
-      await givenSimulatePageWithOneGameObject(tester, gameObjectId);
+      uuidUtil.setGenerateUuids([
+        "new_scene",
+        gameObjectId1,
+        gameObjectId2,
+      ]);
 
-      await tap(findGameObject(gameObjectId));
+      await render(tester);
+      await addNewGameObject();
+      await addNewGameObject();
 
-      shouldFocusOnGameObject(findGameObject(gameObjectId));
+      await tap(findGameObject(gameObjectId1));
+      shouldFocusOnGameObject(findGameObject(gameObjectId1));
+      shouldNotFocusOnGameObject(findGameObject(gameObjectId2));
+
+      await tap(findGameObject(gameObjectId2));
+      shouldNotFocusOnGameObject(findGameObject(gameObjectId1));
+      shouldFocusOnGameObject(findGameObject(gameObjectId2));
     });
 
     group("game object operation", () {
@@ -31,6 +55,10 @@ class SimulatePageTest extends TestRunner {
         await givenSimulatePageWithOneGameObject(tester, gameObjectId);
       });
     });
+  }
+
+  Future<void> addNewGameObject() async {
+    await tap(find.byKey(WidgetKey.addNewGameObject));
   }
 
   void shouldNotFocusOnGameObject(Finder gameObject) {
