@@ -57,6 +57,8 @@ class GameObjectPropertiesView extends StatelessWidget {
                     ),
                   ],
                 ),
+                Divider(height: 17, thickness: 1, color: Colors.black),
+                EditPropertiesView(),
               ],
             )
           : SizedBox.expand(
@@ -66,7 +68,45 @@ class GameObjectPropertiesView extends StatelessWidget {
   }
 }
 
-class PropertyField extends StatefulWidget {
+class EditPropertiesView extends StatefulWidget {
+  const EditPropertiesView({super.key});
+
+  @override
+  State<EditPropertiesView> createState() => _EditPropertiesViewState();
+}
+
+class _EditPropertiesViewState extends State<EditPropertiesView> {
+  GameObjectPropertiesViewModel get viewModle => context.read();
+
+  bool editNewProperty = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Align(
+          alignment: Alignment.centerRight,
+          child: SizedBox(
+            width: 32,
+            height: 32,
+            child: IconButton(
+              icon: Icon(Icons.add),
+              color: Colors.white,
+              iconSize: 16,
+              onPressed: () => setState(() => editNewProperty = true),
+              style: IconButton.styleFrom(
+                backgroundColor: Colors.blue,
+                fixedSize: Size.square(24),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class PropertyField extends StatelessWidget {
   final Rx<String> property;
   final TextStyle style;
 
@@ -77,54 +117,79 @@ class PropertyField extends StatefulWidget {
   });
 
   @override
-  State<PropertyField> createState() => _PropertyFieldState();
+  Widget build(BuildContext context) {
+    final GameObjectPropertiesViewModel viewModel = context.read();
+
+    final TextEditingController textController =
+        TextEditingController(text: property.value);
+
+    return RxBuilder(
+      property,
+      builder: (context, property) {
+        return PropertyTextField(
+          textController: textController,
+          onChanged: viewModel.rename,
+        );
+      },
+      onLoading: SizedBox(),
+    );
+  }
 }
 
-class _PropertyFieldState extends State<PropertyField> {
-  GameObjectPropertiesViewModel get viewModel => context.read();
-  FocusNode focusNode = FocusNode();
+class PropertyTextField extends StatefulWidget {
+  final TextEditingController textController;
+  final ValueChanged<String> onChanged;
 
-  late TextEditingController textController =
-      TextEditingController(text: widget.property.value);
+  const PropertyTextField({
+    super.key,
+    required this.textController,
+    required this.onChanged,
+  });
+
+  @override
+  State<PropertyTextField> createState() => _PropertyTextFieldState();
+}
+
+class _PropertyTextFieldState extends State<PropertyTextField> {
+  TextEditingController get controller => widget.textController;
+  FocusNode focusNode = FocusNode();
 
   bool isEditMode = false;
 
   @override
   Widget build(BuildContext context) {
-    return RxBuilder(
-      widget.property,
-      builder: (context, property) {
-        if (property.isEmpty || isEditMode) {
-          return TextField(
-            focusNode: focusNode,
-            controller: textController,
-            style: widget.style,
-            onChanged: (value) {
-              isEditMode = true;
-              viewModel.rename(value);
-            },
-            onEditingComplete: () => setState(() => isEditMode = false),
-          );
-        }
+    final style = TextStyle(
+      fontWeight: FontWeight.bold,
+    );
 
-        return MouseRegion(
-          cursor: SystemMouseCursors.click,
-          child: GestureDetector(
-            onTap: () {
-              setState(() => isEditMode = true);
-              focusNode.requestFocus();
-            },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 14),
-              child: Text(
-                property,
-                style: widget.style,
-              ),
-            ),
+    if (controller.text.isEmpty || isEditMode) {
+      return TextField(
+        focusNode: focusNode,
+        controller: controller,
+        style: style,
+        onChanged: (value) {
+          isEditMode = true;
+          widget.onChanged(value);
+        },
+        onEditingComplete: () => setState(() => isEditMode = false),
+      );
+    }
+
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () {
+          setState(() => isEditMode = true);
+          focusNode.requestFocus();
+        },
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 14),
+          child: Text(
+            controller.text,
+            style: style,
           ),
-        );
-      },
-      onLoading: SizedBox(),
+        ),
+      ),
     );
   }
 }
