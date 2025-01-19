@@ -85,11 +85,17 @@ class EditPropertiesView extends StatelessWidget {
         RxBuilder(
           viewModle.properties,
           builder: (context, properties) {
-            print("update properties $properties");
-
             return Column(
               children: [
-                PropertyKeyValueTextField("", ""),
+                Row(
+                  children: [
+                    Text("New Property:"),
+                    Gaps.w8,
+                    Expanded(
+                      child: AddNewPropertyTextField(),
+                    ),
+                  ],
+                ),
                 ...properties.entries.map((entry) {
                   return PropertyKeyValueTextField(entry.key, entry.value);
                 }),
@@ -98,6 +104,25 @@ class EditPropertiesView extends StatelessWidget {
           },
         ),
       ],
+    );
+  }
+}
+
+class AddNewPropertyTextField extends StatelessWidget {
+  const AddNewPropertyTextField({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final TextEditingController controller = TextEditingController();
+    final GameObjectPropertiesViewModel viewModel = context.read();
+
+    return PropertyTextField(
+      textController: controller,
+      onCompleted: (key) {
+        if (key.isEmpty) return;
+
+        viewModel.setProperty(key, "");
+      },
     );
   }
 }
@@ -138,7 +163,6 @@ class PropertyKeyValueTextField extends StatelessWidget {
                 valueTextController.text,
               );
             },
-            placeholder: "new",
           ),
         ),
         Gaps.w8,
