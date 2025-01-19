@@ -1,7 +1,47 @@
+import 'package:flutter/material.dart';
 import 'package:game_prototype_simulator/framework/entity.dart';
+
+class GameObjectShape {
+  final BoxShape shape;
+  final Size size;
+  final BorderRadius? borderRadius;
+
+  const GameObjectShape._({
+    required this.shape,
+    required this.size,
+    required this.borderRadius,
+  });
+
+  factory GameObjectShape.circle(double size) {
+    return GameObjectShape._(
+      shape: BoxShape.circle,
+      size: Size.square(size),
+      borderRadius: null,
+    );
+  }
+
+  factory GameObjectShape.rectangle(Size size) {
+    return GameObjectShape._(
+      shape: BoxShape.rectangle,
+      size: size,
+      borderRadius: null,
+    );
+  }
+
+  factory GameObjectShape.pillRectangle(Size size) {
+    return GameObjectShape._(
+      shape: BoxShape.rectangle,
+      size: size,
+      borderRadius: BorderRadius.circular(999),
+    );
+  }
+}
 
 class GameObject extends Entity {
   String name = "";
+  GameObjectShape shape = GameObjectShape.circle(60);
+  Color color = Colors.blue;
+  Size size = Size.square(50);
   Map<String, dynamic> properties = {};
 
   GameObject._();
@@ -26,4 +66,8 @@ class GameObject extends Entity {
     };
     properties.remove(oldKey);
   }
+
+  void setShape(GameObjectShape newShape) => shape = newShape;
+
+  void setColor(Color newColor) => color = newColor;
 }
