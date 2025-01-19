@@ -1,6 +1,3 @@
-import 'dart:ui';
-
-import 'package:flutter/material.dart';
 import 'package:game_prototype_simulator/domain/game_simulation/entities/game_object.dart';
 import 'package:game_prototype_simulator/framework/rx.dart';
 import 'package:game_prototype_simulator/framework/view_model.dart';
@@ -21,13 +18,6 @@ class GameObjectPropertiesViewModel
   Rx<Map<String, dynamic>> get properties =>
       obs((model) => model.gameObject?.properties ?? {});
 
-  Rx<({GameObjectShape shape, Color color})> get style => obs((model) {
-        return (
-          shape: model.gameObject?.shape ?? GameObjectShape.circle(1),
-          color: model.gameObject?.color ?? Colors.white,
-        );
-      });
-
   void rename(String value) {
     setState((model) => model.gameObject?.rename(value));
   }
@@ -42,13 +32,5 @@ class GameObjectPropertiesViewModel
 
   void updatePropertyKey(String oldKey, String newKey) {
     setState((model) => model.gameObject!.updatePropertyKey(oldKey, newKey));
-  }
-
-  void setShape(GameObjectShape newShape) {
-    setState((model) => model.gameObject!.setShape(newShape));
-  }
-
-  void setColor(Color newColor) {
-    setState((model) => model.gameObject!.setColor(newColor));
   }
 }
