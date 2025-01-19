@@ -127,7 +127,6 @@ class PropertyKeyValueTextField extends StatelessWidget {
           flex: 1,
           child: PropertyTextField(
             textController: keyTextController,
-            onChanged: (_) {},
             onCompleted: (key) {
               if (key.isEmpty) {
                 keyTextController.text = initKey;
@@ -147,7 +146,7 @@ class PropertyKeyValueTextField extends StatelessWidget {
           flex: 2,
           child: PropertyTextField(
             textController: valueTextController,
-            onChanged: (value) {
+            onCompleted: (value) {
               viewModel.setProperty(
                 keyTextController.text,
                 value,
@@ -190,14 +189,14 @@ class PropertyField extends StatelessWidget {
 
 class PropertyTextField extends StatefulWidget {
   final TextEditingController textController;
-  final ValueChanged<String> onChanged;
+  final ValueChanged<String>? onChanged;
   final ValueChanged<String>? onCompleted;
   final String? placeholder;
 
   const PropertyTextField({
     super.key,
     required this.textController,
-    required this.onChanged,
+    this.onChanged,
     this.onCompleted,
     this.placeholder,
   });
@@ -220,7 +219,7 @@ class _PropertyTextFieldState extends State<PropertyTextField> {
         controller: controller,
         onChanged: (value) {
           isEditMode = true;
-          widget.onChanged(value);
+          widget.onChanged?.call(value);
         },
         onEditingComplete: onCompleted,
         onTapOutside: (_) => onCompleted(),
