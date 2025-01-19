@@ -44,7 +44,10 @@ class GameObjectPropertiesView extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Text("Name"),
+                    Text(
+                      "Name",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     Gaps.w8,
                     Expanded(
                       child: RxPropertyField(
@@ -89,7 +92,10 @@ class EditPropertiesView extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Text("New Property:"),
+                    Text(
+                      "New Property:",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     Gaps.w8,
                     Expanded(
                       child: AddNewPropertyTextField(),
@@ -163,6 +169,7 @@ class PropertyKeyValueTextField extends StatelessWidget {
                 valueTextController.text,
               );
             },
+            style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
         Gaps.w8,
@@ -216,6 +223,7 @@ class PropertyTextField extends StatefulWidget {
   final ValueChanged<String>? onChanged;
   final ValueChanged<String>? onCompleted;
   final String? placeholder;
+  final TextStyle? style;
 
   const PropertyTextField({
     super.key,
@@ -223,6 +231,7 @@ class PropertyTextField extends StatefulWidget {
     this.onChanged,
     this.onCompleted,
     this.placeholder,
+    this.style,
   });
 
   @override
@@ -260,6 +269,7 @@ class _PropertyTextFieldState extends State<PropertyTextField> {
         decoration: InputDecoration(
           hintText: widget.placeholder,
         ),
+        style: widget.style,
       );
     }
 
@@ -272,7 +282,10 @@ class _PropertyTextFieldState extends State<PropertyTextField> {
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 14),
-          child: Text(controller.text),
+          child: Text(
+            controller.text,
+            style: widget.style,
+          ),
         ),
       ),
     );
