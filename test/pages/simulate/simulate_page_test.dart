@@ -42,9 +42,25 @@ class SimulatePageTest extends TestRunner {
     group("game object operation", () {
       testWidgets("set name", (tester) async {
         uuidUtil.add("new_scene");
-
         await render(tester);
         await addNewGameObject(gameObjectId1);
+        await addNewGameObject(gameObjectId2);
+        await tap(findGameObject(gameObjectId1));
+
+        await tester.enterText(
+            find.descendant(
+                of: find.byKey(WidgetKey.gameObjectPropertyField("name")),
+                matching: find.byType(TextField)),
+            "First Character");
+        expect(find.text("First Character"), findsOne);
+
+        await tap(find.text("First Character"));
+        await tester.enterText(
+            find.descendant(
+                of: find.byKey(WidgetKey.gameObjectPropertyField("name")),
+                matching: find.byType(TextField)),
+            "Second Character");
+        expect(find.text("Second Character"), findsOne);
       });
     });
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:game_prototype_simulator/constants/widget_key.dart';
 import 'package:game_prototype_simulator/constants/widgets.dart';
 import 'package:game_prototype_simulator/domain/game_simulation/entities/game_object.dart';
 import 'package:game_prototype_simulator/framework/rx.dart';
@@ -47,6 +48,7 @@ class GameObjectPropertiesView extends StatelessWidget {
                     Gaps.w8,
                     Expanded(
                       child: PropertyField(
+                        key: WidgetKey.gameObjectPropertyField("name"),
                         property: viewModel.name,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,

@@ -6,5 +6,8 @@ class WidgetKey {
 
   static const addNewGameObject = ValueKey("add_new_game_object");
 
-  static Key gameObject(EntityId id) => ValueKey("game_object_$id");
+  static Key gameObject(EntityId id) => ValueKey("entity_game_object_$id");
+
+  static Key gameObjectPropertyField(String fieldName) =>
+      ValueKey("game_object_property_field_$fieldName");
 }
