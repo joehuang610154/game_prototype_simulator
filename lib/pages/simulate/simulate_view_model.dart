@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:game_prototype_simulator/domain/game_simulation/entities/game_object.dart';
 import 'package:game_prototype_simulator/domain/game_simulation/use_cases/create_new_scene_use_case.dart';
 import 'package:game_prototype_simulator/framework/entity_id.dart';
@@ -24,21 +25,16 @@ class SimulateViewModel extends ViewModel<SimulateModel> {
       obs((model) => model.currentScene?.gameObjects ?? []);
 
   Rx<GameObject?> get focusedGameObject => obs(
-        (model) => model.currentScene?.gameObjects
-            .where((go) => go.id == model.focusedGameObjectId)
-            .firstOrNull,
+        (model) =>
+            model.currentScene?.findGameObject(model.focusedGameObjectId),
       );
 
   Rx<bool> isFocused(EntityId gameObjectId) =>
       obs((model) => model.focusedGameObjectId == gameObjectId);
 
-  Rx<GameObjectViewStyle> gameObjectStyle(
-    EntityId gameObjectId,
-  ) {
+  Rx<GameObjectViewStyle> gameObjectStyle(EntityId gameObjectId) {
     return obs((model) {
-      var gameObject = model.currentScene?.gameObjects
-          .where((go) => go.id == gameObjectId)
-          .firstOrNull;
+      var gameObject = model.currentScene?.findGameObject(gameObjectId);
 
       return gameObject == null
           ? GameObjectViewStyle.empty()
@@ -63,5 +59,21 @@ class SimulateViewModel extends ViewModel<SimulateModel> {
 
   void focusOnGameObject(EntityId gameObjectId) {
     setState((model) => model.focusedGameObjectId = gameObjectId);
+  }
+
+  void setColor(Color newColor) {
+    setState(
+      (model) => model.currentScene
+          ?.findGameObject(model.focusedGameObjectId)
+          ?.setColor(newColor),
+    );
+  }
+
+  void setShape(GameObjectShape newShape) {
+    setState(
+      (model) => model.currentScene
+          ?.findGameObject(model.focusedGameObjectId)
+          ?.setShape(newShape),
+    );
   }
 }
