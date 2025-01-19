@@ -18,9 +18,6 @@ class GameObjectPropertiesViewModel
   Rx<Map<String, dynamic>> get properties =>
       obs((model) => model.gameObject?.properties ?? {});
 
-  Rx<bool> get isEditingNewProperty =>
-      obs((model) => model.gameObject?.properties.containsKey("") ?? false);
-
   void rename(String value) {
     setState((model) => model.gameObject?.rename(value));
   }
