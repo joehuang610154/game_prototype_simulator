@@ -12,5 +12,10 @@ class GameObject extends Entity {
 
   void rename(String newName) => name = newName;
 
-  void setProperty(String key, dynamic value) => properties[key] = value;
+  void setProperty(String key, dynamic value) {
+    properties = {
+      ...properties,
+      key: value,
+    };
+  }
 }

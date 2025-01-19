@@ -48,6 +48,10 @@ abstract class ViewModel<T extends Object> {
   }
 
   bool _equals<S>(S oldValue, S newValue) {
+    if (oldValue is Map && newValue is Map) {
+      return mapEquals(oldValue, newValue);
+    }
+
     if (oldValue is List<EntityId> && newValue is List<EntityId>) {
       return listEquals(
         oldValue.map((v) => v.id).toList(),

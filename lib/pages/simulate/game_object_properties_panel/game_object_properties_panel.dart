@@ -50,9 +50,6 @@ class GameObjectPropertiesView extends StatelessWidget {
                       child: PropertyField(
                         key: WidgetKey.gameObjectPropertyField("name"),
                         property: viewModel.name,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
                       ),
                     ),
                   ],
@@ -68,37 +65,94 @@ class GameObjectPropertiesView extends StatelessWidget {
   }
 }
 
-class EditPropertiesView extends StatefulWidget {
+class EditPropertiesView extends StatelessWidget {
   const EditPropertiesView({super.key});
 
   @override
-  State<EditPropertiesView> createState() => _EditPropertiesViewState();
+  Widget build(BuildContext context) {
+    final GameObjectPropertiesViewModel viewModle = context.read();
+
+    return Column(
+      children: [
+        Text(
+          "Properties",
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Gaps.h12,
+        RxBuilder(
+          viewModle.properties,
+          builder: (context, properties) {
+            print("update properties $properties");
+
+            return Column(
+              children: [
+                PropertyKeyValueTextField("", ""),
+                ...properties.entries.map((entry) {
+                  return PropertyKeyValueTextField(entry.key, entry.value);
+                }),
+              ],
+            );
+          },
+        ),
+      ],
+    );
+  }
 }
 
-class _EditPropertiesViewState extends State<EditPropertiesView> {
-  GameObjectPropertiesViewModel get viewModle => context.read();
+class PropertyKeyValueTextField extends StatelessWidget {
+  final String initKey;
+  final String initValue;
 
-  bool editNewProperty = false;
+  const PropertyKeyValueTextField(
+    this.initKey,
+    this.initValue, {
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    final GameObjectPropertiesViewModel viewModel = context.read();
+
+    final TextEditingController keyTextController =
+        TextEditingController(text: initKey);
+    final TextEditingController valueTextController =
+        TextEditingController(text: initValue);
+
+    return Row(
       children: [
-        Align(
-          alignment: Alignment.centerRight,
-          child: SizedBox(
-            width: 32,
-            height: 32,
-            child: IconButton(
-              icon: Icon(Icons.add),
-              color: Colors.white,
-              iconSize: 16,
-              onPressed: () => setState(() => editNewProperty = true),
-              style: IconButton.styleFrom(
-                backgroundColor: Colors.blue,
-                fixedSize: Size.square(24),
-              ),
-            ),
+        Expanded(
+          flex: 1,
+          child: PropertyTextField(
+            textController: keyTextController,
+            onChanged: (_) {},
+            onCompleted: (key) {
+              if (key.isEmpty) {
+                keyTextController.text = initKey;
+                return;
+              }
+
+              viewModel.setProperty(
+                key,
+                valueTextController.text,
+              );
+            },
+            placeholder: "new",
+          ),
+        ),
+        Gaps.w8,
+        Expanded(
+          flex: 2,
+          child: PropertyTextField(
+            textController: valueTextController,
+            onChanged: (value) {
+              viewModel.setProperty(
+                keyTextController.text,
+                value,
+              );
+            },
           ),
         ),
       ],
@@ -108,12 +162,10 @@ class _EditPropertiesViewState extends State<EditPropertiesView> {
 
 class PropertyField extends StatelessWidget {
   final Rx<String> property;
-  final TextStyle style;
 
   const PropertyField({
     super.key,
     required this.property,
-    required this.style,
   });
 
   @override
@@ -139,11 +191,15 @@ class PropertyField extends StatelessWidget {
 class PropertyTextField extends StatefulWidget {
   final TextEditingController textController;
   final ValueChanged<String> onChanged;
+  final ValueChanged<String>? onCompleted;
+  final String? placeholder;
 
   const PropertyTextField({
     super.key,
     required this.textController,
     required this.onChanged,
+    this.onCompleted,
+    this.placeholder,
   });
 
   @override
@@ -158,21 +214,19 @@ class _PropertyTextFieldState extends State<PropertyTextField> {
 
   @override
   Widget build(BuildContext context) {
-    final style = TextStyle(
-      fontWeight: FontWeight.bold,
-    );
-
     if (controller.text.isEmpty || isEditMode) {
       return TextField(
         focusNode: focusNode,
         controller: controller,
-        style: style,
         onChanged: (value) {
           isEditMode = true;
           widget.onChanged(value);
         },
-        onEditingComplete: () => setState(() => isEditMode = false),
-        onTapOutside: (_) => setState(() => isEditMode = false),
+        onEditingComplete: onCompleted,
+        onTapOutside: (_) => onCompleted(),
+        decoration: InputDecoration(
+          hintText: widget.placeholder,
+        ),
       );
     }
 
@@ -185,12 +239,14 @@ class _PropertyTextFieldState extends State<PropertyTextField> {
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 14),
-          child: Text(
-            controller.text,
-            style: style,
-          ),
+          child: Text(controller.text),
         ),
       ),
     );
+  }
+
+  void onCompleted() {
+    widget.onCompleted?.call(controller.text);
+    setState(() => isEditMode = false);
   }
 }
