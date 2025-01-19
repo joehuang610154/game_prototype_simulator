@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:game_prototype_simulator/constants/widget_key.dart';
 import 'package:game_prototype_simulator/constants/widgets.dart';
+import 'package:game_prototype_simulator/domain/game_simulation/entities/game_object.dart';
 import 'package:game_prototype_simulator/framework/rx_builder.dart';
 import 'package:game_prototype_simulator/framework/view_model_provider.dart';
 import 'package:game_prototype_simulator/pages/simulate/game_object/game_object_view.dart';
@@ -85,6 +86,19 @@ class _SimulateViewState extends State<SimulateView> {
                     },
                     icon: Icon(Icons.add),
                   ),
+                  IconButton(
+                    key: WidgetKey.setGameObjectShape,
+                    onPressed: () async {
+                      final GameObjectShape? shape = await showDialog(
+                        context: context,
+                        builder: (context) => ChangeShapeDialog(),
+                      );
+                      if (shape == null) return;
+
+                      viewModel.setShape(shape);
+                    },
+                    icon: Icon(Icons.rectangle_outlined),
+                  ),
                 ],
               ),
             ),
@@ -139,6 +153,100 @@ class _SimulateViewState extends State<SimulateView> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class ChangeShapeDialog extends StatefulWidget {
+  const ChangeShapeDialog({super.key});
+
+  @override
+  State<ChangeShapeDialog> createState() => _ChangeShapeDialogState();
+}
+
+class _ChangeShapeDialogState extends State<ChangeShapeDialog> {
+  int step = 1;
+  int shapeType = 0;
+
+  final TextEditingController widthController =
+      TextEditingController(text: "50");
+  final TextEditingController heightController =
+      TextEditingController(text: "50");
+
+  @override
+  Widget build(BuildContext context) {
+    return SimpleDialog(
+      title: Text("Change shape"),
+      contentPadding: const EdgeInsets.all(16),
+      children: switch (step) {
+        1 => [
+            ElevatedButton(
+              onPressed: () => setState(() {
+                shapeType = 1;
+                step = 2;
+              }),
+              child: Icon(Icons.circle_outlined),
+            ),
+            Gaps.h4,
+            ElevatedButton(
+              onPressed: () => setState(() {
+                shapeType = 2;
+                step = 2;
+              }),
+              child: Icon(Icons.rectangle_outlined),
+            ),
+            Gaps.h4,
+            ElevatedButton(
+              onPressed: () => setState(() {
+                shapeType = 3;
+                step = 2;
+              }),
+              child: Icon(Icons.rectangle_rounded),
+            ),
+          ],
+        2 => (switch (shapeType) {
+              1 => <Widget>[
+                  TextField(
+                    controller: widthController,
+                    decoration: InputDecoration(label: Text("Size")),
+                  ),
+                ],
+              2 || 3 => <Widget>[
+                  TextField(
+                    controller: widthController,
+                    decoration: InputDecoration(label: Text("Width")),
+                  ),
+                  Gaps.h4,
+                  TextField(
+                    controller: heightController,
+                    decoration: InputDecoration(label: Text("Height")),
+                  ),
+                ],
+              _ => <Widget>[],
+            }) +
+            <Widget>[
+              Gaps.h8,
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(switch (shapeType) {
+                    1 => GameObjectShape.circle(
+                        double.parse(widthController.text)),
+                    2 => GameObjectShape.rectangle(Size(
+                        double.parse(widthController.text),
+                        double.parse(heightController.text),
+                      )),
+                    3 => GameObjectShape.roundedRectangle(Size(
+                        double.parse(widthController.text),
+                        double.parse(heightController.text),
+                      )),
+                    _ => null,
+                  });
+                },
+                child: Text("Comfirm"),
+              ),
+            ],
+        _ => [],
+      },
     );
   }
 }

@@ -28,7 +28,7 @@ class GameObjectShape {
     );
   }
 
-  factory GameObjectShape.pillRectangle(Size size) {
+  factory GameObjectShape.roundedRectangle(Size size) {
     return GameObjectShape._(
       shape: BoxShape.rectangle,
       size: size,
@@ -41,7 +41,6 @@ class GameObject extends Entity {
   String name = "";
   GameObjectShape shape = GameObjectShape.circle(60);
   Color color = Colors.blue;
-  Size size = Size.square(50);
   Map<String, dynamic> properties = {};
 
   GameObject._();

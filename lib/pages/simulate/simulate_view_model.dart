@@ -36,9 +36,11 @@ class SimulateViewModel extends ViewModel<SimulateModel> {
     return obs((model) {
       var gameObject = model.currentScene?.findGameObject(gameObjectId);
 
-      return gameObject == null
+      var gameObjectViewStyle = gameObject == null
           ? GameObjectViewStyle.empty()
           : GameObjectViewStyle.fromEntity(gameObject);
+      print(gameObjectViewStyle);
+      return gameObjectViewStyle;
     });
   }
 

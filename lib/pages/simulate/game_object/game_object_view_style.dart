@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:game_prototype_simulator/domain/game_simulation/entities/game_object.dart';
 
-class GameObjectViewStyle {
-  final double width;
-  final double height;
-  final BorderRadius? borderRadius;
-  final BoxShape shape;
-  final Color color;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  GameObjectViewStyle._({
-    required this.width,
-    required this.height,
-    required this.borderRadius,
-    required this.shape,
-    required this.color,
-  });
+part 'game_object_view_style.freezed.dart';
+
+@freezed
+class GameObjectViewStyle with _$GameObjectViewStyle {
+  const factory GameObjectViewStyle._({
+    required double width,
+    required double height,
+    required BorderRadius? borderRadius,
+    required BoxShape shape,
+    required Color color,
+  }) = _GameObjectViewStyle;
 
   factory GameObjectViewStyle.fromEntity(GameObject gameObject) {
     return GameObjectViewStyle._(
-      width: gameObject.size.width,
-      height: gameObject.size.height,
+      width: gameObject.shape.size.width,
+      height: gameObject.shape.size.height,
       borderRadius: gameObject.shape.borderRadius,
       shape: gameObject.shape.shape,
       color: gameObject.color,
