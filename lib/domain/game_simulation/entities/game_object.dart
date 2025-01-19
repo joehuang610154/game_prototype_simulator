@@ -18,4 +18,12 @@ class GameObject extends Entity {
       key: value,
     };
   }
+
+  void updatePropertyKey(String oldKey, String newKey) {
+    properties = {
+      ...properties,
+      newKey: properties[oldKey],
+    };
+    properties.remove(oldKey);
+  }
 }

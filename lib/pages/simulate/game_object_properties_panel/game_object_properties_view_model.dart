@@ -29,4 +29,8 @@ class GameObjectPropertiesViewModel
   void setProperty(String key, String value) {
     setState((model) => model.gameObject!.setProperty(key, value));
   }
+
+  void updatePropertyKey(String oldKey, String newKey) {
+    setState((model) => model.gameObject!.updatePropertyKey(oldKey, newKey));
+  }
 }

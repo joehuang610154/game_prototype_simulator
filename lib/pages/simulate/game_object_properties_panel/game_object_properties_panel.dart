@@ -164,9 +164,9 @@ class PropertyKeyValueTextField extends StatelessWidget {
                 return;
               }
 
-              viewModel.setProperty(
-                key,
-                valueTextController.text,
+              viewModel.updatePropertyKey(
+                initKey,
+                keyTextController.text,
               );
             },
             style: TextStyle(fontWeight: FontWeight.bold),
