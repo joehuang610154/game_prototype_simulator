@@ -172,6 +172,7 @@ class _PropertyTextFieldState extends State<PropertyTextField> {
           widget.onChanged(value);
         },
         onEditingComplete: () => setState(() => isEditMode = false),
+        onTapOutside: (_) => setState(() => isEditMode = false),
       );
     }
 
