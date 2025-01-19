@@ -46,23 +46,37 @@ abstract class ViewModel<T extends Object> {
   void dispose() {
     _notifier.dispose();
   }
+}
 
-  bool _equals<S>(S oldValue, S newValue) {
-    if (oldValue is Map && newValue is Map) {
-      return mapEquals(oldValue, newValue);
-    }
+extension RxExt<T> on Rx<T> {
+  Rx<S> obs<S>(S Function(T state) getter) {
+    var obx = Rx.seeded(getter(value));
 
-    if (oldValue is List<EntityId> && newValue is List<EntityId>) {
-      return listEquals(
-        oldValue.map((v) => v.id).toList(),
-        newValue.map((v) => v.id).toList(),
-      );
-    }
+    listen((value) {
+      if (!_equals(obx.value, getter(value))) {
+        obx.add(getter(value));
+      }
+    });
 
-    if (oldValue is Entity? && newValue is Entity?) {
-      return false;
-    }
-
-    return newValue == oldValue;
+    return obx;
   }
+}
+
+bool _equals<S>(S oldValue, S newValue) {
+  if (oldValue is Map && newValue is Map) {
+    return mapEquals(oldValue, newValue);
+  }
+
+  if (oldValue is List<EntityId> && newValue is List<EntityId>) {
+    return listEquals(
+      oldValue.map((v) => v.id).toList(),
+      newValue.map((v) => v.id).toList(),
+    );
+  }
+
+  if (oldValue is Entity? && newValue is Entity?) {
+    return false;
+  }
+
+  return newValue == oldValue;
 }
