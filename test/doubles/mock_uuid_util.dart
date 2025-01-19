@@ -8,7 +8,11 @@ class MockUuidUtil implements UuidUtil {
   @override
   String get() => _queue.removeFirst();
 
-  void setGenerateUuids(List<String> generatedUuids) {
-    _queue.addAll(generatedUuids);
+  void addAll(List<String> uuids) {
+    _queue.addAll(uuids);
+  }
+
+  void add(String uuid) {
+    _queue.add(uuid);
   }
 }

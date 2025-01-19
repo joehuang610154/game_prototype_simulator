@@ -11,33 +11,24 @@ class SimulatePageTest extends TestRunner {
     var gameObjectId2 = "game_object_2";
 
     testWidgets("add a new game object", (tester) async {
-      uuidUtil.setGenerateUuids([
-        "new_scene",
-        gameObjectId1,
-        gameObjectId2,
-      ]);
-
+      uuidUtil.add("new_scene");
       await render(tester);
 
-      await addNewGameObject();
+      await addNewGameObject(gameObjectId1);
       expect(findGameObject(gameObjectId1), findsOne);
       shouldNotFocusOnGameObject(findGameObject(gameObjectId1));
 
-      await addNewGameObject();
+      await addNewGameObject(gameObjectId2);
       expect(findGameObject(gameObjectId2), findsOne);
       shouldNotFocusOnGameObject(findGameObject(gameObjectId2));
     });
 
     testWidgets("focus on game object", (tester) async {
-      uuidUtil.setGenerateUuids([
-        "new_scene",
-        gameObjectId1,
-        gameObjectId2,
-      ]);
+      uuidUtil.add("new_scene");
 
       await render(tester);
-      await addNewGameObject();
-      await addNewGameObject();
+      await addNewGameObject(gameObjectId1);
+      await addNewGameObject(gameObjectId2);
 
       await tap(findGameObject(gameObjectId1));
       shouldFocusOnGameObject(findGameObject(gameObjectId1));
@@ -49,15 +40,17 @@ class SimulatePageTest extends TestRunner {
     });
 
     group("game object operation", () {
-      var gameObjectId = "game_object";
-
       testWidgets("set name", (tester) async {
-        await givenSimulatePageWithOneGameObject(tester, gameObjectId);
+        uuidUtil.add("new_scene");
+
+        await render(tester);
+        await addNewGameObject(gameObjectId1);
       });
     });
   }
 
-  Future<void> addNewGameObject() async {
+  Future<void> addNewGameObject(String id) async {
+    uuidUtil.add(id);
     await tap(find.byKey(WidgetKey.addNewGameObject));
   }
 
@@ -105,7 +98,7 @@ class SimulatePageTest extends TestRunner {
     WidgetTester tester,
     String gameObjectId,
   ) async {
-    uuidUtil.setGenerateUuids([
+    uuidUtil.addAll([
       "new_scene",
       gameObjectId,
     ]);
