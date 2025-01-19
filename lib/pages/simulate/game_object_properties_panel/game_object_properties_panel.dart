@@ -82,6 +82,7 @@ class PropertyField extends StatefulWidget {
 
 class _PropertyFieldState extends State<PropertyField> {
   GameObjectPropertiesViewModel get viewModel => context.read();
+  FocusNode focusNode = FocusNode();
 
   late TextEditingController textController =
       TextEditingController(text: widget.property.value);
@@ -95,6 +96,7 @@ class _PropertyFieldState extends State<PropertyField> {
       builder: (context, property) {
         if (property.isEmpty || isEditMode) {
           return TextField(
+            focusNode: focusNode,
             controller: textController,
             style: widget.style,
             onChanged: (value) {
@@ -108,10 +110,16 @@ class _PropertyFieldState extends State<PropertyField> {
         return MouseRegion(
           cursor: SystemMouseCursors.click,
           child: GestureDetector(
-            onTap: () => setState(() => isEditMode = true),
-            child: Text(
-              property,
-              style: widget.style,
+            onTap: () {
+              setState(() => isEditMode = true);
+              focusNode.requestFocus();
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 14),
+              child: Text(
+                property,
+                style: widget.style,
+              ),
             ),
           ),
         );
