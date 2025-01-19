@@ -86,18 +86,28 @@ class _SimulateViewState extends State<SimulateView> {
                     },
                     icon: Icon(Icons.add),
                   ),
-                  IconButton(
-                    key: WidgetKey.setGameObjectShape,
-                    onPressed: () async {
-                      final GameObjectShape? shape = await showDialog(
-                        context: context,
-                        builder: (context) => ChangeShapeDialog(),
-                      );
-                      if (shape == null) return;
+                  RxBuilder(
+                    viewModel.focusedGameObject,
+                    builder: (context, gameObject) {
+                      return IconButton(
+                        key: WidgetKey.setGameObjectShape,
+                        onPressed: () async {
+                          final GameObjectShape? shape = await showDialog(
+                            context: context,
+                            builder: (context) => ChangeShapeDialog(),
+                          );
+                          if (shape == null) return;
 
-                      viewModel.setShape(shape);
+                          viewModel.setShape(shape);
+                        },
+                        icon: Icon(Icons.rectangle_outlined),
+                      );
                     },
-                    icon: Icon(Icons.rectangle_outlined),
+                    onLoading: IconButton(
+                      key: WidgetKey.setGameObjectShape,
+                      onPressed: null,
+                      icon: Icon(Icons.rectangle_outlined),
+                    ),
                   ),
                 ],
               ),
