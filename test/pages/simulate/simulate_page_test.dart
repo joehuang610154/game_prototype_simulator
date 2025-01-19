@@ -47,13 +47,22 @@ class SimulatePageTest extends TestRunner {
         await addNewGameObject(gameObjectId2);
         await tap(findGameObject(gameObjectId1));
 
-        var text = "First Character";
-        await enterName(text);
+        await enterName("First Character");
         expect(find.text("First Character"), findsOne);
 
         await tap(find.text("First Character"));
         await enterName("Second Character");
         expect(find.text("Second Character"), findsOne);
+
+        await tap(findGameObject(gameObjectId2));
+        expect(find.text("Second Character"), findsNothing);
+
+        await enterName("Third Character");
+        expect(find.text("Third Character"), findsOne);
+
+        await tap(findGameObject(gameObjectId1));
+        expect(find.text("Second Character"), findsOne);
+        expect(find.text("Third Character"), findsNothing);
       });
     });
   }
