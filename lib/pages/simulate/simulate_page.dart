@@ -210,10 +210,17 @@ class _ChangeColorDialogState extends State<ChangeColorDialog> {
     return AlertDialog(
       title: Text("Change Color"),
       contentPadding: const EdgeInsets.all(16),
-      content: ColorPicker(
-        pickerColor: pickedColor,
-        onColorChanged: (color) => setState(() => pickedColor = color),
-        paletteType: PaletteType.rgbWithBlue,
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ColorPicker(
+            pickerColor: pickedColor,
+            onColorChanged: (color) => setState(() => pickedColor = color),
+            labelTypes: [],
+            colorPickerWidth: 200,
+            portraitOnly: true,
+          ),
+        ],
       ),
       actions: [
         TextButton(
