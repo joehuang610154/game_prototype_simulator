@@ -6,6 +6,7 @@ class WidgetKey {
 
   static const addNewGameObject = ValueKey("add_new_game_object");
   static const setGameObjectShape = ValueKey("set_game_object_shape");
+  static const setGameObjectColor = ValueKey("set_game_object_color");
 
   static Key gameObject(EntityId id) => ValueKey("entity_game_object_$id");
 

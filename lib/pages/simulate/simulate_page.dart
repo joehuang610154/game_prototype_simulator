@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:game_prototype_simulator/constants/widget_key.dart';
 import 'package:game_prototype_simulator/constants/widgets.dart';
 import 'package:game_prototype_simulator/domain/game_simulation/entities/game_object.dart';
@@ -109,6 +110,31 @@ class _SimulateViewState extends State<SimulateView> {
                       icon: Icon(Icons.rectangle_outlined),
                     ),
                   ),
+                  RxBuilder(
+                    viewModel.focusedGameObject,
+                    builder: (context, gameObject) {
+                      return IconButton(
+                        key: WidgetKey.setGameObjectColor,
+                        onPressed: () async {
+                          final Color? color = await showDialog(
+                            context: context,
+                            builder: (context) => ChangeColorDialog(
+                              initColor: gameObject?.color ?? Colors.blue,
+                            ),
+                          );
+                          if (color == null) return;
+
+                          viewModel.setColor(color);
+                        },
+                        icon: Icon(Icons.color_lens),
+                      );
+                    },
+                    onLoading: IconButton(
+                      key: WidgetKey.setGameObjectShape,
+                      onPressed: null,
+                      icon: Icon(Icons.color_lens_outlined),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -167,6 +193,40 @@ class _SimulateViewState extends State<SimulateView> {
   }
 }
 
+class ChangeColorDialog extends StatefulWidget {
+  final Color initColor;
+
+  const ChangeColorDialog({super.key, required this.initColor});
+
+  @override
+  State<ChangeColorDialog> createState() => _ChangeColorDialogState();
+}
+
+class _ChangeColorDialogState extends State<ChangeColorDialog> {
+  late Color pickedColor = widget.initColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text("Change Color"),
+      contentPadding: const EdgeInsets.all(16),
+      content: ColorPicker(
+        pickerColor: pickedColor,
+        onColorChanged: (color) => setState(() => pickedColor = color),
+        paletteType: PaletteType.rgbWithBlue,
+      ),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop(pickedColor);
+          },
+          child: Text("Comfirm"),
+        ),
+      ],
+    );
+  }
+}
+
 class ChangeShapeDialog extends StatefulWidget {
   const ChangeShapeDialog({super.key});
 
@@ -186,7 +246,7 @@ class _ChangeShapeDialogState extends State<ChangeShapeDialog> {
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
-      title: Text("Change shape"),
+      title: Text("Change Shape"),
       contentPadding: const EdgeInsets.all(16),
       children: switch (step) {
         1 => [
