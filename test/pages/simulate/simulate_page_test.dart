@@ -47,22 +47,23 @@ class SimulatePageTest extends TestRunner {
         await addNewGameObject(gameObjectId2);
         await tap(findGameObject(gameObjectId1));
 
-        await tester.enterText(
-            find.descendant(
-                of: find.byKey(WidgetKey.gameObjectPropertyField("name")),
-                matching: find.byType(TextField)),
-            "First Character");
+        var text = "First Character";
+        await enterName(text);
         expect(find.text("First Character"), findsOne);
 
         await tap(find.text("First Character"));
-        await tester.enterText(
-            find.descendant(
-                of: find.byKey(WidgetKey.gameObjectPropertyField("name")),
-                matching: find.byType(TextField)),
-            "Second Character");
+        await enterName("Second Character");
         expect(find.text("Second Character"), findsOne);
       });
     });
+  }
+
+  Future<void> enterName(String text) async {
+    await tester.enterText(
+        find.descendant(
+            of: find.byKey(WidgetKey.gameObjectPropertyField("name")),
+            matching: find.byType(TextField)),
+        text);
   }
 
   Future<void> addNewGameObject(String id) async {
