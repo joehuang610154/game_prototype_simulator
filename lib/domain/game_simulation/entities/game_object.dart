@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:game_prototype_simulator/framework/entity.dart';
 
@@ -73,8 +75,8 @@ class GameObject extends Entity {
 
   void move(Offset delta) {
     position = Offset(
-      position.dx + delta.dx,
-      position.dy + delta.dy,
+      max(0, position.dx + delta.dx),
+      max(0, position.dy + delta.dy),
     );
   }
 }
