@@ -20,28 +20,29 @@ class GameObjectView extends StatelessWidget {
   Widget build(BuildContext context) {
     final SimulateViewModel viewModel = context.read();
 
-    return Center(
+    return GestureDetector(
+      onTap: onTap,
+      onPanUpdate: (details) {
+        viewModel.moveGameObject(id, details.delta);
+      },
       child: MouseRegion(
         cursor: SystemMouseCursors.click,
-        child: GestureDetector(
-          onTap: onTap,
-          child: RxBuilder(
-            viewModel.gameObjectStyle(id),
-            builder: (context, style) {
-              return Container(
-                width: style.width,
-                height: style.height,
-                decoration: BoxDecoration(
-                  color: style.color,
-                  shape: style.shape,
-                  borderRadius: style.borderRadius,
-                  border: isFocused
-                      ? Border.all(color: Colors.yellow, width: 3)
-                      : Border.fromBorderSide(BorderSide.none),
-                ),
-              );
-            },
-          ),
+        child: RxBuilder(
+          viewModel.gameObjectStyle(id),
+          builder: (context, style) {
+            return Container(
+              width: style.width,
+              height: style.height,
+              decoration: BoxDecoration(
+                color: style.color,
+                shape: style.shape,
+                borderRadius: style.borderRadius,
+                border: isFocused
+                    ? Border.all(color: Colors.yellow, width: 3)
+                    : Border.fromBorderSide(BorderSide.none),
+              ),
+            );
+          },
         ),
       ),
     );

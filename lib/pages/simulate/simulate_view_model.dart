@@ -42,6 +42,14 @@ class SimulateViewModel extends ViewModel<SimulateModel> {
     });
   }
 
+  Rx<Offset> gameObjectPosition(EntityId gameObjectId) {
+    return obs((model) {
+      var gameObject = model.currentScene?.findGameObject(gameObjectId);
+
+      return gameObject == null ? Offset.zero : gameObject.position;
+    });
+  }
+
   void createNewScene() {
     var newScene = _createNewScene.execute(
       name: "Battle Field",
@@ -74,6 +82,12 @@ class SimulateViewModel extends ViewModel<SimulateModel> {
       (model) => model.currentScene
           ?.findGameObject(model.focusedGameObjectId)
           ?.setShape(newShape),
+    );
+  }
+
+  void moveGameObject(EntityId gameObjectId, Offset delta) {
+    setState(
+      (model) => model.currentScene?.findGameObject(gameObjectId)?.move(delta),
     );
   }
 }

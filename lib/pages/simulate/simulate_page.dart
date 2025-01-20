@@ -142,17 +142,26 @@ class _SimulateViewState extends State<SimulateView> {
               child: RxBuilder(
                 viewModel.gameObjects,
                 builder: (context, gameObjects) {
-                  return Row(
+                  return Stack(
                     children: gameObjects.map((gameObject) {
                       return RxBuilder(
                         viewModel.isFocused(gameObject.id),
                         builder: (context, isFocused) {
-                          return GameObjectView(
-                            gameObject.id,
-                            key: WidgetKey.gameObject(gameObject.id),
-                            isFocused: isFocused,
-                            onTap: () =>
-                                viewModel.focusOnGameObject(gameObject.id),
+                          return RxBuilder(
+                            viewModel.gameObjectPosition(gameObject.id),
+                            builder: (context, position) {
+                              return Positioned(
+                                left: position.dx,
+                                top: position.dy,
+                                child: GameObjectView(
+                                  gameObject.id,
+                                  key: WidgetKey.gameObject(gameObject.id),
+                                  isFocused: isFocused,
+                                  onTap: () => viewModel
+                                      .focusOnGameObject(gameObject.id),
+                                ),
+                              );
+                            },
                           );
                         },
                       );

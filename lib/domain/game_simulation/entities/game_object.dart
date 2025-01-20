@@ -40,6 +40,7 @@ class GameObjectShape {
 class GameObject extends Entity {
   String name = "";
   GameObjectShape shape = GameObjectShape.circle(60);
+  Offset position = Offset.zero;
   Color color = Colors.blue;
   Map<String, dynamic> properties = {};
 
@@ -69,4 +70,11 @@ class GameObject extends Entity {
   void setShape(GameObjectShape newShape) => shape = newShape;
 
   void setColor(Color newColor) => color = newColor;
+
+  void move(Offset delta) {
+    position = Offset(
+      position.dx + delta.dx,
+      position.dy + delta.dy,
+    );
+  }
 }
