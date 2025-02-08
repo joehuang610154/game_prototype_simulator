@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "57466500720",
+    "project_id": "game-prototype-simulator",
+    "storage_bucket": "game-prototype-simulator.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:57466500720:android:500eb87d7362bce5b326b5",
+        "android_client_info": {
+          "package_name": "com.example.game_prototype_simulator"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgZwF-BGtmNPnu5LzJ7SLgRUT_TjvBs14"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
