@@ -1,15 +1,9 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:game_prototype_simulator/constants/route.dart';
-import 'package:game_prototype_simulator/firebase_options.dart';
 import 'package:game_prototype_simulator/injection.dart';
 import 'package:game_prototype_simulator/pages/simulate/simulate_page.dart';
 
-Future<void> main() async {
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-
+void main() {
   configureDependencies("runtime");
   runApp(const App());
 }
