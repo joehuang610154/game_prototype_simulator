@@ -68,10 +68,7 @@ bool _equals<S>(S oldValue, S newValue) {
   }
 
   if (oldValue is List<EntityId> && newValue is List<EntityId>) {
-    return listEquals(
-      oldValue.map((v) => v.id).toList(),
-      newValue.map((v) => v.id).toList(),
-    );
+    return listEquals(oldValue, newValue);
   }
 
   if (oldValue is Entity? && newValue is Entity?) {
