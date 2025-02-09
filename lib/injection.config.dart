@@ -14,11 +14,8 @@ import 'package:game_prototype_simulator/pages/simulate/game_object_properties_p
     as _i120;
 import 'package:game_prototype_simulator/pages/simulate/simulate_view_model.dart'
     as _i550;
-import 'package:game_prototype_simulator/utils/file_system.dart' as _i894;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
-
-const String _runtime = 'runtime';
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -35,10 +32,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i120.GameObjectPropertiesViewModel());
     gh.lazySingleton<_i264.CreateNewSceneUseCase>(
         () => _i264.CreateNewSceneUseCase());
-    gh.lazySingleton<_i894.FileSystem>(
-      () => _i894.FileSystem(),
-      registerFor: {_runtime},
-    );
     gh.factory<_i550.SimulateViewModel>(() => _i550.SimulateViewModel(
         createNewScene: gh<_i264.CreateNewSceneUseCase>()));
     return this;

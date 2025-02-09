@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:game_prototype_simulator/injection.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:game_prototype_simulator/main.dart';
-import 'package:game_prototype_simulator/utils/file_system.dart';
+import 'package:game_prototype_simulator/app/main.dart';
 import 'package:game_prototype_simulator/utils/uuid_util.dart';
 
-import '../doubles/memory_file_system.dart';
 import '../doubles/mock_uuid_util.dart';
 
 export 'package:flutter_test/flutter_test.dart';
