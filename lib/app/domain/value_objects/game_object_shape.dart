@@ -1,0 +1,1 @@
+enum GameObjectShape { rectangle, circle }
