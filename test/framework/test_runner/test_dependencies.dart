@@ -5,8 +5,13 @@ abstract class TestDependencies {
 
   late MockUuidUtil uuidUtil;
 
+  late AppDatabase db;
+
   void configureTestDependencies() {
     uuidUtil = MockUuidUtil();
+    db = AppDatabase(driftDatabase(name: "testdb"));
+
+    getIt.resetLazySingleton<AppDatabase>(instance: db);
 
     configureDependencies("test");
 
