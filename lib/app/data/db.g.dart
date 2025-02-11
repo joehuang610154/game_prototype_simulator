@@ -3,11 +3,12 @@
 part of 'db.dart';
 
 // ignore_for_file: type=lint
-class $SceneDtoTable extends SceneDto with TableInfo<$SceneDtoTable, Scene> {
+class $SceneTableTable extends SceneTable
+    with TableInfo<$SceneTableTable, SceneDto> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $SceneDtoTable(this.attachedDatabase, [this._alias]);
+  $SceneTableTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<String> id = GeneratedColumn<String>(
@@ -27,9 +28,9 @@ class $SceneDtoTable extends SceneDto with TableInfo<$SceneDtoTable, Scene> {
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
-  static const String $name = 'scene_dto';
+  static const String $name = 'scene_table';
   @override
-  VerificationContext validateIntegrity(Insertable<Scene> instance,
+  VerificationContext validateIntegrity(Insertable<SceneDto> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -50,9 +51,9 @@ class $SceneDtoTable extends SceneDto with TableInfo<$SceneDtoTable, Scene> {
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  Scene map(Map<String, dynamic> data, {String? tablePrefix}) {
+  SceneDto map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Scene(
+    return SceneDto(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
       name: attachedDatabase.typeMapping
@@ -61,15 +62,15 @@ class $SceneDtoTable extends SceneDto with TableInfo<$SceneDtoTable, Scene> {
   }
 
   @override
-  $SceneDtoTable createAlias(String alias) {
-    return $SceneDtoTable(attachedDatabase, alias);
+  $SceneTableTable createAlias(String alias) {
+    return $SceneTableTable(attachedDatabase, alias);
   }
 }
 
-class Scene extends DataClass implements Insertable<Scene> {
+class SceneDto extends DataClass implements Insertable<SceneDto> {
   final String id;
   final String name;
-  const Scene({required this.id, required this.name});
+  const SceneDto({required this.id, required this.name});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -78,17 +79,17 @@ class Scene extends DataClass implements Insertable<Scene> {
     return map;
   }
 
-  SceneDtoCompanion toCompanion(bool nullToAbsent) {
-    return SceneDtoCompanion(
+  SceneTableCompanion toCompanion(bool nullToAbsent) {
+    return SceneTableCompanion(
       id: Value(id),
       name: Value(name),
     );
   }
 
-  factory Scene.fromJson(Map<String, dynamic> json,
+  factory SceneDto.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return Scene(
+    return SceneDto(
       id: serializer.fromJson<String>(json['id']),
       name: serializer.fromJson<String>(json['name']),
     );
@@ -102,12 +103,12 @@ class Scene extends DataClass implements Insertable<Scene> {
     };
   }
 
-  Scene copyWith({String? id, String? name}) => Scene(
+  SceneDto copyWith({String? id, String? name}) => SceneDto(
         id: id ?? this.id,
         name: name ?? this.name,
       );
-  Scene copyWithCompanion(SceneDtoCompanion data) {
-    return Scene(
+  SceneDto copyWithCompanion(SceneTableCompanion data) {
+    return SceneDto(
       id: data.id.present ? data.id.value : this.id,
       name: data.name.present ? data.name.value : this.name,
     );
@@ -115,7 +116,7 @@ class Scene extends DataClass implements Insertable<Scene> {
 
   @override
   String toString() {
-    return (StringBuffer('Scene(')
+    return (StringBuffer('SceneDto(')
           ..write('id: $id, ')
           ..write('name: $name')
           ..write(')'))
@@ -127,25 +128,25 @@ class Scene extends DataClass implements Insertable<Scene> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is Scene && other.id == this.id && other.name == this.name);
+      (other is SceneDto && other.id == this.id && other.name == this.name);
 }
 
-class SceneDtoCompanion extends UpdateCompanion<Scene> {
+class SceneTableCompanion extends UpdateCompanion<SceneDto> {
   final Value<String> id;
   final Value<String> name;
   final Value<int> rowid;
-  const SceneDtoCompanion({
+  const SceneTableCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
     this.rowid = const Value.absent(),
   });
-  SceneDtoCompanion.insert({
+  SceneTableCompanion.insert({
     required String id,
     required String name,
     this.rowid = const Value.absent(),
   })  : id = Value(id),
         name = Value(name);
-  static Insertable<Scene> custom({
+  static Insertable<SceneDto> custom({
     Expression<String>? id,
     Expression<String>? name,
     Expression<int>? rowid,
@@ -157,9 +158,9 @@ class SceneDtoCompanion extends UpdateCompanion<Scene> {
     });
   }
 
-  SceneDtoCompanion copyWith(
+  SceneTableCompanion copyWith(
       {Value<String>? id, Value<String>? name, Value<int>? rowid}) {
-    return SceneDtoCompanion(
+    return SceneTableCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
       rowid: rowid ?? this.rowid,
@@ -183,7 +184,7 @@ class SceneDtoCompanion extends UpdateCompanion<Scene> {
 
   @override
   String toString() {
-    return (StringBuffer('SceneDtoCompanion(')
+    return (StringBuffer('SceneTableCompanion(')
           ..write('id: $id, ')
           ..write('name: $name, ')
           ..write('rowid: $rowid')
@@ -192,12 +193,12 @@ class SceneDtoCompanion extends UpdateCompanion<Scene> {
   }
 }
 
-class $SceneSnapshotDtoTable extends SceneSnapshotDto
-    with TableInfo<$SceneSnapshotDtoTable, SceneSnapshot> {
+class $SceneSnapshotTableTable extends SceneSnapshotTable
+    with TableInfo<$SceneSnapshotTableTable, SceneSnapshotDto> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $SceneSnapshotDtoTable(this.attachedDatabase, [this._alias]);
+  $SceneSnapshotTableTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<String> id = GeneratedColumn<String>(
@@ -220,7 +221,7 @@ class $SceneSnapshotDtoTable extends SceneSnapshotDto
       type: DriftSqlType.string,
       requiredDuringInsert: true,
       defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES scene_dto (id)'));
+          GeneratedColumn.constraintIsAlways('REFERENCES scene_table (id)'));
   static const VerificationMeta _parentIdMeta =
       const VerificationMeta('parentId');
   @override
@@ -229,16 +230,16 @@ class $SceneSnapshotDtoTable extends SceneSnapshotDto
       type: DriftSqlType.string,
       requiredDuringInsert: true,
       defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'REFERENCES scene_snapshot_dto (id)'));
+          'REFERENCES scene_snapshot_table (id)'));
   @override
   List<GeneratedColumn> get $columns => [id, description, sceneId, parentId];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
-  static const String $name = 'scene_snapshot_dto';
+  static const String $name = 'scene_snapshot_table';
   @override
-  VerificationContext validateIntegrity(Insertable<SceneSnapshot> instance,
+  VerificationContext validateIntegrity(Insertable<SceneSnapshotDto> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -273,9 +274,9 @@ class $SceneSnapshotDtoTable extends SceneSnapshotDto
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  SceneSnapshot map(Map<String, dynamic> data, {String? tablePrefix}) {
+  SceneSnapshotDto map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return SceneSnapshot(
+    return SceneSnapshotDto(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
       description: attachedDatabase.typeMapping
@@ -288,17 +289,18 @@ class $SceneSnapshotDtoTable extends SceneSnapshotDto
   }
 
   @override
-  $SceneSnapshotDtoTable createAlias(String alias) {
-    return $SceneSnapshotDtoTable(attachedDatabase, alias);
+  $SceneSnapshotTableTable createAlias(String alias) {
+    return $SceneSnapshotTableTable(attachedDatabase, alias);
   }
 }
 
-class SceneSnapshot extends DataClass implements Insertable<SceneSnapshot> {
+class SceneSnapshotDto extends DataClass
+    implements Insertable<SceneSnapshotDto> {
   final String id;
   final String description;
   final String sceneId;
   final String parentId;
-  const SceneSnapshot(
+  const SceneSnapshotDto(
       {required this.id,
       required this.description,
       required this.sceneId,
@@ -313,8 +315,8 @@ class SceneSnapshot extends DataClass implements Insertable<SceneSnapshot> {
     return map;
   }
 
-  SceneSnapshotDtoCompanion toCompanion(bool nullToAbsent) {
-    return SceneSnapshotDtoCompanion(
+  SceneSnapshotTableCompanion toCompanion(bool nullToAbsent) {
+    return SceneSnapshotTableCompanion(
       id: Value(id),
       description: Value(description),
       sceneId: Value(sceneId),
@@ -322,10 +324,10 @@ class SceneSnapshot extends DataClass implements Insertable<SceneSnapshot> {
     );
   }
 
-  factory SceneSnapshot.fromJson(Map<String, dynamic> json,
+  factory SceneSnapshotDto.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return SceneSnapshot(
+    return SceneSnapshotDto(
       id: serializer.fromJson<String>(json['id']),
       description: serializer.fromJson<String>(json['description']),
       sceneId: serializer.fromJson<String>(json['sceneId']),
@@ -343,19 +345,19 @@ class SceneSnapshot extends DataClass implements Insertable<SceneSnapshot> {
     };
   }
 
-  SceneSnapshot copyWith(
+  SceneSnapshotDto copyWith(
           {String? id,
           String? description,
           String? sceneId,
           String? parentId}) =>
-      SceneSnapshot(
+      SceneSnapshotDto(
         id: id ?? this.id,
         description: description ?? this.description,
         sceneId: sceneId ?? this.sceneId,
         parentId: parentId ?? this.parentId,
       );
-  SceneSnapshot copyWithCompanion(SceneSnapshotDtoCompanion data) {
-    return SceneSnapshot(
+  SceneSnapshotDto copyWithCompanion(SceneSnapshotTableCompanion data) {
+    return SceneSnapshotDto(
       id: data.id.present ? data.id.value : this.id,
       description:
           data.description.present ? data.description.value : this.description,
@@ -366,7 +368,7 @@ class SceneSnapshot extends DataClass implements Insertable<SceneSnapshot> {
 
   @override
   String toString() {
-    return (StringBuffer('SceneSnapshot(')
+    return (StringBuffer('SceneSnapshotDto(')
           ..write('id: $id, ')
           ..write('description: $description, ')
           ..write('sceneId: $sceneId, ')
@@ -380,27 +382,27 @@ class SceneSnapshot extends DataClass implements Insertable<SceneSnapshot> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is SceneSnapshot &&
+      (other is SceneSnapshotDto &&
           other.id == this.id &&
           other.description == this.description &&
           other.sceneId == this.sceneId &&
           other.parentId == this.parentId);
 }
 
-class SceneSnapshotDtoCompanion extends UpdateCompanion<SceneSnapshot> {
+class SceneSnapshotTableCompanion extends UpdateCompanion<SceneSnapshotDto> {
   final Value<String> id;
   final Value<String> description;
   final Value<String> sceneId;
   final Value<String> parentId;
   final Value<int> rowid;
-  const SceneSnapshotDtoCompanion({
+  const SceneSnapshotTableCompanion({
     this.id = const Value.absent(),
     this.description = const Value.absent(),
     this.sceneId = const Value.absent(),
     this.parentId = const Value.absent(),
     this.rowid = const Value.absent(),
   });
-  SceneSnapshotDtoCompanion.insert({
+  SceneSnapshotTableCompanion.insert({
     required String id,
     required String description,
     required String sceneId,
@@ -410,7 +412,7 @@ class SceneSnapshotDtoCompanion extends UpdateCompanion<SceneSnapshot> {
         description = Value(description),
         sceneId = Value(sceneId),
         parentId = Value(parentId);
-  static Insertable<SceneSnapshot> custom({
+  static Insertable<SceneSnapshotDto> custom({
     Expression<String>? id,
     Expression<String>? description,
     Expression<String>? sceneId,
@@ -426,13 +428,13 @@ class SceneSnapshotDtoCompanion extends UpdateCompanion<SceneSnapshot> {
     });
   }
 
-  SceneSnapshotDtoCompanion copyWith(
+  SceneSnapshotTableCompanion copyWith(
       {Value<String>? id,
       Value<String>? description,
       Value<String>? sceneId,
       Value<String>? parentId,
       Value<int>? rowid}) {
-    return SceneSnapshotDtoCompanion(
+    return SceneSnapshotTableCompanion(
       id: id ?? this.id,
       description: description ?? this.description,
       sceneId: sceneId ?? this.sceneId,
@@ -464,7 +466,7 @@ class SceneSnapshotDtoCompanion extends UpdateCompanion<SceneSnapshot> {
 
   @override
   String toString() {
-    return (StringBuffer('SceneSnapshotDtoCompanion(')
+    return (StringBuffer('SceneSnapshotTableCompanion(')
           ..write('id: $id, ')
           ..write('description: $description, ')
           ..write('sceneId: $sceneId, ')
@@ -475,12 +477,12 @@ class SceneSnapshotDtoCompanion extends UpdateCompanion<SceneSnapshot> {
   }
 }
 
-class $GameObjectDtoTable extends GameObjectDto
-    with TableInfo<$GameObjectDtoTable, GameObject> {
+class $GameObjectTableTable extends GameObjectTable
+    with TableInfo<$GameObjectTableTable, GameObjectDto> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $GameObjectDtoTable(this.attachedDatabase, [this._alias]);
+  $GameObjectTableTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<String> id = GeneratedColumn<String>(
@@ -502,7 +504,7 @@ class $GameObjectDtoTable extends GameObjectDto
       type: DriftSqlType.string,
       requiredDuringInsert: false,
       defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES scene_dto (id)'));
+          GeneratedColumn.constraintIsAlways('REFERENCES scene_table (id)'));
   static const VerificationMeta _sceneSnapshotIdMeta =
       const VerificationMeta('sceneSnapshotId');
   @override
@@ -511,7 +513,7 @@ class $GameObjectDtoTable extends GameObjectDto
       type: DriftSqlType.string,
       requiredDuringInsert: false,
       defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'REFERENCES scene_snapshot_dto (id)'));
+          'REFERENCES scene_snapshot_table (id)'));
   static const VerificationMeta _positionXMeta =
       const VerificationMeta('positionX');
   @override
@@ -564,9 +566,9 @@ class $GameObjectDtoTable extends GameObjectDto
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
-  static const String $name = 'game_object_dto';
+  static const String $name = 'game_object_table';
   @override
-  VerificationContext validateIntegrity(Insertable<GameObject> instance,
+  VerificationContext validateIntegrity(Insertable<GameObjectDto> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -633,9 +635,9 @@ class $GameObjectDtoTable extends GameObjectDto
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  GameObject map(Map<String, dynamic> data, {String? tablePrefix}) {
+  GameObjectDto map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return GameObject(
+    return GameObjectDto(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
       name: attachedDatabase.typeMapping
@@ -660,12 +662,12 @@ class $GameObjectDtoTable extends GameObjectDto
   }
 
   @override
-  $GameObjectDtoTable createAlias(String alias) {
-    return $GameObjectDtoTable(attachedDatabase, alias);
+  $GameObjectTableTable createAlias(String alias) {
+    return $GameObjectTableTable(attachedDatabase, alias);
   }
 }
 
-class GameObject extends DataClass implements Insertable<GameObject> {
+class GameObjectDto extends DataClass implements Insertable<GameObjectDto> {
   final String id;
   final String name;
   final String? sceneId;
@@ -676,7 +678,7 @@ class GameObject extends DataClass implements Insertable<GameObject> {
   final String shape;
   final int width;
   final int height;
-  const GameObject(
+  const GameObjectDto(
       {required this.id,
       required this.name,
       this.sceneId,
@@ -707,8 +709,8 @@ class GameObject extends DataClass implements Insertable<GameObject> {
     return map;
   }
 
-  GameObjectDtoCompanion toCompanion(bool nullToAbsent) {
-    return GameObjectDtoCompanion(
+  GameObjectTableCompanion toCompanion(bool nullToAbsent) {
+    return GameObjectTableCompanion(
       id: Value(id),
       name: Value(name),
       sceneId: sceneId == null && nullToAbsent
@@ -726,10 +728,10 @@ class GameObject extends DataClass implements Insertable<GameObject> {
     );
   }
 
-  factory GameObject.fromJson(Map<String, dynamic> json,
+  factory GameObjectDto.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return GameObject(
+    return GameObjectDto(
       id: serializer.fromJson<String>(json['id']),
       name: serializer.fromJson<String>(json['name']),
       sceneId: serializer.fromJson<String?>(json['sceneId']),
@@ -759,7 +761,7 @@ class GameObject extends DataClass implements Insertable<GameObject> {
     };
   }
 
-  GameObject copyWith(
+  GameObjectDto copyWith(
           {String? id,
           String? name,
           Value<String?> sceneId = const Value.absent(),
@@ -770,7 +772,7 @@ class GameObject extends DataClass implements Insertable<GameObject> {
           String? shape,
           int? width,
           int? height}) =>
-      GameObject(
+      GameObjectDto(
         id: id ?? this.id,
         name: name ?? this.name,
         sceneId: sceneId.present ? sceneId.value : this.sceneId,
@@ -784,8 +786,8 @@ class GameObject extends DataClass implements Insertable<GameObject> {
         width: width ?? this.width,
         height: height ?? this.height,
       );
-  GameObject copyWithCompanion(GameObjectDtoCompanion data) {
-    return GameObject(
+  GameObjectDto copyWithCompanion(GameObjectTableCompanion data) {
+    return GameObjectDto(
       id: data.id.present ? data.id.value : this.id,
       name: data.name.present ? data.name.value : this.name,
       sceneId: data.sceneId.present ? data.sceneId.value : this.sceneId,
@@ -803,7 +805,7 @@ class GameObject extends DataClass implements Insertable<GameObject> {
 
   @override
   String toString() {
-    return (StringBuffer('GameObject(')
+    return (StringBuffer('GameObjectDto(')
           ..write('id: $id, ')
           ..write('name: $name, ')
           ..write('sceneId: $sceneId, ')
@@ -824,7 +826,7 @@ class GameObject extends DataClass implements Insertable<GameObject> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is GameObject &&
+      (other is GameObjectDto &&
           other.id == this.id &&
           other.name == this.name &&
           other.sceneId == this.sceneId &&
@@ -837,7 +839,7 @@ class GameObject extends DataClass implements Insertable<GameObject> {
           other.height == this.height);
 }
 
-class GameObjectDtoCompanion extends UpdateCompanion<GameObject> {
+class GameObjectTableCompanion extends UpdateCompanion<GameObjectDto> {
   final Value<String> id;
   final Value<String> name;
   final Value<String?> sceneId;
@@ -849,7 +851,7 @@ class GameObjectDtoCompanion extends UpdateCompanion<GameObject> {
   final Value<int> width;
   final Value<int> height;
   final Value<int> rowid;
-  const GameObjectDtoCompanion({
+  const GameObjectTableCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
     this.sceneId = const Value.absent(),
@@ -862,7 +864,7 @@ class GameObjectDtoCompanion extends UpdateCompanion<GameObject> {
     this.height = const Value.absent(),
     this.rowid = const Value.absent(),
   });
-  GameObjectDtoCompanion.insert({
+  GameObjectTableCompanion.insert({
     required String id,
     required String name,
     this.sceneId = const Value.absent(),
@@ -882,7 +884,7 @@ class GameObjectDtoCompanion extends UpdateCompanion<GameObject> {
         shape = Value(shape),
         width = Value(width),
         height = Value(height);
-  static Insertable<GameObject> custom({
+  static Insertable<GameObjectDto> custom({
     Expression<String>? id,
     Expression<String>? name,
     Expression<String>? sceneId,
@@ -910,7 +912,7 @@ class GameObjectDtoCompanion extends UpdateCompanion<GameObject> {
     });
   }
 
-  GameObjectDtoCompanion copyWith(
+  GameObjectTableCompanion copyWith(
       {Value<String>? id,
       Value<String>? name,
       Value<String?>? sceneId,
@@ -922,7 +924,7 @@ class GameObjectDtoCompanion extends UpdateCompanion<GameObject> {
       Value<int>? width,
       Value<int>? height,
       Value<int>? rowid}) {
-    return GameObjectDtoCompanion(
+    return GameObjectTableCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
       sceneId: sceneId ?? this.sceneId,
@@ -978,7 +980,7 @@ class GameObjectDtoCompanion extends UpdateCompanion<GameObject> {
 
   @override
   String toString() {
-    return (StringBuffer('GameObjectDtoCompanion(')
+    return (StringBuffer('GameObjectTableCompanion(')
           ..write('id: $id, ')
           ..write('name: $name, ')
           ..write('sceneId: $sceneId, ')
@@ -998,69 +1000,72 @@ class GameObjectDtoCompanion extends UpdateCompanion<GameObject> {
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
-  late final $SceneDtoTable sceneDto = $SceneDtoTable(this);
-  late final $SceneSnapshotDtoTable sceneSnapshotDto =
-      $SceneSnapshotDtoTable(this);
-  late final $GameObjectDtoTable gameObjectDto = $GameObjectDtoTable(this);
+  late final $SceneTableTable sceneTable = $SceneTableTable(this);
+  late final $SceneSnapshotTableTable sceneSnapshotTable =
+      $SceneSnapshotTableTable(this);
+  late final $GameObjectTableTable gameObjectTable =
+      $GameObjectTableTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [sceneDto, sceneSnapshotDto, gameObjectDto];
+      [sceneTable, sceneSnapshotTable, gameObjectTable];
 }
 
-typedef $$SceneDtoTableCreateCompanionBuilder = SceneDtoCompanion Function({
+typedef $$SceneTableTableCreateCompanionBuilder = SceneTableCompanion Function({
   required String id,
   required String name,
   Value<int> rowid,
 });
-typedef $$SceneDtoTableUpdateCompanionBuilder = SceneDtoCompanion Function({
+typedef $$SceneTableTableUpdateCompanionBuilder = SceneTableCompanion Function({
   Value<String> id,
   Value<String> name,
   Value<int> rowid,
 });
 
-final class $$SceneDtoTableReferences
-    extends BaseReferences<_$AppDatabase, $SceneDtoTable, Scene> {
-  $$SceneDtoTableReferences(super.$_db, super.$_table, super.$_typedResult);
+final class $$SceneTableTableReferences
+    extends BaseReferences<_$AppDatabase, $SceneTableTable, SceneDto> {
+  $$SceneTableTableReferences(super.$_db, super.$_table, super.$_typedResult);
 
-  static MultiTypedResultKey<$SceneSnapshotDtoTable, List<SceneSnapshot>>
-      _sceneSnapshotDtoRefsTable(_$AppDatabase db) =>
-          MultiTypedResultKey.fromTable(db.sceneSnapshotDto,
+  static MultiTypedResultKey<$SceneSnapshotTableTable, List<SceneSnapshotDto>>
+      _sceneSnapshotTableRefsTable(_$AppDatabase db) =>
+          MultiTypedResultKey.fromTable(db.sceneSnapshotTable,
               aliasName: $_aliasNameGenerator(
-                  db.sceneDto.id, db.sceneSnapshotDto.sceneId));
+                  db.sceneTable.id, db.sceneSnapshotTable.sceneId));
 
-  $$SceneSnapshotDtoTableProcessedTableManager get sceneSnapshotDtoRefs {
+  $$SceneSnapshotTableTableProcessedTableManager get sceneSnapshotTableRefs {
     final manager =
-        $$SceneSnapshotDtoTableTableManager($_db, $_db.sceneSnapshotDto)
+        $$SceneSnapshotTableTableTableManager($_db, $_db.sceneSnapshotTable)
             .filter((f) => f.sceneId.id.sqlEquals($_itemColumn<String>('id')!));
 
     final cache =
-        $_typedResult.readTableOrNull(_sceneSnapshotDtoRefsTable($_db));
+        $_typedResult.readTableOrNull(_sceneSnapshotTableRefsTable($_db));
     return ProcessedTableManager(
         manager.$state.copyWith(prefetchedData: cache));
   }
 
-  static MultiTypedResultKey<$GameObjectDtoTable, List<GameObject>>
-      _gameObjectDtoRefsTable(_$AppDatabase db) =>
-          MultiTypedResultKey.fromTable(db.gameObjectDto,
+  static MultiTypedResultKey<$GameObjectTableTable, List<GameObjectDto>>
+      _gameObjectTableRefsTable(_$AppDatabase db) =>
+          MultiTypedResultKey.fromTable(db.gameObjectTable,
               aliasName: $_aliasNameGenerator(
-                  db.sceneDto.id, db.gameObjectDto.sceneId));
+                  db.sceneTable.id, db.gameObjectTable.sceneId));
 
-  $$GameObjectDtoTableProcessedTableManager get gameObjectDtoRefs {
-    final manager = $$GameObjectDtoTableTableManager($_db, $_db.gameObjectDto)
-        .filter((f) => f.sceneId.id.sqlEquals($_itemColumn<String>('id')!));
+  $$GameObjectTableTableProcessedTableManager get gameObjectTableRefs {
+    final manager =
+        $$GameObjectTableTableTableManager($_db, $_db.gameObjectTable)
+            .filter((f) => f.sceneId.id.sqlEquals($_itemColumn<String>('id')!));
 
-    final cache = $_typedResult.readTableOrNull(_gameObjectDtoRefsTable($_db));
+    final cache =
+        $_typedResult.readTableOrNull(_gameObjectTableRefsTable($_db));
     return ProcessedTableManager(
         manager.$state.copyWith(prefetchedData: cache));
   }
 }
 
-class $$SceneDtoTableFilterComposer
-    extends Composer<_$AppDatabase, $SceneDtoTable> {
-  $$SceneDtoTableFilterComposer({
+class $$SceneTableTableFilterComposer
+    extends Composer<_$AppDatabase, $SceneTableTable> {
+  $$SceneTableTableFilterComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -1073,19 +1078,19 @@ class $$SceneDtoTableFilterComposer
   ColumnFilters<String> get name => $composableBuilder(
       column: $table.name, builder: (column) => ColumnFilters(column));
 
-  Expression<bool> sceneSnapshotDtoRefs(
-      Expression<bool> Function($$SceneSnapshotDtoTableFilterComposer f) f) {
-    final $$SceneSnapshotDtoTableFilterComposer composer = $composerBuilder(
+  Expression<bool> sceneSnapshotTableRefs(
+      Expression<bool> Function($$SceneSnapshotTableTableFilterComposer f) f) {
+    final $$SceneSnapshotTableTableFilterComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.id,
-        referencedTable: $db.sceneSnapshotDto,
+        referencedTable: $db.sceneSnapshotTable,
         getReferencedColumn: (t) => t.sceneId,
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$SceneSnapshotDtoTableFilterComposer(
+            $$SceneSnapshotTableTableFilterComposer(
               $db: $db,
-              $table: $db.sceneSnapshotDto,
+              $table: $db.sceneSnapshotTable,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
               joinBuilder: joinBuilder,
               $removeJoinBuilderFromRootComposer:
@@ -1094,19 +1099,19 @@ class $$SceneDtoTableFilterComposer
     return f(composer);
   }
 
-  Expression<bool> gameObjectDtoRefs(
-      Expression<bool> Function($$GameObjectDtoTableFilterComposer f) f) {
-    final $$GameObjectDtoTableFilterComposer composer = $composerBuilder(
+  Expression<bool> gameObjectTableRefs(
+      Expression<bool> Function($$GameObjectTableTableFilterComposer f) f) {
+    final $$GameObjectTableTableFilterComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.id,
-        referencedTable: $db.gameObjectDto,
+        referencedTable: $db.gameObjectTable,
         getReferencedColumn: (t) => t.sceneId,
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$GameObjectDtoTableFilterComposer(
+            $$GameObjectTableTableFilterComposer(
               $db: $db,
-              $table: $db.gameObjectDto,
+              $table: $db.gameObjectTable,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
               joinBuilder: joinBuilder,
               $removeJoinBuilderFromRootComposer:
@@ -1116,9 +1121,9 @@ class $$SceneDtoTableFilterComposer
   }
 }
 
-class $$SceneDtoTableOrderingComposer
-    extends Composer<_$AppDatabase, $SceneDtoTable> {
-  $$SceneDtoTableOrderingComposer({
+class $$SceneTableTableOrderingComposer
+    extends Composer<_$AppDatabase, $SceneTableTable> {
+  $$SceneTableTableOrderingComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -1132,9 +1137,9 @@ class $$SceneDtoTableOrderingComposer
       column: $table.name, builder: (column) => ColumnOrderings(column));
 }
 
-class $$SceneDtoTableAnnotationComposer
-    extends Composer<_$AppDatabase, $SceneDtoTable> {
-  $$SceneDtoTableAnnotationComposer({
+class $$SceneTableTableAnnotationComposer
+    extends Composer<_$AppDatabase, $SceneTableTable> {
+  $$SceneTableTableAnnotationComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -1147,40 +1152,41 @@ class $$SceneDtoTableAnnotationComposer
   GeneratedColumn<String> get name =>
       $composableBuilder(column: $table.name, builder: (column) => column);
 
-  Expression<T> sceneSnapshotDtoRefs<T extends Object>(
-      Expression<T> Function($$SceneSnapshotDtoTableAnnotationComposer a) f) {
-    final $$SceneSnapshotDtoTableAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.id,
-        referencedTable: $db.sceneSnapshotDto,
-        getReferencedColumn: (t) => t.sceneId,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$SceneSnapshotDtoTableAnnotationComposer(
-              $db: $db,
-              $table: $db.sceneSnapshotDto,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+  Expression<T> sceneSnapshotTableRefs<T extends Object>(
+      Expression<T> Function($$SceneSnapshotTableTableAnnotationComposer a) f) {
+    final $$SceneSnapshotTableTableAnnotationComposer composer =
+        $composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.id,
+            referencedTable: $db.sceneSnapshotTable,
+            getReferencedColumn: (t) => t.sceneId,
+            builder: (joinBuilder,
+                    {$addJoinBuilderToRootComposer,
+                    $removeJoinBuilderFromRootComposer}) =>
+                $$SceneSnapshotTableTableAnnotationComposer(
+                  $db: $db,
+                  $table: $db.sceneSnapshotTable,
+                  $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                  joinBuilder: joinBuilder,
+                  $removeJoinBuilderFromRootComposer:
+                      $removeJoinBuilderFromRootComposer,
+                ));
     return f(composer);
   }
 
-  Expression<T> gameObjectDtoRefs<T extends Object>(
-      Expression<T> Function($$GameObjectDtoTableAnnotationComposer a) f) {
-    final $$GameObjectDtoTableAnnotationComposer composer = $composerBuilder(
+  Expression<T> gameObjectTableRefs<T extends Object>(
+      Expression<T> Function($$GameObjectTableTableAnnotationComposer a) f) {
+    final $$GameObjectTableTableAnnotationComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.id,
-        referencedTable: $db.gameObjectDto,
+        referencedTable: $db.gameObjectTable,
         getReferencedColumn: (t) => t.sceneId,
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$GameObjectDtoTableAnnotationComposer(
+            $$GameObjectTableTableAnnotationComposer(
               $db: $db,
-              $table: $db.gameObjectDto,
+              $table: $db.gameObjectTable,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
               joinBuilder: joinBuilder,
               $removeJoinBuilderFromRootComposer:
@@ -1190,35 +1196,35 @@ class $$SceneDtoTableAnnotationComposer
   }
 }
 
-class $$SceneDtoTableTableManager extends RootTableManager<
+class $$SceneTableTableTableManager extends RootTableManager<
     _$AppDatabase,
-    $SceneDtoTable,
-    Scene,
-    $$SceneDtoTableFilterComposer,
-    $$SceneDtoTableOrderingComposer,
-    $$SceneDtoTableAnnotationComposer,
-    $$SceneDtoTableCreateCompanionBuilder,
-    $$SceneDtoTableUpdateCompanionBuilder,
-    (Scene, $$SceneDtoTableReferences),
-    Scene,
+    $SceneTableTable,
+    SceneDto,
+    $$SceneTableTableFilterComposer,
+    $$SceneTableTableOrderingComposer,
+    $$SceneTableTableAnnotationComposer,
+    $$SceneTableTableCreateCompanionBuilder,
+    $$SceneTableTableUpdateCompanionBuilder,
+    (SceneDto, $$SceneTableTableReferences),
+    SceneDto,
     PrefetchHooks Function(
-        {bool sceneSnapshotDtoRefs, bool gameObjectDtoRefs})> {
-  $$SceneDtoTableTableManager(_$AppDatabase db, $SceneDtoTable table)
+        {bool sceneSnapshotTableRefs, bool gameObjectTableRefs})> {
+  $$SceneTableTableTableManager(_$AppDatabase db, $SceneTableTable table)
       : super(TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
-              $$SceneDtoTableFilterComposer($db: db, $table: table),
+              $$SceneTableTableFilterComposer($db: db, $table: table),
           createOrderingComposer: () =>
-              $$SceneDtoTableOrderingComposer($db: db, $table: table),
+              $$SceneTableTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
-              $$SceneDtoTableAnnotationComposer($db: db, $table: table),
+              $$SceneTableTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<String> id = const Value.absent(),
             Value<String> name = const Value.absent(),
             Value<int> rowid = const Value.absent(),
           }) =>
-              SceneDtoCompanion(
+              SceneTableCompanion(
             id: id,
             name: name,
             rowid: rowid,
@@ -1228,48 +1234,50 @@ class $$SceneDtoTableTableManager extends RootTableManager<
             required String name,
             Value<int> rowid = const Value.absent(),
           }) =>
-              SceneDtoCompanion.insert(
+              SceneTableCompanion.insert(
             id: id,
             name: name,
             rowid: rowid,
           ),
           withReferenceMapper: (p0) => p0
-              .map((e) =>
-                  (e.readTable(table), $$SceneDtoTableReferences(db, table, e)))
+              .map((e) => (
+                    e.readTable(table),
+                    $$SceneTableTableReferences(db, table, e)
+                  ))
               .toList(),
           prefetchHooksCallback: (
-              {sceneSnapshotDtoRefs = false, gameObjectDtoRefs = false}) {
+              {sceneSnapshotTableRefs = false, gameObjectTableRefs = false}) {
             return PrefetchHooks(
               db: db,
               explicitlyWatchedTables: [
-                if (sceneSnapshotDtoRefs) db.sceneSnapshotDto,
-                if (gameObjectDtoRefs) db.gameObjectDto
+                if (sceneSnapshotTableRefs) db.sceneSnapshotTable,
+                if (gameObjectTableRefs) db.gameObjectTable
               ],
               addJoins: null,
               getPrefetchedDataCallback: (items) async {
                 return [
-                  if (sceneSnapshotDtoRefs)
-                    await $_getPrefetchedData<Scene, $SceneDtoTable,
-                            SceneSnapshot>(
+                  if (sceneSnapshotTableRefs)
+                    await $_getPrefetchedData<SceneDto, $SceneTableTable,
+                            SceneSnapshotDto>(
                         currentTable: table,
-                        referencedTable: $$SceneDtoTableReferences
-                            ._sceneSnapshotDtoRefsTable(db),
+                        referencedTable: $$SceneTableTableReferences
+                            ._sceneSnapshotTableRefsTable(db),
                         managerFromTypedResult: (p0) =>
-                            $$SceneDtoTableReferences(db, table, p0)
-                                .sceneSnapshotDtoRefs,
+                            $$SceneTableTableReferences(db, table, p0)
+                                .sceneSnapshotTableRefs,
                         referencedItemsForCurrentItem: (item,
                                 referencedItems) =>
                             referencedItems.where((e) => e.sceneId == item.id),
                         typedResults: items),
-                  if (gameObjectDtoRefs)
-                    await $_getPrefetchedData<Scene, $SceneDtoTable,
-                            GameObject>(
+                  if (gameObjectTableRefs)
+                    await $_getPrefetchedData<SceneDto, $SceneTableTable,
+                            GameObjectDto>(
                         currentTable: table,
-                        referencedTable: $$SceneDtoTableReferences
-                            ._gameObjectDtoRefsTable(db),
+                        referencedTable: $$SceneTableTableReferences
+                            ._gameObjectTableRefsTable(db),
                         managerFromTypedResult: (p0) =>
-                            $$SceneDtoTableReferences(db, table, p0)
-                                .gameObjectDtoRefs,
+                            $$SceneTableTableReferences(db, table, p0)
+                                .gameObjectTableRefs,
                         referencedItemsForCurrentItem: (item,
                                 referencedItems) =>
                             referencedItems.where((e) => e.sceneId == item.id),
@@ -1281,29 +1289,29 @@ class $$SceneDtoTableTableManager extends RootTableManager<
         ));
 }
 
-typedef $$SceneDtoTableProcessedTableManager = ProcessedTableManager<
+typedef $$SceneTableTableProcessedTableManager = ProcessedTableManager<
     _$AppDatabase,
-    $SceneDtoTable,
-    Scene,
-    $$SceneDtoTableFilterComposer,
-    $$SceneDtoTableOrderingComposer,
-    $$SceneDtoTableAnnotationComposer,
-    $$SceneDtoTableCreateCompanionBuilder,
-    $$SceneDtoTableUpdateCompanionBuilder,
-    (Scene, $$SceneDtoTableReferences),
-    Scene,
+    $SceneTableTable,
+    SceneDto,
+    $$SceneTableTableFilterComposer,
+    $$SceneTableTableOrderingComposer,
+    $$SceneTableTableAnnotationComposer,
+    $$SceneTableTableCreateCompanionBuilder,
+    $$SceneTableTableUpdateCompanionBuilder,
+    (SceneDto, $$SceneTableTableReferences),
+    SceneDto,
     PrefetchHooks Function(
-        {bool sceneSnapshotDtoRefs, bool gameObjectDtoRefs})>;
-typedef $$SceneSnapshotDtoTableCreateCompanionBuilder
-    = SceneSnapshotDtoCompanion Function({
+        {bool sceneSnapshotTableRefs, bool gameObjectTableRefs})>;
+typedef $$SceneSnapshotTableTableCreateCompanionBuilder
+    = SceneSnapshotTableCompanion Function({
   required String id,
   required String description,
   required String sceneId,
   required String parentId,
   Value<int> rowid,
 });
-typedef $$SceneSnapshotDtoTableUpdateCompanionBuilder
-    = SceneSnapshotDtoCompanion Function({
+typedef $$SceneSnapshotTableTableUpdateCompanionBuilder
+    = SceneSnapshotTableCompanion Function({
   Value<String> id,
   Value<String> description,
   Value<String> sceneId,
@@ -1311,19 +1319,19 @@ typedef $$SceneSnapshotDtoTableUpdateCompanionBuilder
   Value<int> rowid,
 });
 
-final class $$SceneSnapshotDtoTableReferences extends BaseReferences<
-    _$AppDatabase, $SceneSnapshotDtoTable, SceneSnapshot> {
-  $$SceneSnapshotDtoTableReferences(
+final class $$SceneSnapshotTableTableReferences extends BaseReferences<
+    _$AppDatabase, $SceneSnapshotTableTable, SceneSnapshotDto> {
+  $$SceneSnapshotTableTableReferences(
       super.$_db, super.$_table, super.$_typedResult);
 
-  static $SceneDtoTable _sceneIdTable(_$AppDatabase db) =>
-      db.sceneDto.createAlias(
-          $_aliasNameGenerator(db.sceneSnapshotDto.sceneId, db.sceneDto.id));
+  static $SceneTableTable _sceneIdTable(_$AppDatabase db) =>
+      db.sceneTable.createAlias($_aliasNameGenerator(
+          db.sceneSnapshotTable.sceneId, db.sceneTable.id));
 
-  $$SceneDtoTableProcessedTableManager get sceneId {
+  $$SceneTableTableProcessedTableManager get sceneId {
     final $_column = $_itemColumn<String>('scene_id')!;
 
-    final manager = $$SceneDtoTableTableManager($_db, $_db.sceneDto)
+    final manager = $$SceneTableTableTableManager($_db, $_db.sceneTable)
         .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_sceneIdTable($_db));
     if (item == null) return manager;
@@ -1331,15 +1339,15 @@ final class $$SceneSnapshotDtoTableReferences extends BaseReferences<
         manager.$state.copyWith(prefetchedData: [item]));
   }
 
-  static $SceneSnapshotDtoTable _parentIdTable(_$AppDatabase db) =>
-      db.sceneSnapshotDto.createAlias($_aliasNameGenerator(
-          db.sceneSnapshotDto.parentId, db.sceneSnapshotDto.id));
+  static $SceneSnapshotTableTable _parentIdTable(_$AppDatabase db) =>
+      db.sceneSnapshotTable.createAlias($_aliasNameGenerator(
+          db.sceneSnapshotTable.parentId, db.sceneSnapshotTable.id));
 
-  $$SceneSnapshotDtoTableProcessedTableManager get parentId {
+  $$SceneSnapshotTableTableProcessedTableManager get parentId {
     final $_column = $_itemColumn<String>('parent_id')!;
 
     final manager =
-        $$SceneSnapshotDtoTableTableManager($_db, $_db.sceneSnapshotDto)
+        $$SceneSnapshotTableTableTableManager($_db, $_db.sceneSnapshotTable)
             .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_parentIdTable($_db));
     if (item == null) return manager;
@@ -1347,26 +1355,27 @@ final class $$SceneSnapshotDtoTableReferences extends BaseReferences<
         manager.$state.copyWith(prefetchedData: [item]));
   }
 
-  static MultiTypedResultKey<$GameObjectDtoTable, List<GameObject>>
-      _gameObjectDtoRefsTable(_$AppDatabase db) =>
-          MultiTypedResultKey.fromTable(db.gameObjectDto,
-              aliasName: $_aliasNameGenerator(
-                  db.sceneSnapshotDto.id, db.gameObjectDto.sceneSnapshotId));
+  static MultiTypedResultKey<$GameObjectTableTable, List<GameObjectDto>>
+      _gameObjectTableRefsTable(_$AppDatabase db) =>
+          MultiTypedResultKey.fromTable(db.gameObjectTable,
+              aliasName: $_aliasNameGenerator(db.sceneSnapshotTable.id,
+                  db.gameObjectTable.sceneSnapshotId));
 
-  $$GameObjectDtoTableProcessedTableManager get gameObjectDtoRefs {
-    final manager = $$GameObjectDtoTableTableManager($_db, $_db.gameObjectDto)
-        .filter(
+  $$GameObjectTableTableProcessedTableManager get gameObjectTableRefs {
+    final manager =
+        $$GameObjectTableTableTableManager($_db, $_db.gameObjectTable).filter(
             (f) => f.sceneSnapshotId.id.sqlEquals($_itemColumn<String>('id')!));
 
-    final cache = $_typedResult.readTableOrNull(_gameObjectDtoRefsTable($_db));
+    final cache =
+        $_typedResult.readTableOrNull(_gameObjectTableRefsTable($_db));
     return ProcessedTableManager(
         manager.$state.copyWith(prefetchedData: cache));
   }
 }
 
-class $$SceneSnapshotDtoTableFilterComposer
-    extends Composer<_$AppDatabase, $SceneSnapshotDtoTable> {
-  $$SceneSnapshotDtoTableFilterComposer({
+class $$SceneSnapshotTableTableFilterComposer
+    extends Composer<_$AppDatabase, $SceneSnapshotTableTable> {
+  $$SceneSnapshotTableTableFilterComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -1379,18 +1388,18 @@ class $$SceneSnapshotDtoTableFilterComposer
   ColumnFilters<String> get description => $composableBuilder(
       column: $table.description, builder: (column) => ColumnFilters(column));
 
-  $$SceneDtoTableFilterComposer get sceneId {
-    final $$SceneDtoTableFilterComposer composer = $composerBuilder(
+  $$SceneTableTableFilterComposer get sceneId {
+    final $$SceneTableTableFilterComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.sceneId,
-        referencedTable: $db.sceneDto,
+        referencedTable: $db.sceneTable,
         getReferencedColumn: (t) => t.id,
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$SceneDtoTableFilterComposer(
+            $$SceneTableTableFilterComposer(
               $db: $db,
-              $table: $db.sceneDto,
+              $table: $db.sceneTable,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
               joinBuilder: joinBuilder,
               $removeJoinBuilderFromRootComposer:
@@ -1399,18 +1408,18 @@ class $$SceneSnapshotDtoTableFilterComposer
     return composer;
   }
 
-  $$SceneSnapshotDtoTableFilterComposer get parentId {
-    final $$SceneSnapshotDtoTableFilterComposer composer = $composerBuilder(
+  $$SceneSnapshotTableTableFilterComposer get parentId {
+    final $$SceneSnapshotTableTableFilterComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.parentId,
-        referencedTable: $db.sceneSnapshotDto,
+        referencedTable: $db.sceneSnapshotTable,
         getReferencedColumn: (t) => t.id,
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$SceneSnapshotDtoTableFilterComposer(
+            $$SceneSnapshotTableTableFilterComposer(
               $db: $db,
-              $table: $db.sceneSnapshotDto,
+              $table: $db.sceneSnapshotTable,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
               joinBuilder: joinBuilder,
               $removeJoinBuilderFromRootComposer:
@@ -1419,19 +1428,19 @@ class $$SceneSnapshotDtoTableFilterComposer
     return composer;
   }
 
-  Expression<bool> gameObjectDtoRefs(
-      Expression<bool> Function($$GameObjectDtoTableFilterComposer f) f) {
-    final $$GameObjectDtoTableFilterComposer composer = $composerBuilder(
+  Expression<bool> gameObjectTableRefs(
+      Expression<bool> Function($$GameObjectTableTableFilterComposer f) f) {
+    final $$GameObjectTableTableFilterComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.id,
-        referencedTable: $db.gameObjectDto,
+        referencedTable: $db.gameObjectTable,
         getReferencedColumn: (t) => t.sceneSnapshotId,
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$GameObjectDtoTableFilterComposer(
+            $$GameObjectTableTableFilterComposer(
               $db: $db,
-              $table: $db.gameObjectDto,
+              $table: $db.gameObjectTable,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
               joinBuilder: joinBuilder,
               $removeJoinBuilderFromRootComposer:
@@ -1441,9 +1450,9 @@ class $$SceneSnapshotDtoTableFilterComposer
   }
 }
 
-class $$SceneSnapshotDtoTableOrderingComposer
-    extends Composer<_$AppDatabase, $SceneSnapshotDtoTable> {
-  $$SceneSnapshotDtoTableOrderingComposer({
+class $$SceneSnapshotTableTableOrderingComposer
+    extends Composer<_$AppDatabase, $SceneSnapshotTableTable> {
+  $$SceneSnapshotTableTableOrderingComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -1456,18 +1465,18 @@ class $$SceneSnapshotDtoTableOrderingComposer
   ColumnOrderings<String> get description => $composableBuilder(
       column: $table.description, builder: (column) => ColumnOrderings(column));
 
-  $$SceneDtoTableOrderingComposer get sceneId {
-    final $$SceneDtoTableOrderingComposer composer = $composerBuilder(
+  $$SceneTableTableOrderingComposer get sceneId {
+    final $$SceneTableTableOrderingComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.sceneId,
-        referencedTable: $db.sceneDto,
+        referencedTable: $db.sceneTable,
         getReferencedColumn: (t) => t.id,
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$SceneDtoTableOrderingComposer(
+            $$SceneTableTableOrderingComposer(
               $db: $db,
-              $table: $db.sceneDto,
+              $table: $db.sceneTable,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
               joinBuilder: joinBuilder,
               $removeJoinBuilderFromRootComposer:
@@ -1476,18 +1485,18 @@ class $$SceneSnapshotDtoTableOrderingComposer
     return composer;
   }
 
-  $$SceneSnapshotDtoTableOrderingComposer get parentId {
-    final $$SceneSnapshotDtoTableOrderingComposer composer = $composerBuilder(
+  $$SceneSnapshotTableTableOrderingComposer get parentId {
+    final $$SceneSnapshotTableTableOrderingComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.parentId,
-        referencedTable: $db.sceneSnapshotDto,
+        referencedTable: $db.sceneSnapshotTable,
         getReferencedColumn: (t) => t.id,
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$SceneSnapshotDtoTableOrderingComposer(
+            $$SceneSnapshotTableTableOrderingComposer(
               $db: $db,
-              $table: $db.sceneSnapshotDto,
+              $table: $db.sceneSnapshotTable,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
               joinBuilder: joinBuilder,
               $removeJoinBuilderFromRootComposer:
@@ -1497,9 +1506,9 @@ class $$SceneSnapshotDtoTableOrderingComposer
   }
 }
 
-class $$SceneSnapshotDtoTableAnnotationComposer
-    extends Composer<_$AppDatabase, $SceneSnapshotDtoTable> {
-  $$SceneSnapshotDtoTableAnnotationComposer({
+class $$SceneSnapshotTableTableAnnotationComposer
+    extends Composer<_$AppDatabase, $SceneSnapshotTableTable> {
+  $$SceneSnapshotTableTableAnnotationComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -1512,18 +1521,18 @@ class $$SceneSnapshotDtoTableAnnotationComposer
   GeneratedColumn<String> get description => $composableBuilder(
       column: $table.description, builder: (column) => column);
 
-  $$SceneDtoTableAnnotationComposer get sceneId {
-    final $$SceneDtoTableAnnotationComposer composer = $composerBuilder(
+  $$SceneTableTableAnnotationComposer get sceneId {
+    final $$SceneTableTableAnnotationComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.sceneId,
-        referencedTable: $db.sceneDto,
+        referencedTable: $db.sceneTable,
         getReferencedColumn: (t) => t.id,
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$SceneDtoTableAnnotationComposer(
+            $$SceneTableTableAnnotationComposer(
               $db: $db,
-              $table: $db.sceneDto,
+              $table: $db.sceneTable,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
               joinBuilder: joinBuilder,
               $removeJoinBuilderFromRootComposer:
@@ -1532,39 +1541,40 @@ class $$SceneSnapshotDtoTableAnnotationComposer
     return composer;
   }
 
-  $$SceneSnapshotDtoTableAnnotationComposer get parentId {
-    final $$SceneSnapshotDtoTableAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.parentId,
-        referencedTable: $db.sceneSnapshotDto,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$SceneSnapshotDtoTableAnnotationComposer(
-              $db: $db,
-              $table: $db.sceneSnapshotDto,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+  $$SceneSnapshotTableTableAnnotationComposer get parentId {
+    final $$SceneSnapshotTableTableAnnotationComposer composer =
+        $composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.parentId,
+            referencedTable: $db.sceneSnapshotTable,
+            getReferencedColumn: (t) => t.id,
+            builder: (joinBuilder,
+                    {$addJoinBuilderToRootComposer,
+                    $removeJoinBuilderFromRootComposer}) =>
+                $$SceneSnapshotTableTableAnnotationComposer(
+                  $db: $db,
+                  $table: $db.sceneSnapshotTable,
+                  $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                  joinBuilder: joinBuilder,
+                  $removeJoinBuilderFromRootComposer:
+                      $removeJoinBuilderFromRootComposer,
+                ));
     return composer;
   }
 
-  Expression<T> gameObjectDtoRefs<T extends Object>(
-      Expression<T> Function($$GameObjectDtoTableAnnotationComposer a) f) {
-    final $$GameObjectDtoTableAnnotationComposer composer = $composerBuilder(
+  Expression<T> gameObjectTableRefs<T extends Object>(
+      Expression<T> Function($$GameObjectTableTableAnnotationComposer a) f) {
+    final $$GameObjectTableTableAnnotationComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.id,
-        referencedTable: $db.gameObjectDto,
+        referencedTable: $db.gameObjectTable,
         getReferencedColumn: (t) => t.sceneSnapshotId,
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$GameObjectDtoTableAnnotationComposer(
+            $$GameObjectTableTableAnnotationComposer(
               $db: $db,
-              $table: $db.gameObjectDto,
+              $table: $db.gameObjectTable,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
               joinBuilder: joinBuilder,
               $removeJoinBuilderFromRootComposer:
@@ -1574,30 +1584,31 @@ class $$SceneSnapshotDtoTableAnnotationComposer
   }
 }
 
-class $$SceneSnapshotDtoTableTableManager extends RootTableManager<
+class $$SceneSnapshotTableTableTableManager extends RootTableManager<
     _$AppDatabase,
-    $SceneSnapshotDtoTable,
-    SceneSnapshot,
-    $$SceneSnapshotDtoTableFilterComposer,
-    $$SceneSnapshotDtoTableOrderingComposer,
-    $$SceneSnapshotDtoTableAnnotationComposer,
-    $$SceneSnapshotDtoTableCreateCompanionBuilder,
-    $$SceneSnapshotDtoTableUpdateCompanionBuilder,
-    (SceneSnapshot, $$SceneSnapshotDtoTableReferences),
-    SceneSnapshot,
+    $SceneSnapshotTableTable,
+    SceneSnapshotDto,
+    $$SceneSnapshotTableTableFilterComposer,
+    $$SceneSnapshotTableTableOrderingComposer,
+    $$SceneSnapshotTableTableAnnotationComposer,
+    $$SceneSnapshotTableTableCreateCompanionBuilder,
+    $$SceneSnapshotTableTableUpdateCompanionBuilder,
+    (SceneSnapshotDto, $$SceneSnapshotTableTableReferences),
+    SceneSnapshotDto,
     PrefetchHooks Function(
-        {bool sceneId, bool parentId, bool gameObjectDtoRefs})> {
-  $$SceneSnapshotDtoTableTableManager(
-      _$AppDatabase db, $SceneSnapshotDtoTable table)
+        {bool sceneId, bool parentId, bool gameObjectTableRefs})> {
+  $$SceneSnapshotTableTableTableManager(
+      _$AppDatabase db, $SceneSnapshotTableTable table)
       : super(TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
-              $$SceneSnapshotDtoTableFilterComposer($db: db, $table: table),
+              $$SceneSnapshotTableTableFilterComposer($db: db, $table: table),
           createOrderingComposer: () =>
-              $$SceneSnapshotDtoTableOrderingComposer($db: db, $table: table),
+              $$SceneSnapshotTableTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
-              $$SceneSnapshotDtoTableAnnotationComposer($db: db, $table: table),
+              $$SceneSnapshotTableTableAnnotationComposer(
+                  $db: db, $table: table),
           updateCompanionCallback: ({
             Value<String> id = const Value.absent(),
             Value<String> description = const Value.absent(),
@@ -1605,7 +1616,7 @@ class $$SceneSnapshotDtoTableTableManager extends RootTableManager<
             Value<String> parentId = const Value.absent(),
             Value<int> rowid = const Value.absent(),
           }) =>
-              SceneSnapshotDtoCompanion(
+              SceneSnapshotTableCompanion(
             id: id,
             description: description,
             sceneId: sceneId,
@@ -1619,7 +1630,7 @@ class $$SceneSnapshotDtoTableTableManager extends RootTableManager<
             required String parentId,
             Value<int> rowid = const Value.absent(),
           }) =>
-              SceneSnapshotDtoCompanion.insert(
+              SceneSnapshotTableCompanion.insert(
             id: id,
             description: description,
             sceneId: sceneId,
@@ -1629,15 +1640,17 @@ class $$SceneSnapshotDtoTableTableManager extends RootTableManager<
           withReferenceMapper: (p0) => p0
               .map((e) => (
                     e.readTable(table),
-                    $$SceneSnapshotDtoTableReferences(db, table, e)
+                    $$SceneSnapshotTableTableReferences(db, table, e)
                   ))
               .toList(),
           prefetchHooksCallback: (
-              {sceneId = false, parentId = false, gameObjectDtoRefs = false}) {
+              {sceneId = false,
+              parentId = false,
+              gameObjectTableRefs = false}) {
             return PrefetchHooks(
               db: db,
               explicitlyWatchedTables: [
-                if (gameObjectDtoRefs) db.gameObjectDto
+                if (gameObjectTableRefs) db.gameObjectTable
               ],
               addJoins: <
                   T extends TableManagerState<
@@ -1657,9 +1670,10 @@ class $$SceneSnapshotDtoTableTableManager extends RootTableManager<
                     currentTable: table,
                     currentColumn: table.sceneId,
                     referencedTable:
-                        $$SceneSnapshotDtoTableReferences._sceneIdTable(db),
-                    referencedColumn:
-                        $$SceneSnapshotDtoTableReferences._sceneIdTable(db).id,
+                        $$SceneSnapshotTableTableReferences._sceneIdTable(db),
+                    referencedColumn: $$SceneSnapshotTableTableReferences
+                        ._sceneIdTable(db)
+                        .id,
                   ) as T;
                 }
                 if (parentId) {
@@ -1667,9 +1681,10 @@ class $$SceneSnapshotDtoTableTableManager extends RootTableManager<
                     currentTable: table,
                     currentColumn: table.parentId,
                     referencedTable:
-                        $$SceneSnapshotDtoTableReferences._parentIdTable(db),
-                    referencedColumn:
-                        $$SceneSnapshotDtoTableReferences._parentIdTable(db).id,
+                        $$SceneSnapshotTableTableReferences._parentIdTable(db),
+                    referencedColumn: $$SceneSnapshotTableTableReferences
+                        ._parentIdTable(db)
+                        .id,
                   ) as T;
                 }
 
@@ -1677,15 +1692,15 @@ class $$SceneSnapshotDtoTableTableManager extends RootTableManager<
               },
               getPrefetchedDataCallback: (items) async {
                 return [
-                  if (gameObjectDtoRefs)
-                    await $_getPrefetchedData<SceneSnapshot, $SceneSnapshotDtoTable,
-                            GameObject>(
+                  if (gameObjectTableRefs)
+                    await $_getPrefetchedData<SceneSnapshotDto,
+                            $SceneSnapshotTableTable, GameObjectDto>(
                         currentTable: table,
-                        referencedTable: $$SceneSnapshotDtoTableReferences
-                            ._gameObjectDtoRefsTable(db),
+                        referencedTable: $$SceneSnapshotTableTableReferences
+                            ._gameObjectTableRefsTable(db),
                         managerFromTypedResult: (p0) =>
-                            $$SceneSnapshotDtoTableReferences(db, table, p0)
-                                .gameObjectDtoRefs,
+                            $$SceneSnapshotTableTableReferences(db, table, p0)
+                                .gameObjectTableRefs,
                         referencedItemsForCurrentItem:
                             (item, referencedItems) => referencedItems
                                 .where((e) => e.sceneSnapshotId == item.id),
@@ -1697,20 +1712,20 @@ class $$SceneSnapshotDtoTableTableManager extends RootTableManager<
         ));
 }
 
-typedef $$SceneSnapshotDtoTableProcessedTableManager = ProcessedTableManager<
+typedef $$SceneSnapshotTableTableProcessedTableManager = ProcessedTableManager<
     _$AppDatabase,
-    $SceneSnapshotDtoTable,
-    SceneSnapshot,
-    $$SceneSnapshotDtoTableFilterComposer,
-    $$SceneSnapshotDtoTableOrderingComposer,
-    $$SceneSnapshotDtoTableAnnotationComposer,
-    $$SceneSnapshotDtoTableCreateCompanionBuilder,
-    $$SceneSnapshotDtoTableUpdateCompanionBuilder,
-    (SceneSnapshot, $$SceneSnapshotDtoTableReferences),
-    SceneSnapshot,
+    $SceneSnapshotTableTable,
+    SceneSnapshotDto,
+    $$SceneSnapshotTableTableFilterComposer,
+    $$SceneSnapshotTableTableOrderingComposer,
+    $$SceneSnapshotTableTableAnnotationComposer,
+    $$SceneSnapshotTableTableCreateCompanionBuilder,
+    $$SceneSnapshotTableTableUpdateCompanionBuilder,
+    (SceneSnapshotDto, $$SceneSnapshotTableTableReferences),
+    SceneSnapshotDto,
     PrefetchHooks Function(
-        {bool sceneId, bool parentId, bool gameObjectDtoRefs})>;
-typedef $$GameObjectDtoTableCreateCompanionBuilder = GameObjectDtoCompanion
+        {bool sceneId, bool parentId, bool gameObjectTableRefs})>;
+typedef $$GameObjectTableTableCreateCompanionBuilder = GameObjectTableCompanion
     Function({
   required String id,
   required String name,
@@ -1724,7 +1739,7 @@ typedef $$GameObjectDtoTableCreateCompanionBuilder = GameObjectDtoCompanion
   required int height,
   Value<int> rowid,
 });
-typedef $$GameObjectDtoTableUpdateCompanionBuilder = GameObjectDtoCompanion
+typedef $$GameObjectTableTableUpdateCompanionBuilder = GameObjectTableCompanion
     Function({
   Value<String> id,
   Value<String> name,
@@ -1739,19 +1754,19 @@ typedef $$GameObjectDtoTableUpdateCompanionBuilder = GameObjectDtoCompanion
   Value<int> rowid,
 });
 
-final class $$GameObjectDtoTableReferences
-    extends BaseReferences<_$AppDatabase, $GameObjectDtoTable, GameObject> {
-  $$GameObjectDtoTableReferences(
+final class $$GameObjectTableTableReferences extends BaseReferences<
+    _$AppDatabase, $GameObjectTableTable, GameObjectDto> {
+  $$GameObjectTableTableReferences(
       super.$_db, super.$_table, super.$_typedResult);
 
-  static $SceneDtoTable _sceneIdTable(_$AppDatabase db) =>
-      db.sceneDto.createAlias(
-          $_aliasNameGenerator(db.gameObjectDto.sceneId, db.sceneDto.id));
+  static $SceneTableTable _sceneIdTable(_$AppDatabase db) =>
+      db.sceneTable.createAlias(
+          $_aliasNameGenerator(db.gameObjectTable.sceneId, db.sceneTable.id));
 
-  $$SceneDtoTableProcessedTableManager? get sceneId {
+  $$SceneTableTableProcessedTableManager? get sceneId {
     final $_column = $_itemColumn<String>('scene_id');
     if ($_column == null) return null;
-    final manager = $$SceneDtoTableTableManager($_db, $_db.sceneDto)
+    final manager = $$SceneTableTableTableManager($_db, $_db.sceneTable)
         .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_sceneIdTable($_db));
     if (item == null) return manager;
@@ -1759,15 +1774,15 @@ final class $$GameObjectDtoTableReferences
         manager.$state.copyWith(prefetchedData: [item]));
   }
 
-  static $SceneSnapshotDtoTable _sceneSnapshotIdTable(_$AppDatabase db) =>
-      db.sceneSnapshotDto.createAlias($_aliasNameGenerator(
-          db.gameObjectDto.sceneSnapshotId, db.sceneSnapshotDto.id));
+  static $SceneSnapshotTableTable _sceneSnapshotIdTable(_$AppDatabase db) =>
+      db.sceneSnapshotTable.createAlias($_aliasNameGenerator(
+          db.gameObjectTable.sceneSnapshotId, db.sceneSnapshotTable.id));
 
-  $$SceneSnapshotDtoTableProcessedTableManager? get sceneSnapshotId {
+  $$SceneSnapshotTableTableProcessedTableManager? get sceneSnapshotId {
     final $_column = $_itemColumn<String>('scene_snapshot_id');
     if ($_column == null) return null;
     final manager =
-        $$SceneSnapshotDtoTableTableManager($_db, $_db.sceneSnapshotDto)
+        $$SceneSnapshotTableTableTableManager($_db, $_db.sceneSnapshotTable)
             .filter((f) => f.id.sqlEquals($_column));
     final item = $_typedResult.readTableOrNull(_sceneSnapshotIdTable($_db));
     if (item == null) return manager;
@@ -1776,9 +1791,9 @@ final class $$GameObjectDtoTableReferences
   }
 }
 
-class $$GameObjectDtoTableFilterComposer
-    extends Composer<_$AppDatabase, $GameObjectDtoTable> {
-  $$GameObjectDtoTableFilterComposer({
+class $$GameObjectTableTableFilterComposer
+    extends Composer<_$AppDatabase, $GameObjectTableTable> {
+  $$GameObjectTableTableFilterComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -1809,18 +1824,18 @@ class $$GameObjectDtoTableFilterComposer
   ColumnFilters<int> get height => $composableBuilder(
       column: $table.height, builder: (column) => ColumnFilters(column));
 
-  $$SceneDtoTableFilterComposer get sceneId {
-    final $$SceneDtoTableFilterComposer composer = $composerBuilder(
+  $$SceneTableTableFilterComposer get sceneId {
+    final $$SceneTableTableFilterComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.sceneId,
-        referencedTable: $db.sceneDto,
+        referencedTable: $db.sceneTable,
         getReferencedColumn: (t) => t.id,
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$SceneDtoTableFilterComposer(
+            $$SceneTableTableFilterComposer(
               $db: $db,
-              $table: $db.sceneDto,
+              $table: $db.sceneTable,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
               joinBuilder: joinBuilder,
               $removeJoinBuilderFromRootComposer:
@@ -1829,18 +1844,18 @@ class $$GameObjectDtoTableFilterComposer
     return composer;
   }
 
-  $$SceneSnapshotDtoTableFilterComposer get sceneSnapshotId {
-    final $$SceneSnapshotDtoTableFilterComposer composer = $composerBuilder(
+  $$SceneSnapshotTableTableFilterComposer get sceneSnapshotId {
+    final $$SceneSnapshotTableTableFilterComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.sceneSnapshotId,
-        referencedTable: $db.sceneSnapshotDto,
+        referencedTable: $db.sceneSnapshotTable,
         getReferencedColumn: (t) => t.id,
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$SceneSnapshotDtoTableFilterComposer(
+            $$SceneSnapshotTableTableFilterComposer(
               $db: $db,
-              $table: $db.sceneSnapshotDto,
+              $table: $db.sceneSnapshotTable,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
               joinBuilder: joinBuilder,
               $removeJoinBuilderFromRootComposer:
@@ -1850,9 +1865,9 @@ class $$GameObjectDtoTableFilterComposer
   }
 }
 
-class $$GameObjectDtoTableOrderingComposer
-    extends Composer<_$AppDatabase, $GameObjectDtoTable> {
-  $$GameObjectDtoTableOrderingComposer({
+class $$GameObjectTableTableOrderingComposer
+    extends Composer<_$AppDatabase, $GameObjectTableTable> {
+  $$GameObjectTableTableOrderingComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -1883,18 +1898,18 @@ class $$GameObjectDtoTableOrderingComposer
   ColumnOrderings<int> get height => $composableBuilder(
       column: $table.height, builder: (column) => ColumnOrderings(column));
 
-  $$SceneDtoTableOrderingComposer get sceneId {
-    final $$SceneDtoTableOrderingComposer composer = $composerBuilder(
+  $$SceneTableTableOrderingComposer get sceneId {
+    final $$SceneTableTableOrderingComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.sceneId,
-        referencedTable: $db.sceneDto,
+        referencedTable: $db.sceneTable,
         getReferencedColumn: (t) => t.id,
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$SceneDtoTableOrderingComposer(
+            $$SceneTableTableOrderingComposer(
               $db: $db,
-              $table: $db.sceneDto,
+              $table: $db.sceneTable,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
               joinBuilder: joinBuilder,
               $removeJoinBuilderFromRootComposer:
@@ -1903,18 +1918,18 @@ class $$GameObjectDtoTableOrderingComposer
     return composer;
   }
 
-  $$SceneSnapshotDtoTableOrderingComposer get sceneSnapshotId {
-    final $$SceneSnapshotDtoTableOrderingComposer composer = $composerBuilder(
+  $$SceneSnapshotTableTableOrderingComposer get sceneSnapshotId {
+    final $$SceneSnapshotTableTableOrderingComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.sceneSnapshotId,
-        referencedTable: $db.sceneSnapshotDto,
+        referencedTable: $db.sceneSnapshotTable,
         getReferencedColumn: (t) => t.id,
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$SceneSnapshotDtoTableOrderingComposer(
+            $$SceneSnapshotTableTableOrderingComposer(
               $db: $db,
-              $table: $db.sceneSnapshotDto,
+              $table: $db.sceneSnapshotTable,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
               joinBuilder: joinBuilder,
               $removeJoinBuilderFromRootComposer:
@@ -1924,9 +1939,9 @@ class $$GameObjectDtoTableOrderingComposer
   }
 }
 
-class $$GameObjectDtoTableAnnotationComposer
-    extends Composer<_$AppDatabase, $GameObjectDtoTable> {
-  $$GameObjectDtoTableAnnotationComposer({
+class $$GameObjectTableTableAnnotationComposer
+    extends Composer<_$AppDatabase, $GameObjectTableTable> {
+  $$GameObjectTableTableAnnotationComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -1957,18 +1972,18 @@ class $$GameObjectDtoTableAnnotationComposer
   GeneratedColumn<int> get height =>
       $composableBuilder(column: $table.height, builder: (column) => column);
 
-  $$SceneDtoTableAnnotationComposer get sceneId {
-    final $$SceneDtoTableAnnotationComposer composer = $composerBuilder(
+  $$SceneTableTableAnnotationComposer get sceneId {
+    final $$SceneTableTableAnnotationComposer composer = $composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.sceneId,
-        referencedTable: $db.sceneDto,
+        referencedTable: $db.sceneTable,
         getReferencedColumn: (t) => t.id,
         builder: (joinBuilder,
                 {$addJoinBuilderToRootComposer,
                 $removeJoinBuilderFromRootComposer}) =>
-            $$SceneDtoTableAnnotationComposer(
+            $$SceneTableTableAnnotationComposer(
               $db: $db,
-              $table: $db.sceneDto,
+              $table: $db.sceneTable,
               $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
               joinBuilder: joinBuilder,
               $removeJoinBuilderFromRootComposer:
@@ -1977,49 +1992,51 @@ class $$GameObjectDtoTableAnnotationComposer
     return composer;
   }
 
-  $$SceneSnapshotDtoTableAnnotationComposer get sceneSnapshotId {
-    final $$SceneSnapshotDtoTableAnnotationComposer composer = $composerBuilder(
-        composer: this,
-        getCurrentColumn: (t) => t.sceneSnapshotId,
-        referencedTable: $db.sceneSnapshotDto,
-        getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder,
-                {$addJoinBuilderToRootComposer,
-                $removeJoinBuilderFromRootComposer}) =>
-            $$SceneSnapshotDtoTableAnnotationComposer(
-              $db: $db,
-              $table: $db.sceneSnapshotDto,
-              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
-              joinBuilder: joinBuilder,
-              $removeJoinBuilderFromRootComposer:
-                  $removeJoinBuilderFromRootComposer,
-            ));
+  $$SceneSnapshotTableTableAnnotationComposer get sceneSnapshotId {
+    final $$SceneSnapshotTableTableAnnotationComposer composer =
+        $composerBuilder(
+            composer: this,
+            getCurrentColumn: (t) => t.sceneSnapshotId,
+            referencedTable: $db.sceneSnapshotTable,
+            getReferencedColumn: (t) => t.id,
+            builder: (joinBuilder,
+                    {$addJoinBuilderToRootComposer,
+                    $removeJoinBuilderFromRootComposer}) =>
+                $$SceneSnapshotTableTableAnnotationComposer(
+                  $db: $db,
+                  $table: $db.sceneSnapshotTable,
+                  $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                  joinBuilder: joinBuilder,
+                  $removeJoinBuilderFromRootComposer:
+                      $removeJoinBuilderFromRootComposer,
+                ));
     return composer;
   }
 }
 
-class $$GameObjectDtoTableTableManager extends RootTableManager<
+class $$GameObjectTableTableTableManager extends RootTableManager<
     _$AppDatabase,
-    $GameObjectDtoTable,
-    GameObject,
-    $$GameObjectDtoTableFilterComposer,
-    $$GameObjectDtoTableOrderingComposer,
-    $$GameObjectDtoTableAnnotationComposer,
-    $$GameObjectDtoTableCreateCompanionBuilder,
-    $$GameObjectDtoTableUpdateCompanionBuilder,
-    (GameObject, $$GameObjectDtoTableReferences),
-    GameObject,
+    $GameObjectTableTable,
+    GameObjectDto,
+    $$GameObjectTableTableFilterComposer,
+    $$GameObjectTableTableOrderingComposer,
+    $$GameObjectTableTableAnnotationComposer,
+    $$GameObjectTableTableCreateCompanionBuilder,
+    $$GameObjectTableTableUpdateCompanionBuilder,
+    (GameObjectDto, $$GameObjectTableTableReferences),
+    GameObjectDto,
     PrefetchHooks Function({bool sceneId, bool sceneSnapshotId})> {
-  $$GameObjectDtoTableTableManager(_$AppDatabase db, $GameObjectDtoTable table)
+  $$GameObjectTableTableTableManager(
+      _$AppDatabase db, $GameObjectTableTable table)
       : super(TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
-              $$GameObjectDtoTableFilterComposer($db: db, $table: table),
+              $$GameObjectTableTableFilterComposer($db: db, $table: table),
           createOrderingComposer: () =>
-              $$GameObjectDtoTableOrderingComposer($db: db, $table: table),
+              $$GameObjectTableTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
-              $$GameObjectDtoTableAnnotationComposer($db: db, $table: table),
+              $$GameObjectTableTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<String> id = const Value.absent(),
             Value<String> name = const Value.absent(),
@@ -2033,7 +2050,7 @@ class $$GameObjectDtoTableTableManager extends RootTableManager<
             Value<int> height = const Value.absent(),
             Value<int> rowid = const Value.absent(),
           }) =>
-              GameObjectDtoCompanion(
+              GameObjectTableCompanion(
             id: id,
             name: name,
             sceneId: sceneId,
@@ -2059,7 +2076,7 @@ class $$GameObjectDtoTableTableManager extends RootTableManager<
             required int height,
             Value<int> rowid = const Value.absent(),
           }) =>
-              GameObjectDtoCompanion.insert(
+              GameObjectTableCompanion.insert(
             id: id,
             name: name,
             sceneId: sceneId,
@@ -2075,7 +2092,7 @@ class $$GameObjectDtoTableTableManager extends RootTableManager<
           withReferenceMapper: (p0) => p0
               .map((e) => (
                     e.readTable(table),
-                    $$GameObjectDtoTableReferences(db, table, e)
+                    $$GameObjectTableTableReferences(db, table, e)
                   ))
               .toList(),
           prefetchHooksCallback: ({sceneId = false, sceneSnapshotId = false}) {
@@ -2100,18 +2117,18 @@ class $$GameObjectDtoTableTableManager extends RootTableManager<
                     currentTable: table,
                     currentColumn: table.sceneId,
                     referencedTable:
-                        $$GameObjectDtoTableReferences._sceneIdTable(db),
+                        $$GameObjectTableTableReferences._sceneIdTable(db),
                     referencedColumn:
-                        $$GameObjectDtoTableReferences._sceneIdTable(db).id,
+                        $$GameObjectTableTableReferences._sceneIdTable(db).id,
                   ) as T;
                 }
                 if (sceneSnapshotId) {
                   state = state.withJoin(
                     currentTable: table,
                     currentColumn: table.sceneSnapshotId,
-                    referencedTable: $$GameObjectDtoTableReferences
+                    referencedTable: $$GameObjectTableTableReferences
                         ._sceneSnapshotIdTable(db),
-                    referencedColumn: $$GameObjectDtoTableReferences
+                    referencedColumn: $$GameObjectTableTableReferences
                         ._sceneSnapshotIdTable(db)
                         .id,
                   ) as T;
@@ -2127,26 +2144,26 @@ class $$GameObjectDtoTableTableManager extends RootTableManager<
         ));
 }
 
-typedef $$GameObjectDtoTableProcessedTableManager = ProcessedTableManager<
+typedef $$GameObjectTableTableProcessedTableManager = ProcessedTableManager<
     _$AppDatabase,
-    $GameObjectDtoTable,
-    GameObject,
-    $$GameObjectDtoTableFilterComposer,
-    $$GameObjectDtoTableOrderingComposer,
-    $$GameObjectDtoTableAnnotationComposer,
-    $$GameObjectDtoTableCreateCompanionBuilder,
-    $$GameObjectDtoTableUpdateCompanionBuilder,
-    (GameObject, $$GameObjectDtoTableReferences),
-    GameObject,
+    $GameObjectTableTable,
+    GameObjectDto,
+    $$GameObjectTableTableFilterComposer,
+    $$GameObjectTableTableOrderingComposer,
+    $$GameObjectTableTableAnnotationComposer,
+    $$GameObjectTableTableCreateCompanionBuilder,
+    $$GameObjectTableTableUpdateCompanionBuilder,
+    (GameObjectDto, $$GameObjectTableTableReferences),
+    GameObjectDto,
     PrefetchHooks Function({bool sceneId, bool sceneSnapshotId})>;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
   $AppDatabaseManager(this._db);
-  $$SceneDtoTableTableManager get sceneDto =>
-      $$SceneDtoTableTableManager(_db, _db.sceneDto);
-  $$SceneSnapshotDtoTableTableManager get sceneSnapshotDto =>
-      $$SceneSnapshotDtoTableTableManager(_db, _db.sceneSnapshotDto);
-  $$GameObjectDtoTableTableManager get gameObjectDto =>
-      $$GameObjectDtoTableTableManager(_db, _db.gameObjectDto);
+  $$SceneTableTableTableManager get sceneTable =>
+      $$SceneTableTableTableManager(_db, _db.sceneTable);
+  $$SceneSnapshotTableTableTableManager get sceneSnapshotTable =>
+      $$SceneSnapshotTableTableTableManager(_db, _db.sceneSnapshotTable);
+  $$GameObjectTableTableTableManager get gameObjectTable =>
+      $$GameObjectTableTableTableManager(_db, _db.gameObjectTable);
 }

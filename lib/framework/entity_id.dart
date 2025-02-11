@@ -16,7 +16,5 @@ class EntityId with _$EntityId {
   }
 
   @override
-  String toString() {
-    return id;
-  }
+  String toString() => id;
 }

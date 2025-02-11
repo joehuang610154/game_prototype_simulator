@@ -8,7 +8,7 @@ import 'package:injectable/injectable.dart';
 
 part 'db.g.dart';
 
-@DriftDatabase(tables: [SceneDto, SceneSnapshotDto, GameObjectDto])
+@DriftDatabase(tables: [SceneTable, SceneSnapshotTable, GameObjectTable])
 class AppDatabase extends _$AppDatabase {
   AppDatabase(super.e);
 
