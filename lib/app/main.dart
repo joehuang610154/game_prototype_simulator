@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:game_prototype_simulator/constants/route.dart';
+import 'package:game_prototype_simulator/app/presentation/routes.dart';
 import 'package:game_prototype_simulator/injection.dart';
+import 'package:go_router/go_router.dart';
 
 void main() {
   configureDependencies("runtime");
@@ -12,10 +13,9 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Game Prototype Simulator',
-      initialRoute: Routes.simulate,
-      routes: {},
+      routerConfig: GoRouter(routes: $appRoutes),
       theme: ThemeData(
         useMaterial3: true,
       ),
