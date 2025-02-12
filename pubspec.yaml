@@ -1,5 +1,5 @@
 name: game_prototype_simulator
-description: "A new Flutter project."
+description: "A simulator for game design, which makes it easy to create and test game prototypes."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
