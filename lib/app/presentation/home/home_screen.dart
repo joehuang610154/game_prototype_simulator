@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:game_prototype_simulator/framework/app_context.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -33,7 +34,7 @@ class _HomeScreen extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.dashboard_customize),
-            title: Text("New Scene"),
+            title: Text(app.tr.newScene),
             onTap: () {},
           ),
         ],
