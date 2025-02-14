@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:game_prototype_simulator/app/presentation/scene/create_new_scene/create_new_scene_popup.dart';
 import 'package:game_prototype_simulator/framework/app_context.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -35,7 +36,9 @@ class _HomeScreen extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.dashboard_customize),
             title: Text(app.tr.newScene),
-            onTap: () {},
+            onTap: () async {
+              await CreateNewScenePopup().show();
+            },
           ),
         ],
       ),
