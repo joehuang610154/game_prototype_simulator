@@ -17,19 +17,19 @@ class _HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Game Prototype Simulator"),
+        title: Text(app.tr.gamePrototypeSimulator),
         elevation: 4,
       ),
       body: ListView(
         children: [
           ListTile(
             leading: Icon(Icons.keyboard_double_arrow_right),
-            title: Text("Continue"),
+            title: Text(app.tr.continueFromLast),
             onTap: () {},
           ),
           ListTile(
             leading: Icon(Icons.event_repeat),
-            title: Text("Load Scene"),
+            title: Text(app.tr.loadScene),
             onTap: () {},
           ),
           ListTile(

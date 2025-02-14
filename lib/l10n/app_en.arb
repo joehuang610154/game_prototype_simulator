@@ -1,5 +1,11 @@
 {
     "@@locale": "en",
+    "gamePrototypeSimulator": "Game Prototype Simulator",
+    "@gamePrototypeSimulator": {},
     "newScene": "New Scene",
-    "@newScene": {}
+    "@newScene": {},
+    "loadScene": "Load Scene",
+    "@loadScene": {},
+    "continueFromLast": "Continue",
+    "@continueFromLast": {}
 }

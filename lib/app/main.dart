@@ -30,7 +30,6 @@ class App extends StatelessWidget {
       ],
       supportedLocales: [
         Locale('en'),
-        Locale('zh'),
       ],
       theme: ThemeData(
         useMaterial3: true,
