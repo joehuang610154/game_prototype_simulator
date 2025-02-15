@@ -13,6 +13,11 @@ mixin TestActions on TestDependencies {
     await settle();
   }
 
+  Future<void> enter(Key formFieldKey, String text) async {
+    await tester.enterText(find.byKey(formFieldKey), text);
+    await settle();
+  }
+
   Future<void> settle() async {
     for (var i = 0; i < 10; i++) {
       await tester.pump(const Duration(milliseconds: 100));

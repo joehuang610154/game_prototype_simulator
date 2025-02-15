@@ -13,6 +13,8 @@ class HomeScreenTestRunner extends TestRunner {
       await tap(find.text(app.tr.newScene));
 
       expect(find.byType(CreateNewScenePopup), findsOneWidget);
+
+      await enter(CreateNewScenePopup.formFieldKeys.name, "Test Scene");
     });
   }
 }

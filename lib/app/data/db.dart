@@ -3,7 +3,7 @@ import 'package:drift_flutter/drift_flutter.dart';
 import 'package:game_prototype_simulator/app/data/data_transfer_objects/game_object.dart';
 import 'package:game_prototype_simulator/app/data/data_transfer_objects/scene.dart';
 import 'package:game_prototype_simulator/app/data/data_transfer_objects/scene_snapshot.dart';
-import 'package:game_prototype_simulator/constants/envs.dart';
+import 'package:game_prototype_simulator/app/constants/envs.dart';
 import 'package:injectable/injectable.dart';
 
 part 'db.g.dart';
