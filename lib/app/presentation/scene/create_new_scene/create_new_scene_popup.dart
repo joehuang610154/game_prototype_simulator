@@ -27,6 +27,12 @@ class CreateNewScenePopup extends StatelessWidget with Popup {
           ],
         ),
       ),
+      actions: [
+        TextButton(
+          onPressed: () {},
+          child: Text(app.tr.done),
+        ),
+      ],
     );
   }
 }
