@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:game_prototype_simulator/app/presentation/common/popup/popup.dart';
-import 'package:game_prototype_simulator/framework/app_context.dart';
+import 'package:game_prototype_simulator/app/presentation/routes.dart';
+import 'package:game_prototype_simulator/framework/app_context/app_context.dart';
 
 class CreateNewScenePopup extends StatelessWidget with Popup {
   static const ({Key name}) formFieldKeys =
@@ -29,7 +30,9 @@ class CreateNewScenePopup extends StatelessWidget with Popup {
       ),
       actions: [
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            app.push(DisplayAsTableRoute());
+          },
           child: Text(app.tr.done),
         ),
       ],

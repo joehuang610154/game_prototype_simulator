@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:game_prototype_simulator/app/presentation/routes.dart';
-import 'package:game_prototype_simulator/framework/app_context.dart';
+import 'package:game_prototype_simulator/framework/app_context/app_context.dart';
 import 'package:game_prototype_simulator/injection.dart';
 import 'package:go_router/go_router.dart';
 

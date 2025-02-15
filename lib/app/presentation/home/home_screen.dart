@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:game_prototype_simulator/app/presentation/scene/create_new_scene/create_new_scene_popup.dart';
-import 'package:game_prototype_simulator/framework/app_context.dart';
+import 'package:game_prototype_simulator/framework/app_context/app_context.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

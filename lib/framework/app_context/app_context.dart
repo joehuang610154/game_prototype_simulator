@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:game_prototype_simulator/framework/app_context/app_route.dart';
+import 'package:go_router/go_router.dart';
 
 final AppContext app = AppContext();
 
@@ -12,4 +14,8 @@ class AppContext {
 
   Locale get locale => Localizations.localeOf(context);
   AppLocalizations get tr => AppLocalizations.of(context)!;
+
+  Future<T?> push<T>(AppRoute route) async {
+    return await app.context.push<T>(route.path);
+  }
 }
