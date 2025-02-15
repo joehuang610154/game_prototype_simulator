@@ -7,5 +7,9 @@
     "loadScene": "Load Scene",
     "@loadScene": {},
     "continueFromLast": "Continue",
-    "@continueFromLast": {}
+    "@continueFromLast": {},
+    "name": "Name",
+    "@name": {},
+    "done": "Done",
+    "@done": {}
 }

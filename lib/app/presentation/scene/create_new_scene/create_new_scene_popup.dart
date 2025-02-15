@@ -21,14 +21,8 @@ class CreateNewScenePopup extends StatelessWidget with Popup {
           children: [
             TextFormField(
               key: CreateNewScenePopup.formFieldKeys.name,
-              decoration: const InputDecoration(labelText: 'Name'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Required.';
-                }
-                return null;
-              },
-              onSaved: (value) {},
+              autofocus: true,
+              decoration: InputDecoration(labelText: app.tr.name),
             ),
           ],
         ),

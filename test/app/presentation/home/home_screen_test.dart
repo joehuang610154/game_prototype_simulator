@@ -15,6 +15,7 @@ class HomeScreenTestRunner extends TestRunner {
       expect(find.byType(CreateNewScenePopup), findsOneWidget);
 
       await enter(CreateNewScenePopup.formFieldKeys.name, "Test Scene");
+      await tap(find.text(app.tr.done));
     });
   }
 }
