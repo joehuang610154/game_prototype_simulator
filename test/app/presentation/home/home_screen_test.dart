@@ -16,10 +16,13 @@ class HomeScreenTestRunner extends TestRunner {
 
         expect(find.byType(CreateNewScenePopup), findsOne);
 
-        await enter(CreateNewScenePopup.formFieldKeys.name, "Test Scene");
+        uuidUtil.add('scene-id');
+        await enter(CreateNewScenePopup.formFieldKeys.name, 'Test Scene');
         await tap(find.text(app.tr.done));
 
         expect(find.byType(DisplayAsTableScreen), findsOne);
+        expect(find.text('scene-id'), findsOne);
+        expect(find.text('Test Scene'), findsOne);
       });
 
       testWidgets('create new scene - name is required', (tester) async {

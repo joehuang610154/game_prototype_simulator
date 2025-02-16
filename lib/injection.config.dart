@@ -11,6 +11,8 @@
 import 'package:game_prototype_simulator/app/data/db.dart' as _i459;
 import 'package:game_prototype_simulator/app/presentation/scene/create_new_scene/create_new_scene_view_model.dart'
     as _i338;
+import 'package:game_prototype_simulator/app/presentation/table/display_as_table_view_model.dart'
+    as _i457;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
@@ -30,7 +32,9 @@ extension GetItInjectableX on _i174.GetIt {
     final dbRegisterModule = _$DbRegisterModule();
     gh.factory<_i338.CreateNewSceneViewModel>(
         () => _i338.CreateNewSceneViewModel());
-    gh.lazySingleton<_i459.AppDatabase>(
+    gh.factory<_i457.DisplayAsTableViewModel>(
+        () => _i457.DisplayAsTableViewModel());
+    gh.singleton<_i459.AppDatabase>(
       () => dbRegisterModule.db,
       registerFor: {_runtime},
       dispose: _i459.AppDatabase.closeDb,
