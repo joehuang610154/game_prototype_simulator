@@ -9,16 +9,18 @@ class HomeScreenTestRunner extends TestRunner {
 
   @override
   void runTests() {
-    testWidgets('create new scene', (tester) async {
-      await render(tester);
-      await tap(find.text(app.tr.newScene));
+    group('create new scene', () {
+      testWidgets('create new scene all ok', (tester) async {
+        await render(tester);
+        await tap(find.text(app.tr.newScene));
 
-      expect(find.byType(CreateNewScenePopup), findsOne);
+        expect(find.byType(CreateNewScenePopup), findsOne);
 
-      await enter(CreateNewScenePopup.formFieldKeys.name, "Test Scene");
-      await tap(find.text(app.tr.done));
+        await enter(CreateNewScenePopup.formFieldKeys.name, "Test Scene");
+        await tap(find.text(app.tr.done));
 
-      expect(find.byType(DisplayAsTableScreen), findsOne);
+        expect(find.byType(DisplayAsTableScreen), findsOne);
+      });
     });
   }
 }
