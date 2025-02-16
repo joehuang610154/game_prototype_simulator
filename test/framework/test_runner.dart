@@ -1,4 +1,4 @@
-import 'package:drift_flutter/drift_flutter.dart';
+import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:game_prototype_simulator/app/data/db.dart';
 import 'package:game_prototype_simulator/injection.dart';
@@ -15,6 +15,8 @@ part 'test_runner/test_actions.dart';
 
 abstract class TestRunner extends TestDependencies with TestActions {
   TestRunner() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+
     setUp(() {
       configureTestDependencies();
     });

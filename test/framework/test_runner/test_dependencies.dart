@@ -9,9 +9,9 @@ abstract class TestDependencies {
 
   void configureTestDependencies() {
     uuidUtil = MockUuidUtil();
-    db = AppDatabase(driftDatabase(name: "testdb"));
+    db = AppDatabase(NativeDatabase.memory());
 
-    getIt.registerSingleton<AppDatabase>(db);
+    getIt.registerSingleton<AppDatabase>(db, dispose: (db) => db.close());
 
     configureDependencies("test");
 
