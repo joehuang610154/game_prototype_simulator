@@ -4,6 +4,7 @@ import 'package:game_prototype_simulator/app/presentation/routes.dart';
 import 'package:game_prototype_simulator/app/presentation/common/popup/create_new_scene/create_new_scene_popup.dart';
 import 'package:game_prototype_simulator/framework/app_context/app_context.dart';
 import 'package:game_prototype_simulator/framework/view_model_provider.dart';
+import 'package:game_prototype_simulator/utils/widget_extension.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -28,6 +29,12 @@ class _HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(app.tr.gamePrototypeSimulator),
         elevation: 4,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.storage),
+            onPressed: () => app.push(DisplayAsTableRoute()),
+          ).paddingOnly(right: 16),
+        ],
       ),
       body: ListView(
         children: [
@@ -49,7 +56,6 @@ class _HomeScreen extends StatelessWidget {
               if (newScene == null) return;
 
               viewModel.createNewScene(newScene);
-              app.push(DisplayAsTableRoute());
             },
           ),
         ],
