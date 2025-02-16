@@ -5,5 +5,5 @@ abstract class Entity {
 
   Entity({
     String? id,
-  }) : id = EntityId.generate();
+  }) : id = id == null ? EntityId.generate() : EntityId(id: id);
 }

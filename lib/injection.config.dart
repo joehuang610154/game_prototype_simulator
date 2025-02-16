@@ -9,8 +9,12 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:game_prototype_simulator/app/data/db.dart' as _i459;
+import 'package:game_prototype_simulator/app/data/repositories/get_all_scenes_from_storage_repository.dart'
+    as _i513;
 import 'package:game_prototype_simulator/app/data/repositories/save_scene_to_storage_repository.dart'
     as _i683;
+import 'package:game_prototype_simulator/app/domain/repositories/get_all_scenes_repository.dart'
+    as _i850;
 import 'package:game_prototype_simulator/app/domain/repositories/save_scene_repository.dart'
     as _i262;
 import 'package:game_prototype_simulator/app/domain/useCases/create_new_scene_use_case.dart'
@@ -38,8 +42,6 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     final dbRegisterModule = _$DbRegisterModule();
-    gh.factory<_i457.DisplayAsTableViewModel>(
-        () => _i457.DisplayAsTableViewModel());
     gh.factory<_i361.CreateNewSceneViewModel>(
         () => _i361.CreateNewSceneViewModel());
     gh.singleton<_i459.AppDatabase>(
@@ -47,6 +49,8 @@ extension GetItInjectableX on _i174.GetIt {
       registerFor: {_runtime},
       dispose: _i459.AppDatabase.closeDb,
     );
+    gh.lazySingleton<_i850.GetAllScenesRepository>(() =>
+        _i513.GetAllScenesFromStorageRepository(db: gh<_i459.AppDatabase>()));
     gh.lazySingleton<_i262.SaveSceneRepository>(
         () => _i683.SaveSceneToStorageRepository(db: gh<_i459.AppDatabase>()));
     gh.lazySingleton<_i807.CreateNewSceneUseCase>(() =>
@@ -54,6 +58,9 @@ extension GetItInjectableX on _i174.GetIt {
             saveSceneRepository: gh<_i262.SaveSceneRepository>()));
     gh.factory<_i225.HomeViewModel>(() => _i225.HomeViewModel(
         createNewSceneUseCase: gh<_i807.CreateNewSceneUseCase>()));
+    gh.factory<_i457.DisplayAsTableViewModel>(() =>
+        _i457.DisplayAsTableViewModel(
+            getAllScenesRepository: gh<_i850.GetAllScenesRepository>()));
     return this;
   }
 }

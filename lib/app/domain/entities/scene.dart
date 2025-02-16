@@ -8,6 +8,7 @@ class Scene extends Entity {
   List<SceneSnapshot> snapshots;
 
   Scene._({
+    super.id,
     required this.name,
     required this.gameObjects,
     required this.snapshots,
@@ -25,5 +26,17 @@ class Scene extends Entity {
 
   void setName(String name) {
     this.name = name;
+  }
+
+  factory Scene.restore({
+    required String id,
+    required String name,
+  }) {
+    return Scene._(
+      id: id,
+      name: name,
+      gameObjects: [],
+      snapshots: [],
+    );
   }
 }

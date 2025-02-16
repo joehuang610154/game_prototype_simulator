@@ -29,21 +29,17 @@ class _DisplayAsTableScreen extends StatelessWidget {
         elevation: 4,
       ),
       body: RxBuilder(
-        viewModel.model,
-        builder: (context, model) {
+        viewModel.scenes,
+        builder: (context, scenes) {
           return Table(
-            children: [
-              TableRow(
+            children: scenes.map((scene) {
+              return TableRow(
                 children: [
-                  TableCell(
-                    child: Text('scene-id'),
-                  ),
-                  TableCell(
-                    child: Text('Test Scene'),
-                  ),
+                  TableCell(child: Text(scene.id.toString())),
+                  TableCell(child: Text(scene.name)),
                 ],
-              ),
-            ],
+              );
+            }).toList(),
           );
         },
       ),

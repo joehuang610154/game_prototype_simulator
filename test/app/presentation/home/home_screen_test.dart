@@ -24,8 +24,8 @@ class HomeScreenTestRunner extends TestRunner {
         await tap(find.text(app.tr.done));
 
         expect(find.byType(DisplayAsTableScreen), findsOne);
-        // expect(find.text(sceneId), findsOne);
-        // expect(find.text(sceneName), findsOne);
+        expect(find.text(sceneId), findsOne);
+        expect(find.text(sceneName), findsOne);
       });
 
       testWidgets('create new scene - name is required', (tester) async {
