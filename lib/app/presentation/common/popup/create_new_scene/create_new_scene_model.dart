@@ -1,0 +1,3 @@
+class CreateNewSceneModel {
+  String name = '';
+}

@@ -12,10 +12,6 @@ class MockUuidUtil implements UuidUtil {
     return _queue.removeFirst();
   }
 
-  void addAll(List<String> uuids) {
-    _queue.addAll(uuids);
-  }
-
   void add(String uuid) {
     _queue.add(uuid);
   }

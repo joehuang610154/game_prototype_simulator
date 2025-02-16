@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:game_prototype_simulator/app/presentation/home/home_view_model.dart';
 import 'package:game_prototype_simulator/app/presentation/routes.dart';
-import 'package:game_prototype_simulator/app/presentation/scene/create_new_scene/create_new_scene_popup.dart';
+import 'package:game_prototype_simulator/app/presentation/common/popup/create_new_scene/create_new_scene_popup.dart';
 import 'package:game_prototype_simulator/framework/app_context/app_context.dart';
+import 'package:game_prototype_simulator/framework/view_model_provider.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return _HomeScreen();
+    return ViewModelProvider<HomeViewModel>(
+      builder: (context) => _HomeScreen(),
+    );
   }
 }
 
@@ -17,6 +22,8 @@ class _HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final HomeViewModel viewModel = context.read();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(app.tr.gamePrototypeSimulator),
@@ -41,6 +48,7 @@ class _HomeScreen extends StatelessWidget {
               final newScene = await CreateNewScenePopup().show();
               if (newScene == null) return;
 
+              viewModel.createNewScene(newScene);
               app.push(DisplayAsTableRoute());
             },
           ),
