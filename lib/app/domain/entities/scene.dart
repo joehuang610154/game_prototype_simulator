@@ -12,4 +12,16 @@ class Scene extends Entity {
     required this.gameObjects,
     required this.snapshots,
   });
+
+  factory Scene.empty() {
+    return Scene._(
+      name: '',
+      gameObjects: [],
+      snapshots: [],
+    );
+  }
+
+  void setName(String name) {
+    this.name = name;
+  }
 }

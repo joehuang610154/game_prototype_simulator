@@ -18,4 +18,8 @@ class AppContext {
   Future<T?> push<T>(AppRoute route) async {
     return await app.context.push<T>(route.path);
   }
+
+  void pop<T extends Object>([T? result]) {
+    app.context.pop<T>(result);
+  }
 }

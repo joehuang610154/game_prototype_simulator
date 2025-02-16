@@ -43,6 +43,8 @@ abstract class ViewModel<T extends Object> {
     return obx;
   }
 
+  Rx<T> get model => obs((model) => model);
+
   void dispose() {
     _notifier.dispose();
   }

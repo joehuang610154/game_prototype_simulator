@@ -6,7 +6,11 @@ class MockUuidUtil implements UuidUtil {
   final _queue = Queue<String>();
 
   @override
-  String get() => _queue.removeFirst();
+  String get() {
+    if (_queue.isEmpty) return '';
+
+    return _queue.removeFirst();
+  }
 
   void addAll(List<String> uuids) {
     _queue.addAll(uuids);
