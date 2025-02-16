@@ -11,5 +11,7 @@
     "name": "Name",
     "@name": {},
     "done": "Done",
-    "@done": {}
+    "@done": {},
+    "required": "Required.",
+    "@required": {}
 }

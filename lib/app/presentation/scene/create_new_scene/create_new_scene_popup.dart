@@ -41,6 +41,11 @@ class _CreateNewScenePopup extends StatelessWidget with PopupActions<Scene> {
               key: CreateNewScenePopup.formFieldKeys.name,
               autofocus: true,
               decoration: InputDecoration(labelText: app.tr.name),
+              validator: (value) {
+                if (value == null || value.isEmpty) return app.tr.required;
+
+                return null;
+              },
               onChanged: viewModel.setName,
             ),
           ],
@@ -51,7 +56,11 @@ class _CreateNewScenePopup extends StatelessWidget with PopupActions<Scene> {
           viewModel.model,
           builder: (context, scene) {
             return TextButton(
-              onPressed: () => submit(scene),
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  submit(scene);
+                }
+              },
               child: Text(app.tr.done),
             );
           },
