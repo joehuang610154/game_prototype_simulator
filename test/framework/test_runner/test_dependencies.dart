@@ -11,7 +11,7 @@ abstract class TestDependencies {
     uuidUtil = MockUuidUtil();
     db = AppDatabase(driftDatabase(name: "testdb"));
 
-    getIt.registerLazySingleton<AppDatabase>(() => db);
+    getIt.registerSingleton<AppDatabase>(db);
 
     configureDependencies("test");
 

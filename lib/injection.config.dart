@@ -33,6 +33,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i459.AppDatabase>(
       () => dbRegisterModule.db,
       registerFor: {_runtime},
+      dispose: _i459.AppDatabase.closeDb,
     );
     return this;
   }

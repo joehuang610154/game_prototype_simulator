@@ -11,11 +11,15 @@ mixin Popup<T extends Object> on Widget {
 }
 
 mixin PopupActions<T extends Object> on Widget {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   void cancel() {
     app.pop();
   }
 
   void submit(T result) {
-    app.pop<T>(result);
+    if (formKey.currentState!.validate()) {
+      app.pop<T>(result);
+    }
   }
 }

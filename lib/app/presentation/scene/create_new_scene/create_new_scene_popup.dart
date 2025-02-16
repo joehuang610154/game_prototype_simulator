@@ -24,8 +24,6 @@ class CreateNewScenePopup extends StatelessWidget with Popup<Scene> {
 class _CreateNewScenePopup extends StatelessWidget with PopupActions<Scene> {
   _CreateNewScenePopup();
 
-  final _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     final CreateNewSceneViewModel viewModel = context.read();
@@ -33,7 +31,7 @@ class _CreateNewScenePopup extends StatelessWidget with PopupActions<Scene> {
     return AlertDialog(
       title: Text(app.tr.newScene),
       content: Form(
-        key: _formKey,
+        key: formKey,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -56,11 +54,7 @@ class _CreateNewScenePopup extends StatelessWidget with PopupActions<Scene> {
           viewModel.model,
           builder: (context, scene) {
             return TextButton(
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  submit(scene);
-                }
-              },
+              onPressed: () => submit(scene),
               child: Text(app.tr.done),
             );
           },
