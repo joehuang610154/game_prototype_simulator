@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:game_prototype_simulator/app/domain/useCases/create_new_scene_use_case.dart';
+import 'package:game_prototype_simulator/app/domain/repositories/get_create_scene_input_repository.dart';
 import 'package:game_prototype_simulator/app/presentation/common/popup/popup.dart';
 import 'package:game_prototype_simulator/app/presentation/common/popup/create_new_scene/create_new_scene_view_model.dart';
 import 'package:game_prototype_simulator/framework/app_context/app_context.dart';
@@ -7,8 +7,7 @@ import 'package:game_prototype_simulator/framework/rx_builder.dart';
 import 'package:game_prototype_simulator/framework/view_model_provider.dart';
 import 'package:provider/provider.dart';
 
-class CreateNewScenePopup extends StatelessWidget
-    with Popup<CreateNewSceneInput> {
+class CreateNewScenePopup extends StatelessWidget with Popup<CreateSceneInput> {
   static const ({Key name}) formFieldKeys =
       (name: ValueKey("CreateNewScenePopup.fieldName"),);
 
@@ -23,7 +22,7 @@ class CreateNewScenePopup extends StatelessWidget
 }
 
 class _CreateNewScenePopup extends StatelessWidget
-    with PopupActions<CreateNewSceneInput> {
+    with PopupActions<CreateSceneInput> {
   _CreateNewScenePopup();
 
   @override

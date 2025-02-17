@@ -14,7 +14,7 @@ class HomeViewModel extends ViewModel<HomeModel> {
   @override
   HomeModel initState() => HomeModel();
 
-  void createNewScene(CreateNewSceneInput newScene) {
-    _createNewSceneUseCase.execute(newScene);
+  void createNewScene() {
+    _createNewSceneUseCase.execute();
   }
 }
