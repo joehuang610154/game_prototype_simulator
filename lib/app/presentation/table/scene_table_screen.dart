@@ -37,24 +37,44 @@ class _SceneTableScreenState extends State<_SceneTableScreen> {
       body: RxBuilder(
         viewModel.scenes,
         builder: (context, scenes) {
-          return DataTable(
-            showCheckboxColumn: false,
-            headingRowColor: WidgetStateColor.resolveWith((states) {
-              return app.c.secondary.withAlpha(48);
-            }),
-            columns: [
-              DataColumn(label: Text('ID')),
-              DataColumn(label: Text('Name')),
-            ],
-            rows: scenes.map((scene) {
-              return DataRow(
-                onSelectChanged: (value) {},
-                cells: [
-                  DataCell(Text(scene.id.toString())),
-                  DataCell(Text(scene.name)),
-                ],
-              );
-            }).toList(),
+          return SizedBox.expand(
+            child: DataTable(
+              showCheckboxColumn: false,
+              headingRowColor: WidgetStateColor.resolveWith((states) {
+                return app.c.secondary.withAlpha(48);
+              }),
+              columns: [
+                DataColumn(label: Text('ID')),
+                DataColumn(label: Text('Name')),
+                DataColumn(label: Text('Actions')),
+                DataColumn(label: Text('View Details')),
+              ],
+              rows: scenes.map((scene) {
+                return DataRow(
+                  onSelectChanged: (value) {},
+                  cells: [
+                    DataCell(Text(scene.id.toString())),
+                    DataCell(Text(scene.name)),
+                    DataCell(Row(children: [
+                      IconButton(
+                        icon: Icon(Icons.edit),
+                        onPressed: () {},
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.delete),
+                        onPressed: () {},
+                      ),
+                    ])),
+                    DataCell(
+                      IconButton(
+                        icon: Icon(Icons.arrow_forward),
+                        onPressed: () {},
+                      ),
+                    ),
+                  ],
+                );
+              }).toList(),
+            ),
           );
         },
       ),
