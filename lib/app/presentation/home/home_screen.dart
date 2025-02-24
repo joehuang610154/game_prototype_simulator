@@ -31,7 +31,7 @@ class _HomeScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.storage),
-            onPressed: () => app.push(DisplayAsTableRoute()),
+            onPressed: () => app.push(SceneTableRoute()),
           ).paddingOnly(right: 16),
         ],
       ),
