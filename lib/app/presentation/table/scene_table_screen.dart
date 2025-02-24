@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:game_prototype_simulator/app/presentation/table/display_as_table_view_model.dart';
+import 'package:game_prototype_simulator/app/presentation/table/scene_table_view_model.dart';
 import 'package:game_prototype_simulator/framework/rx_builder.dart';
 import 'package:game_prototype_simulator/framework/view_model_provider.dart';
 import 'package:provider/provider.dart';
 
-class DisplayAsTableScreen extends StatelessWidget {
-  const DisplayAsTableScreen({super.key});
+class SceneTableScreen extends StatelessWidget {
+  const SceneTableScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider<DisplayAsTableViewModel>(
+    return ViewModelProvider<SceneTableViewModel>(
       onInit: (viewModel) => viewModel.init(),
       builder: (context) => _DisplayAsTableScreen(),
     );
@@ -21,7 +21,7 @@ class _DisplayAsTableScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DisplayAsTableViewModel viewModel = context.read();
+    final SceneTableViewModel viewModel = context.read();
 
     return Scaffold(
       appBar: AppBar(

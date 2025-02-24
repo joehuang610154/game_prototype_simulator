@@ -27,8 +27,8 @@ import 'package:game_prototype_simulator/app/presentation/common/popup/create_ne
     as _i657;
 import 'package:game_prototype_simulator/app/presentation/home/home_view_model.dart'
     as _i225;
-import 'package:game_prototype_simulator/app/presentation/table/display_as_table_view_model.dart'
-    as _i457;
+import 'package:game_prototype_simulator/app/presentation/table/scene_table_view_model.dart'
+    as _i106;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
@@ -64,9 +64,8 @@ extension GetItInjectableX on _i174.GetIt {
               saveSceneRepository: gh<_i262.SaveSceneRepository>(),
               getSceneRepository: gh<_i255.GetCreateSceneInputRepository>(),
             ));
-    gh.factory<_i457.DisplayAsTableViewModel>(() =>
-        _i457.DisplayAsTableViewModel(
-            getAllScenesRepository: gh<_i850.GetAllScenesRepository>()));
+    gh.factory<_i106.SceneTableViewModel>(() => _i106.SceneTableViewModel(
+        getAllScenesRepository: gh<_i850.GetAllScenesRepository>()));
     gh.factory<_i225.HomeViewModel>(() => _i225.HomeViewModel(
         createNewSceneUseCase: gh<_i807.CreateNewSceneUseCase>()));
     return this;

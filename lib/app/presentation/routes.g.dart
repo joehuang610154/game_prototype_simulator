@@ -8,7 +8,7 @@ part of 'routes.dart';
 
 List<RouteBase> get $appRoutes => [
       $homeRoute,
-      $displayAsTableRoute,
+      $sceneTableRoute,
     ];
 
 RouteBase get $homeRoute => GoRouteData.$route(
@@ -33,17 +33,17 @@ extension $HomeRouteExtension on HomeRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-RouteBase get $displayAsTableRoute => GoRouteData.$route(
-      path: '/table',
-      factory: $DisplayAsTableRouteExtension._fromState,
+RouteBase get $sceneTableRoute => GoRouteData.$route(
+      path: '/table/scene',
+      factory: $SceneTableRouteExtension._fromState,
     );
 
-extension $DisplayAsTableRouteExtension on DisplayAsTableRoute {
-  static DisplayAsTableRoute _fromState(GoRouterState state) =>
-      const DisplayAsTableRoute();
+extension $SceneTableRouteExtension on SceneTableRoute {
+  static SceneTableRoute _fromState(GoRouterState state) =>
+      const SceneTableRoute();
 
   String get location => GoRouteData.$location(
-        '/table',
+        '/table/scene',
       );
 
   void go(BuildContext context) => context.go(location);
