@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:game_prototype_simulator/app/presentation/routes.dart';
-import 'package:game_prototype_simulator/framework/app_context/app_context.dart';
 import 'package:game_prototype_simulator/injection.dart';
-import 'package:go_router/go_router.dart';
 
 void main() {
   configureDependencies("runtime");
@@ -18,10 +16,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'Game Prototype Simulator',
-      routerConfig: GoRouter(
-        navigatorKey: app.key,
-        routes: $appRoutes,
-      ),
+      routerConfig: goRouter,
       localizationsDelegates: [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -33,6 +28,7 @@ class App extends StatelessWidget {
       ],
       theme: ThemeData(
         useMaterial3: true,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       debugShowCheckedModeBanner: false,
     );

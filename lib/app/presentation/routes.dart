@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:game_prototype_simulator/app/presentation/home/home_screen.dart';
 import 'package:game_prototype_simulator/app/presentation/table/scene_table_screen.dart';
+import 'package:game_prototype_simulator/framework/app_context/app_context.dart';
 import 'package:game_prototype_simulator/framework/app_context/app_route.dart';
 import 'package:go_router/go_router.dart';
 
 part 'routes.g.dart';
+
+final goRouter = GoRouter(
+  navigatorKey: app.key,
+  routes: $appRoutes,
+);
 
 @TypedGoRoute<HomeRoute>(path: '/')
 class HomeRoute extends GoRouteData implements AppRoute {
