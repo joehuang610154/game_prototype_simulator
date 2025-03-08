@@ -1,15 +1,17 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:game_prototype_simulator/app/domain/value_objects/game_object_shape.dart';
+import 'package:game_prototype_simulator/framework/value_object.dart';
 
-part 'game_object_appearance.freezed.dart';
+class GameObjectAppearance extends ValueObject {
+  final GameObjectShape shape;
+  final double width;
+  final double height;
 
-@freezed
-class GameObjectAppearance with _$GameObjectAppearance {
-  const GameObjectAppearance._();
+  const GameObjectAppearance({
+    required this.shape,
+    required this.width,
+    required this.height,
+  });
 
-  const factory GameObjectAppearance({
-    required GameObjectShape shape,
-    required double width,
-    required double height,
-  }) = _GameObjectAppearance;
+  @override
+  get props => [shape, width, height];
 }

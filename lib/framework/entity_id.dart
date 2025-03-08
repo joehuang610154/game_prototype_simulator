@@ -1,15 +1,10 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
 import 'package:game_prototype_simulator/utils/uuid_util.dart';
 
-part 'entity_id.freezed.dart';
+class EntityId extends Equatable {
+  final String id;
 
-@freezed
-class EntityId with _$EntityId {
-  const EntityId._();
-
-  const factory EntityId({
-    required String id,
-  }) = _EntityId;
+  const EntityId({required this.id});
 
   factory EntityId.generate() {
     return EntityId(id: UuidUtil().get());
@@ -17,4 +12,7 @@ class EntityId with _$EntityId {
 
   @override
   String toString() => id;
+
+  @override
+  List<Object?> get props => [id];
 }

@@ -1,13 +1,14 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:game_prototype_simulator/framework/value_object.dart';
 
-part 'position.freezed.dart';
+class Position extends ValueObject {
+  final double x;
+  final double y;
 
-@freezed
-class Position with _$Position {
-  const Position._();
+  const Position({
+    required this.x,
+    required this.y,
+  });
 
-  const factory Position({
-    required double x,
-    required double y,
-  }) = _Position;
+  @override
+  get props => [x, y];
 }
