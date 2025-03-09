@@ -15,6 +15,8 @@ class AppContext {
   Locale get locale => Localizations.localeOf(context);
   AppLocalizations get tr => AppLocalizations.of(context)!;
 
+  double get width => MediaQuery.of(context).size.width;
+
   Future<T?> push<T>(AppRoute route) async {
     return await app.context.push<T>(route.path);
   }

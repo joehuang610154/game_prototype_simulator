@@ -41,6 +41,13 @@ class HomeScreenTestRunner extends TestRunner {
         expect(find.text(app.tr.required), findsOne);
       });
     });
+
+    group("load scene", () {
+      testWidgets("show scenes => select a scene => open scene screen",
+          (tester) async {
+        await render(tester);
+      });
+    });
   }
 }
 

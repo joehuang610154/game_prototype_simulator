@@ -16,6 +16,10 @@ part 'test_runner/test_actions.dart';
 abstract class TestRunner extends TestDependencies with TestActions {
   TestRunner() {
     TestWidgetsFlutterBinding.ensureInitialized();
+    TestWidgetsFlutterBinding.instance.platformDispatcher.views.first
+        .physicalSize = const Size(1920, 1080);
+    TestWidgetsFlutterBinding
+        .instance.platformDispatcher.views.first.devicePixelRatio = 1.0;
 
     setUp(() {
       configureTestDependencies();

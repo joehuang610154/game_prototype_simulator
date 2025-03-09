@@ -37,6 +37,7 @@ class _SceneTableScreenState extends State<_SceneTableScreen> {
       body: RxBuilder(
         viewModel.scenes,
         builder: (context, scenes) {
+          print(app.width);
           return SizedBox.expand(
             child: DataTable(
               showCheckboxColumn: false,
