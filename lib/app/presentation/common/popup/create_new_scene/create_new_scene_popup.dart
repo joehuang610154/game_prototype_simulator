@@ -4,7 +4,7 @@ import 'package:game_prototype_simulator/app/presentation/common/popup/popup.dar
 import 'package:game_prototype_simulator/app/presentation/common/popup/create_new_scene/create_new_scene_view_model.dart';
 import 'package:game_prototype_simulator/framework/app_context/app_context.dart';
 import 'package:game_prototype_simulator/framework/rx_builder.dart';
-import 'package:game_prototype_simulator/framework/view_model_provider.dart';
+import 'package:game_prototype_simulator/framework/view_model_scope.dart';
 import 'package:provider/provider.dart';
 
 class CreateNewScenePopup extends StatelessWidget with Popup<CreateSceneInput> {
@@ -15,7 +15,7 @@ class CreateNewScenePopup extends StatelessWidget with Popup<CreateSceneInput> {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelProvider<CreateNewSceneViewModel>(
+    return ViewModelScope<CreateNewSceneViewModel>(
       builder: (context) => _CreateNewScenePopup(),
     );
   }
