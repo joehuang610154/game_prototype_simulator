@@ -1,10 +1,12 @@
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:game_prototype_simulator/app/data/db.dart';
+import 'package:game_prototype_simulator/app/presentation/routes.dart';
 import 'package:game_prototype_simulator/injection.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:game_prototype_simulator/app/main.dart';
 import 'package:game_prototype_simulator/utils/uuid_util.dart';
+import 'package:go_router/go_router.dart';
 
 import '../doubles/mock_uuid_util.dart';
 
@@ -27,6 +29,8 @@ abstract class TestRunner extends TestDependencies with TestActions {
 
     tearDown(() {
       resetTestDependencies();
+
+      goRouter.restore(RouteMatchList.empty);
     });
 
     runTests();
