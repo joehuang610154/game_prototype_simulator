@@ -14,10 +14,12 @@ class HomeScreenTestRunner extends TestRunner with HomeScreenDoubles {
         final sceneId = '372ac010755349209fd64f05f0d2e414';
         final sceneName = 'Test Scene';
 
-        await givenHomeScreen(tester);
-        await whenCreateNewScene(sceneId, sceneName);
+        await givenHome.render(tester);
+        await whenHome.createNewScene(sceneId, sceneName);
 
-        await thenScreenTableShould(contains: [(id: sceneId, name: sceneName)]);
+        await thenHome.screenTableShould(
+          contains: [(id: sceneId, name: sceneName)],
+        );
       });
 
       testWidgets('create new scene - name is required', (tester) async {

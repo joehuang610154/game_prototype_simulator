@@ -5,23 +5,41 @@ import 'package:game_prototype_simulator/framework/app_context/app_context.dart'
 
 import '../../framework/test_runner.dart';
 
-mixin HomeScreenDoubles on TestRunner {
-  @override
-  void defaultSetup() {
-    super.defaultSetup();
-    givenHomeDummies();
+class GivenHome {
+  final HomeScreenDoubles _;
+  GivenHome._(this._);
+
+  Future<void> render(WidgetTester tester) async {
+    await _.render(tester);
   }
+}
 
-  void givenHomeDummies() {}
+class WhenHome {
+  final HomeScreenDoubles _;
+  WhenHome._(this._);
 
-  Future<void> givenHomeScreen(WidgetTester tester) async {
-    await render(tester);
+  Future<void> createNewScene([String? sceneId, String? sceneName]) async {
+    await _.tap(find.text(app.tr.newScene));
+
+    expect(find.byType(CreateNewScenePopup), findsOne);
+
+    _.uuidUtil.add(sceneId ?? 'scene-id');
+    await _.enter(
+      CreateNewScenePopup.formFieldKeys.name,
+      sceneName ?? 'scene-name',
+    );
+    await _.tap(find.text(app.tr.done));
   }
+}
 
-  Future<void> thenScreenTableShould({
+class ThenHome {
+  final HomeScreenDoubles _;
+  ThenHome._(this._);
+
+  Future<void> screenTableShould({
     List<({String id, String name})>? contains,
   }) async {
-    await tap(find.byIcon(Icons.storage));
+    await _.tap(find.byIcon(Icons.storage));
 
     expect(find.byType(SceneTableScreen), findsOne);
 
@@ -32,17 +50,10 @@ mixin HomeScreenDoubles on TestRunner {
       }
     }
   }
+}
 
-  Future<void> whenCreateNewScene([String? sceneId, String? sceneName]) async {
-    await tap(find.text(app.tr.newScene));
-
-    expect(find.byType(CreateNewScenePopup), findsOne);
-
-    uuidUtil.add(sceneId ?? 'scene-id');
-    await enter(
-      CreateNewScenePopup.formFieldKeys.name,
-      sceneName ?? 'scene-name',
-    );
-    await tap(find.text(app.tr.done));
-  }
+mixin HomeScreenDoubles on TestRunner {
+  GivenHome get givenHome => GivenHome._(this);
+  WhenHome get whenHome => WhenHome._(this);
+  ThenHome get thenHome => ThenHome._(this);
 }
