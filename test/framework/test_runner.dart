@@ -16,22 +16,27 @@ part 'test_runner/test_dependencies.dart';
 part 'test_runner/test_actions.dart';
 
 abstract class TestRunner extends TestDependencies with TestActions {
+  @mustCallSuper
+  void defaultSetup() {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    TestWidgetsFlutterBinding.instance.platformDispatcher.views.first
+        .physicalSize = const Size(1920, 1080);
+    TestWidgetsFlutterBinding
+        .instance.platformDispatcher.views.first.devicePixelRatio = 1.0;
+
+    configureTestDependencies();
+  }
+
+  @mustCallSuper
+  void defaultTearDown() {
+    resetTestDependencies();
+
+    goRouter.restore(RouteMatchList.empty);
+  }
+
   TestRunner() {
-    setUp(() {
-      TestWidgetsFlutterBinding.ensureInitialized();
-      TestWidgetsFlutterBinding.instance.platformDispatcher.views.first
-          .physicalSize = const Size(1920, 1080);
-      TestWidgetsFlutterBinding
-          .instance.platformDispatcher.views.first.devicePixelRatio = 1.0;
-
-      configureTestDependencies();
-    });
-
-    tearDown(() {
-      resetTestDependencies();
-
-      goRouter.restore(RouteMatchList.empty);
-    });
+    setUp(defaultSetup);
+    tearDown(defaultTearDown);
 
     runTests();
   }
