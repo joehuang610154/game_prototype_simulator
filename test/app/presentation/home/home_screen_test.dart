@@ -19,9 +19,9 @@ class HomeScreenTestRunner extends TestRunner
         await givenHome.render(tester);
         await whenHome.createNewScene(sceneId, sceneName);
 
-        await thenSceneTable.screenTableShould(
-          contains: [(id: sceneId, name: sceneName)],
-        );
+        await thenSceneTable.shouldContains([
+          (id: sceneId, name: sceneName),
+        ]);
       });
 
       testWidgets('create new scene - name is required', (tester) async {
