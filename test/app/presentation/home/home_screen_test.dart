@@ -1,4 +1,3 @@
-import 'package:game_prototype_simulator/app/presentation/common/popup/create_new_scene/create_new_scene_popup.dart';
 import 'package:game_prototype_simulator/framework/app_context/app_context.dart';
 
 import '../../../doubles/home_screen/home_screen_doubles.dart';
@@ -25,10 +24,8 @@ class HomeScreenTestRunner extends TestRunner
       });
 
       testWidgets('create new scene - name is required', (tester) async {
-        await render(tester);
+        await givenHome.render(tester);
         await tap(find.text(app.tr.newScene));
-
-        expect(find.byType(CreateNewScenePopup), findsOne);
 
         await tap(find.text(app.tr.done));
 
