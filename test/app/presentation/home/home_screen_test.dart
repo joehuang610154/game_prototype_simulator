@@ -25,9 +25,9 @@ class HomeScreenTestRunner extends TestRunner
 
       testWidgets('create new scene - name is required', (tester) async {
         await givenHome.render(tester);
-        await tap(find.text(app.tr.newScene));
+        await whenHome.openCreateNewScenePopup();
 
-        await tap(find.text(app.tr.done));
+        await whenHome.confirmCreateNewScene();
 
         expect(find.text(app.tr.required), findsOne);
       });

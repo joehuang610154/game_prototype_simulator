@@ -17,15 +17,30 @@ class WhenHome {
   WhenHome._(this._);
 
   Future<void> createNewScene([String? sceneId, String? sceneName]) async {
-    await _.tap(find.text(app.tr.newScene));
+    await openCreateNewScenePopup();
 
     expect(find.byType(CreateNewScenePopup), findsOne);
 
     _.uuidUtil.add(sceneId ?? 'scene-id');
-    await _.enter(
-      CreateNewScenePopup.formFieldKeys.name,
-      sceneName ?? 'scene-name',
+    await enterCreateNewSceneForm(
+      name: sceneName ?? 'scene-name',
     );
+    await confirmCreateNewScene();
+  }
+
+  Future<void> enterCreateNewSceneForm({
+    String? name,
+  }) async {
+    if (name != null) {
+      await _.enter(CreateNewScenePopup.formFieldKeys.name, name);
+    }
+  }
+
+  Future<void> openCreateNewScenePopup() async {
+    await _.tap(find.text(app.tr.newScene));
+  }
+
+  Future<void> confirmCreateNewScene() async {
     await _.tap(find.text(app.tr.done));
   }
 }
