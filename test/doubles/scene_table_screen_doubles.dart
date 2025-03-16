@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:game_prototype_simulator/app/presentation/table/scene_table_screen.dart';
 
-import '../../framework/test_runner.dart';
+import '../framework/test_runner.dart';
 
 class WhenSceneTable {
   final SceneTableScreenDoubles _;

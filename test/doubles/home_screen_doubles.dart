@@ -1,7 +1,7 @@
 import 'package:game_prototype_simulator/app/presentation/common/popup/create_new_scene/create_new_scene_popup.dart';
 import 'package:game_prototype_simulator/framework/app_context/app_context.dart';
 
-import '../../framework/test_runner.dart';
+import '../framework/test_runner.dart';
 
 class GivenHome {
   final HomeScreenDoubles _;
