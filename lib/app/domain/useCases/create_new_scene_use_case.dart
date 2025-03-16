@@ -1,6 +1,7 @@
 import 'package:game_prototype_simulator/app/domain/entities/scene.dart';
 import 'package:game_prototype_simulator/app/domain/repositories/get_create_scene_input_repository.dart';
 import 'package:game_prototype_simulator/app/domain/repositories/save_scene_repository.dart';
+import 'package:game_prototype_simulator/framework/entity_id.dart';
 import 'package:injectable/injectable.dart';
 
 @LazySingleton()
@@ -14,11 +15,11 @@ class CreateNewSceneUseCase {
   })  : _saveSceneRepository = saveSceneRepository,
         _getSceneRepository = getSceneRepository;
 
-  Future<void> execute() async {
+  Future<EntityId?> execute() async {
     final createSceneInput = await _getSceneRepository.get();
-    if (createSceneInput == null) return;
+    if (createSceneInput == null) return null;
 
-    await _saveSceneRepository.save(
+    return await _saveSceneRepository.save(
       Scene.create(
         name: createSceneInput.name,
       ),

@@ -9,13 +9,15 @@ import 'package:game_prototype_simulator/utils/uuid_util.dart';
 import 'package:go_router/go_router.dart';
 
 import '../doubles/mock_uuid_util.dart';
+import 'test_runner/test_assertions.dart';
 
 export 'package:flutter_test/flutter_test.dart';
 
 part 'test_runner/test_dependencies.dart';
 part 'test_runner/test_actions.dart';
 
-abstract class TestRunner extends TestDependencies with TestActions {
+abstract class TestRunner extends TestDependencies
+    with TestActions, TestAssertions {
   @mustCallSuper
   void defaultSetup() {
     TestWidgetsFlutterBinding.ensureInitialized();

@@ -1,3 +1,4 @@
+import 'package:game_prototype_simulator/app/presentation/editor/editor_screen.dart';
 import 'package:game_prototype_simulator/framework/app_context/app_context.dart';
 
 import '../../../doubles/home_screen_doubles.dart';
@@ -17,6 +18,8 @@ class HomeScreenTestRunner extends TestRunner
 
         await givenHome.render(tester);
         await whenHome.createNewScene(sceneId, sceneName);
+
+        expect(find.byType(EditorScreen), findsOne);
 
         await thenSceneTable.shouldContains([
           (id: sceneId, name: sceneName),

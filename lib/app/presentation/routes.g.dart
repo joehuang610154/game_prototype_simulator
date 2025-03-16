@@ -8,6 +8,7 @@ part of 'routes.dart';
 
 List<RouteBase> get $appRoutes => [
       $homeRoute,
+      $editorRoute,
       $sceneTableRoute,
     ];
 
@@ -21,6 +22,33 @@ extension $HomeRouteExtension on HomeRoute {
 
   String get location => GoRouteData.$location(
         '/',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $editorRoute => GoRouteData.$route(
+      path: '/editor',
+      factory: $EditorRouteExtension._fromState,
+    );
+
+extension $EditorRouteExtension on EditorRoute {
+  static EditorRoute _fromState(GoRouterState state) => EditorRoute(
+        sceneId: state.uri.queryParameters['scene-id']!,
+      );
+
+  String get location => GoRouteData.$location(
+        '/editor',
+        queryParams: {
+          'scene-id': sceneId,
+        },
       );
 
   void go(BuildContext context) => context.go(location);

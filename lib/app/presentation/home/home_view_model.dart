@@ -1,5 +1,6 @@
 import 'package:game_prototype_simulator/app/domain/useCases/create_new_scene_use_case.dart';
 import 'package:game_prototype_simulator/app/presentation/home/home_model.dart';
+import 'package:game_prototype_simulator/framework/entity_id.dart';
 import 'package:game_prototype_simulator/framework/view_model.dart';
 import 'package:injectable/injectable.dart';
 
@@ -14,7 +15,7 @@ class HomeViewModel extends ViewModel<HomeModel> {
   @override
   HomeModel initState() => HomeModel();
 
-  void createNewScene() {
-    _createNewSceneUseCase.execute();
+  Future<EntityId?> createNewScene() async {
+    return await _createNewSceneUseCase.execute();
   }
 }

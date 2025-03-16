@@ -1,5 +1,6 @@
 import 'package:game_prototype_simulator/app/domain/entities/scene.dart';
+import 'package:game_prototype_simulator/framework/entity_id.dart';
 
 abstract class SaveSceneRepository {
-  Future<void> save(Scene scene);
+  Future<EntityId> save(Scene scene);
 }
