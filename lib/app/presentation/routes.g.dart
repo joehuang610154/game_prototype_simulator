@@ -35,20 +35,17 @@ extension $HomeRouteExtension on HomeRoute {
 }
 
 RouteBase get $editorRoute => GoRouteData.$route(
-      path: '/editor',
+      path: '/editor/:sceneId',
       factory: $EditorRouteExtension._fromState,
     );
 
 extension $EditorRouteExtension on EditorRoute {
   static EditorRoute _fromState(GoRouterState state) => EditorRoute(
-        sceneId: state.uri.queryParameters['scene-id']!,
+        sceneId: state.pathParameters['sceneId']!,
       );
 
   String get location => GoRouteData.$location(
-        '/editor',
-        queryParams: {
-          'scene-id': sceneId,
-        },
+        '/editor/${Uri.encodeComponent(sceneId)}',
       );
 
   void go(BuildContext context) => context.go(location);

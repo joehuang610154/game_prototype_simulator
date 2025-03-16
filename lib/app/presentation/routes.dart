@@ -27,7 +27,7 @@ class HomeRoute extends GoRouteData implements AppRoute {
 }
 
 @TypedGoRoute<EditorRoute>(
-  path: '/editor',
+  path: '/editor/:sceneId',
 )
 class EditorRoute extends GoRouteData implements AppRoute {
   final String sceneId;
@@ -38,7 +38,7 @@ class EditorRoute extends GoRouteData implements AppRoute {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return EditorScreen();
+    return EditorScreen(sceneId: sceneId);
   }
 
   @override

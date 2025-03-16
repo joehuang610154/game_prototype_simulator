@@ -1,12 +1,13 @@
 import 'package:game_prototype_simulator/app/presentation/editor/editor_screen.dart';
 import 'package:game_prototype_simulator/framework/app_context/app_context.dart';
 
+import '../../../doubles/editor_screen_doubles.dart';
 import '../../../doubles/home_screen_doubles.dart';
 import '../../../doubles/scene_table_screen_doubles.dart';
 import '../../../framework/test_runner.dart';
 
 class HomeScreenTestRunner extends TestRunner
-    with HomeScreenDoubles, SceneTableScreenDoubles {
+    with HomeScreenDoubles, SceneTableScreenDoubles, EditorScreenDoubles {
   HomeScreenTestRunner();
 
   @override
@@ -20,6 +21,7 @@ class HomeScreenTestRunner extends TestRunner
         await whenHome.createNewScene(sceneId, sceneName);
 
         expect(find.byType(EditorScreen), findsOne);
+        thenEditor.shouldBe(sceneId, sceneName);
 
         await thenSceneTable.shouldContains([
           (id: sceneId, name: sceneName),

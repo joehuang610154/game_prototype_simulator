@@ -11,12 +11,16 @@
 import 'package:game_prototype_simulator/app/data/db.dart' as _i459;
 import 'package:game_prototype_simulator/app/data/repositories/get_all_scenes_from_storage_repository.dart'
     as _i513;
+import 'package:game_prototype_simulator/app/data/repositories/get_scene_from_storage_repository.dart'
+    as _i519;
 import 'package:game_prototype_simulator/app/data/repositories/save_scene_to_storage_repository.dart'
     as _i683;
 import 'package:game_prototype_simulator/app/domain/repositories/get_all_scenes_repository.dart'
     as _i850;
 import 'package:game_prototype_simulator/app/domain/repositories/get_create_scene_input_repository.dart'
     as _i255;
+import 'package:game_prototype_simulator/app/domain/repositories/get_scene_repository.dart'
+    as _i596;
 import 'package:game_prototype_simulator/app/domain/repositories/save_scene_repository.dart'
     as _i262;
 import 'package:game_prototype_simulator/app/domain/useCases/create_new_scene_use_case.dart'
@@ -25,6 +29,8 @@ import 'package:game_prototype_simulator/app/presentation/common/popup/create_ne
     as _i361;
 import 'package:game_prototype_simulator/app/presentation/common/popup/create_new_scene/repositories/create_new_scene_repository.dart'
     as _i657;
+import 'package:game_prototype_simulator/app/presentation/editor/editor_view_model.dart'
+    as _i624;
 import 'package:game_prototype_simulator/app/presentation/home/home_view_model.dart'
     as _i225;
 import 'package:game_prototype_simulator/app/presentation/table/scene_table_view_model.dart'
@@ -55,6 +61,10 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i255.GetCreateSceneInputRepository>(
         () => _i657.CreateNewSceneRepository());
+    gh.lazySingleton<_i596.GetSceneRepository>(
+        () => _i519.GetSceneFromStorageRepository(db: gh<_i459.AppDatabase>()));
+    gh.factory<_i624.EditorViewModel>(() => _i624.EditorViewModel(
+        getSceneRepository: gh<_i596.GetSceneRepository>()));
     gh.lazySingleton<_i850.GetAllScenesRepository>(() =>
         _i513.GetAllScenesFromStorageRepository(db: gh<_i459.AppDatabase>()));
     gh.lazySingleton<_i262.SaveSceneRepository>(
