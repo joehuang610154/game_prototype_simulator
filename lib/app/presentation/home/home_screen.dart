@@ -25,6 +25,7 @@ class _HomeScreen extends StatelessWidget {
     final HomeViewModel viewModel = context.read();
 
     return AppScaffold(
+      title: Text(app.tr.gamePrototypeSimulator),
       body: ListView(
         children: [
           ListTile(

@@ -31,7 +31,7 @@ class _EditorScreen extends StatelessWidget {
     final viewModel = context.read<EditorViewModel>();
 
     return AppScaffold(
-      body: RxBuilder(
+      title: RxBuilder(
         viewModel.sceneName,
         builder: (context, sceneName) {
           return Text(
@@ -40,6 +40,7 @@ class _EditorScreen extends StatelessWidget {
           );
         },
       ),
+      body: Container(),
     );
   }
 }
