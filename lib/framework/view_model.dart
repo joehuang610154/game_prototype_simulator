@@ -23,6 +23,7 @@ class _ModelNotifier<T extends Object> extends ChangeNotifier
 abstract class ViewModel<T extends Object> {
   late T state = initState();
   late final _ModelNotifier<T> _notifier = _ModelNotifier(state);
+  final _obxs = <Rx>[];
 
   T initState();
 
@@ -40,12 +41,17 @@ abstract class ViewModel<T extends Object> {
       }
     });
 
+    _obxs.add(obx);
+
     return obx;
   }
 
   Rx<T> get model => obs((model) => model);
 
   void dispose() {
+    for (var obx in _obxs) {
+      obx.close();
+    }
     _notifier.dispose();
   }
 }
