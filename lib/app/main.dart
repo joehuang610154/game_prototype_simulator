@@ -29,6 +29,9 @@ class App extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        listTileTheme: ListTileThemeData(
+          selectedTileColor: Colors.orange.withAlpha(50),
+        ),
       ),
       debugShowCheckedModeBanner: false,
     );

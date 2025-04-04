@@ -22,7 +22,7 @@ class CreateNewScenePopup extends StatelessWidget with Popup<CreateSceneInput> {
 }
 
 class _CreateNewScenePopup extends StatelessWidget
-    with PopupActions<CreateSceneInput> {
+    with Popup<CreateSceneInput> {
   _CreateNewScenePopup();
 
   @override

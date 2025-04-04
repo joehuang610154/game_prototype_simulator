@@ -29,6 +29,8 @@ import 'package:game_prototype_simulator/app/presentation/common/popup/create_ne
     as _i361;
 import 'package:game_prototype_simulator/app/presentation/common/popup/create_new_scene/repositories/create_new_scene_repository.dart'
     as _i657;
+import 'package:game_prototype_simulator/app/presentation/common/popup/load_scene_popup/load_scene_view_model.dart'
+    as _i1006;
 import 'package:game_prototype_simulator/app/presentation/editor/editor_view_model.dart'
     as _i624;
 import 'package:game_prototype_simulator/app/presentation/home/home_view_model.dart'
@@ -76,6 +78,9 @@ extension GetItInjectableX on _i174.GetIt {
             ));
     gh.factory<_i106.SceneTableViewModel>(() => _i106.SceneTableViewModel(
         getAllScenesRepository: gh<_i850.GetAllScenesRepository>()));
+    gh.factory<_i1006.LoadSceneViewModel>(() => _i1006.LoadSceneViewModel(
+        getAllScenesRepository: gh<_i850.GetAllScenesRepository>())
+      ..init());
     gh.factory<_i225.HomeViewModel>(() => _i225.HomeViewModel(
         createNewSceneUseCase: gh<_i807.CreateNewSceneUseCase>()));
     return this;

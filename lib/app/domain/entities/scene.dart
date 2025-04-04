@@ -39,4 +39,13 @@ class Scene extends Entity {
       snapshots: [],
     );
   }
+
+  factory Scene.empty() {
+    return Scene._(
+      id: '',
+      name: '',
+      gameObjects: [],
+      snapshots: [],
+    );
+  }
 }

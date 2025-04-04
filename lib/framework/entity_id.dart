@@ -13,6 +13,8 @@ class EntityId extends Equatable {
   @override
   String toString() => id;
 
+  bool get isEmpty => id.isEmpty;
+
   @override
   List<Object?> get props => [id];
 }

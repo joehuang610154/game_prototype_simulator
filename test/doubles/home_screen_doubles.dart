@@ -29,11 +29,9 @@ class WhenHome {
   }
 
   Future<void> enterCreateNewSceneForm({
-    String? name,
+    required String name,
   }) async {
-    if (name != null) {
-      await _.enter(CreateNewScenePopup.formFieldKeys.name, name);
-    }
+    await _.enter(CreateNewScenePopup.formFieldKeys.name, name);
   }
 
   Future<void> openCreateNewScenePopup() async {
@@ -42,6 +40,10 @@ class WhenHome {
 
   Future<void> confirmCreateNewScene() async {
     await _.tap(find.text(app.tr.done));
+  }
+
+  Future<void> openLoadScenePopup() async {
+    await _.tap(find.text(app.tr.loadScene));
   }
 }
 

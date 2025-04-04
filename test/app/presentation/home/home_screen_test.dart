@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:game_prototype_simulator/app/presentation/editor/editor_screen.dart';
 import 'package:game_prototype_simulator/framework/app_context/app_context.dart';
 
@@ -41,7 +42,20 @@ class HomeScreenTestRunner extends TestRunner
     group("load scene", () {
       testWidgets("show scenes => select a scene => open scene screen",
           (tester) async {
-        await render(tester);
+        final sceneId1 = '372ac010755349209fd64f05f0d2e414';
+        final sceneName1 = 'Test Scene 1';
+        final sceneId2 = 'c915b70ecfa84a2f95264302bae31adf';
+        final sceneName2 = 'Test Scene 2';
+
+        await givenHome.render(tester);
+        await whenHome.createNewScene(sceneId1, sceneName1);
+        await tap(find.byIcon(Icons.arrow_back));
+        await whenHome.createNewScene(sceneId2, sceneName2);
+        await tap(find.byIcon(Icons.arrow_back));
+
+        await whenHome.openLoadScenePopup();
+        expect(find.text(sceneName1), findsOne);
+        expect(find.text(sceneName2), findsOne);
       });
     });
   }

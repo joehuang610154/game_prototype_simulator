@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:game_prototype_simulator/app/presentation/common/app_scaffold.dart';
+import 'package:game_prototype_simulator/app/presentation/common/popup/load_scene_popup/load_scene_popup.dart';
 import 'package:game_prototype_simulator/app/presentation/home/home_view_model.dart';
 import 'package:game_prototype_simulator/app/presentation/routes.dart';
 import 'package:game_prototype_simulator/framework/app_context/app_context.dart';
@@ -36,7 +37,9 @@ class _HomeScreen extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.event_repeat),
             title: Text(app.tr.loadScene),
-            onTap: () {},
+            onTap: () async {
+              await LoadScenePopup().show();
+            },
           ),
           ListTile(
             leading: Icon(Icons.dashboard_customize),
