@@ -33,7 +33,7 @@ class HomeScreenTestRunner extends TestRunner
         await givenHome.render(tester);
         await whenHome.openCreateNewScenePopup();
 
-        await whenHome.confirmCreateNewScene();
+        await whenHome.done();
 
         expect(find.text(app.tr.required), findsOne);
       });
@@ -49,13 +49,19 @@ class HomeScreenTestRunner extends TestRunner
 
         await givenHome.render(tester);
         await whenHome.createNewScene(sceneId1, sceneName1);
-        await tap(find.byIcon(Icons.arrow_back));
+        await back();
         await whenHome.createNewScene(sceneId2, sceneName2);
-        await tap(find.byIcon(Icons.arrow_back));
+        await back();
 
         await whenHome.openLoadScenePopup();
         expect(find.text(sceneName1), findsOne);
         expect(find.text(sceneName2), findsOne);
+
+        await tap(find.text(sceneName2));
+        await whenHome.done();
+
+        expect(find.byType(EditorScreen), findsOne);
+        thenEditor.shouldBe(sceneId2, sceneName2);
       });
     });
   }

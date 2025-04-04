@@ -4,6 +4,7 @@ import 'package:game_prototype_simulator/app/presentation/common/popup/load_scen
 import 'package:game_prototype_simulator/app/presentation/home/home_view_model.dart';
 import 'package:game_prototype_simulator/app/presentation/routes.dart';
 import 'package:game_prototype_simulator/framework/app_context/app_context.dart';
+import 'package:game_prototype_simulator/framework/entity_id.dart';
 import 'package:game_prototype_simulator/framework/view_model_scope.dart';
 import 'package:provider/provider.dart';
 
@@ -38,7 +39,10 @@ class _HomeScreen extends StatelessWidget {
             leading: Icon(Icons.event_repeat),
             title: Text(app.tr.loadScene),
             onTap: () async {
-              await LoadScenePopup().show();
+              final sceneId = await LoadScenePopup().show();
+              if (sceneId == null) return;
+
+              goToEditorPage(sceneId);
             },
           ),
           ListTile(
@@ -48,11 +52,15 @@ class _HomeScreen extends StatelessWidget {
               final sceneId = await viewModel.createNewScene();
               if (sceneId == null) return;
 
-              app.push(EditorRoute(sceneId: sceneId.toString()));
+              goToEditorPage(sceneId);
             },
           ),
         ],
       ),
     );
+  }
+
+  void goToEditorPage(EntityId sceneId) {
+    app.push(EditorRoute(sceneId: sceneId.toString()));
   }
 }

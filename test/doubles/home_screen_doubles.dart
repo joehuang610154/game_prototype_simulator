@@ -25,7 +25,7 @@ class WhenHome {
     await enterCreateNewSceneForm(
       name: sceneName ?? 'scene-name',
     );
-    await confirmCreateNewScene();
+    await done();
   }
 
   Future<void> enterCreateNewSceneForm({
@@ -38,7 +38,7 @@ class WhenHome {
     await _.tap(find.text(app.tr.newScene));
   }
 
-  Future<void> confirmCreateNewScene() async {
+  Future<void> done() async {
     await _.tap(find.text(app.tr.done));
   }
 

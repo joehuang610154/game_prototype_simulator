@@ -8,6 +8,10 @@ mixin TestActions on TestDependencies {
     await settle();
   }
 
+  Future<void> back() async {
+    await tap(find.byIcon(Icons.arrow_back));
+  }
+
   Future<void> tap(FinderBase<Element> finder) async {
     await tester.tap(finder);
     await settle();
